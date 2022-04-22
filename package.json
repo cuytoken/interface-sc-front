@@ -12,10 +12,12 @@
     "build": "webpack --mode=production --node-env=production",
     "build:dev": "webpack --mode=development",
     "build:prod": "webpack --mode=production --node-env=production",
+    "build:pachacuy": "LIBRARY_ENV=pachacuy-sc webpack --mode=production --node-env=production",
+    "build:marketplace": "webpack --mode=production --node-env=production -- --library=marketplace",
     "watch": "webpack --watch",
     "serve": "webpack serve"
   },
-  "author": "",
+  "author": "Lee Marreros",
   "license": "ISC",
   "devDependencies": {
     "@webpack-cli/generators": "^2.4.2",

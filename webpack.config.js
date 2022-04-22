@@ -2,10 +2,11 @@ const path = require("path");
 
 const isProduction = process.env.NODE_ENV == "production";
 
+// path: path.resolve(__dirname, "dist"),
 const config = {
-  entry: "./src/index.ts",
+  entry: "./pachacuy-sc/src/index.ts",
   output: {
-    path: path.resolve(__dirname, "dist"),
+    path: "/Users/steveleec/Documents/CuyToken/@pachacuy/pachacuy-sc/dist",
     filename: "index.js",
     library: {
       type: "umd",

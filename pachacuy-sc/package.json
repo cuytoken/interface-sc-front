@@ -1,0 +1,15 @@
+{
+  "name": "pachacuy-sc",
+  "version": "0.0.26",
+  "description": "Interface that implements Smart Contract functions",
+  "main": "dist",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/**/*"
+  ],
+  "author": "Lee Marreros",
+  "license": "ISC",
+  "dependencies": {
+    "ethers": "^5.6.2"
+  }
+}
