@@ -2,11 +2,10 @@ const path = require("path");
 
 const isProduction = process.env.NODE_ENV == "production";
 
-// path: path.resolve(__dirname, "dist"),
 const config = {
-  entry: "./pachacuy-sc/src/index.ts",
+  entry: `./${process.env.LIBRARY_ENV}/src/index.ts`,
   output: {
-    path: "/Users/steveleec/Documents/CuyToken/@pachacuy/pachacuy-sc/dist",
+    path: path.resolve(__dirname, process.env.LIBRARY_ENV, "dist"),
     filename: "index.js",
     library: {
       type: "umd",
@@ -20,6 +19,18 @@ const config = {
       commonjs2: "ethers",
       amd: "ethers",
       root: "ethers",
+    },
+    axios: {
+      commonjs: "axios",
+      commonjs2: "axios",
+      amd: "axios",
+      root: "axios",
+    },
+    "pachacuy-sc": {
+      commonjs: "pachacuy-sc",
+      commonjs2: "pachacuy-sc",
+      amd: "pachacuy-sc",
+      root: "pachacuy-sc",
     },
   },
   devServer: {

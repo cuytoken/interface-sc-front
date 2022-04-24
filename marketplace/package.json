@@ -1,0 +1,12 @@
+{
+  "name": "pachacuy-marketplace",
+  "version": "0.0.14",
+  "description": "Interface that implements Smart Contract functions for the market place",
+  "main": "dist",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/**/*"
+  ],
+  "author": "Lee Marreros",
+  "license": "ISC"
+}

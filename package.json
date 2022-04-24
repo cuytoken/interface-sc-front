@@ -1,7 +1,6 @@
 {
-  "name": "pachacuy-sc",
-  "version": "0.0.24",
-  "description": "Interface that implements Smart Contract functions",
+  "name": "pachacuy_libraries",
+  "description": "Libraries to be consumed by an agnostic client to easily interact with Pachacuy smart contracts",
   "main": "dist",
   "types": "dist/index.d.ts",
   "files": [
@@ -13,7 +12,7 @@
     "build:dev": "webpack --mode=development",
     "build:prod": "webpack --mode=production --node-env=production",
     "build:pachacuy": "LIBRARY_ENV=pachacuy-sc webpack --mode=production --node-env=production",
-    "build:marketplace": "webpack --mode=production --node-env=production -- --library=marketplace",
+    "build:marketplace": "LIBRARY_ENV=marketplace webpack --mode=production --node-env=production",
     "watch": "webpack --watch",
     "serve": "webpack serve"
   },
@@ -21,15 +20,19 @@
   "license": "ISC",
   "devDependencies": {
     "@webpack-cli/generators": "^2.4.2",
+    "ethers": "^5.6.4",
+    "fetch": "^1.1.0",
     "html-webpack-plugin": "^5.5.0",
+    "node-fetch": "^3.2.3",
     "prettier": "^2.6.0",
     "ts-loader": "^9.2.8",
     "typescript": "^4.6.2",
+    "web3": "^1.7.3",
     "webpack": "^5.70.0",
     "webpack-cli": "^4.9.2",
     "webpack-dev-server": "^4.7.4"
   },
   "dependencies": {
-    "ethers": "^5.6.2"
+    "pachacuy-sc": "file:pachacuy-sc"
   }
 }
