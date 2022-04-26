@@ -33,14 +33,6 @@ interface IDataScan {
     confirmations: string;
 }
 
-interface INftAccountData {
-    contractAddress: string;
-    tokenID: string;
-    tokenName: string;
-    tokenSymbol: string;
-    urlForAsset: string;
-}
-
 ////////////////////////
 ///       INIT       ///
 ////////////////////////
@@ -82,13 +74,52 @@ export async function givePermission(
     ]);
 }
 
-export async function listNftsOfAccount(_account: string): Promise<string> {
+interface ITraitType {
+    trait_type: string;
+    value: string;
+}
+
+interface INftAttributes {
+    name: string;
+    description: string;
+    image: string;
+    attributes: ITraitType[];
+}
+
+interface INftResponse extends INftAttributes {
+    contractAddress: string;
+    tokenID: string;
+    imageUrl: string;
+}
+
+function fillNftResponseTemplate(): INftResponse {
+    return {
+        name: "",
+        description: "",
+        image: "",
+        attributes: [],
+        contractAddress: "",
+        tokenID: "",
+        imageUrl: "",
+    }
+}
+
+export async function listNftsOfAccount(
+    _account: string
+): Promise<INftResponse[]> {
     // ERC721 only
     var contractAddress = nftMocheAddress;
     var walletAddress = _account;
     var url = `https://api-testnet.bscscan.com/api?module=account&action=tokennfttx&contractaddress=${contractAddress}&address=${walletAddress}&sort=asc`;
 
-    var [data, { guineaPigs, lands, pachaPasses }]: any[] = await Promise.all(
+    var [data, { guineaPigs, lands, pachaPasses }]: [
+        any,
+        {
+            guineaPigs: number[];
+            lands: number[];
+            pachaPasses: number[];
+        }
+    ] = await Promise.all(
         // [erc721, erc1155]
         [fetch(url), getListOfNftsPerAccount(_account)]
     );
@@ -114,34 +145,53 @@ export async function listNftsOfAccount(_account: string): Promise<string> {
         nfts = nfts.filter((el: IDataScan) => el.tokenID != idToRemove);
     }
 
+    // Preparing response array
+    var nftResponse: (INftResponse)[] = [];
+
     // finding tokenURI
     // ERC721
     var pinata = "https://ipfs.io/ipfs/";
 
     var erc721tokenIds = nfts.map((el: IDataScan) => el.tokenID);
-    var erc721Promises = erc721tokenIds.map((_tokenId: string) =>
-        nftMocheContract.tokenURI(_tokenId)
-    );
+    var erc721Promises = erc721tokenIds.map((_tokenID: string, _ix: number) => {
+        nftResponse[_ix] = fillNftResponseTemplate();
+        nftResponse[_ix].tokenID = _tokenID;
+        nftResponse[_ix].contractAddress = nftMocheContract.address;
+        return nftMocheContract.tokenURI(Number(_tokenID));
+    });
 
     // ERC1155
+    var _pos = erc721Promises.length;
     var erc1155TokenIds = [...guineaPigs, ...lands, ...pachaPasses];
-    var erc1155Promises = erc1155TokenIds.map((_tokenId: string) =>
-        nftGameContract.tokenURI(_tokenId)
-    );
+    var erc1155Promises = erc1155TokenIds.map((_tokenID: number, _ix: number) => {
+        nftResponse[_ix + _pos] = fillNftResponseTemplate();
+        nftResponse[_ix + _pos].tokenID = String(_tokenID);
+        nftResponse[_ix + _pos].contractAddress = nftGameContract.address;
+        return nftGameContract.tokenURI(_tokenID);
+    });
+    // createNftAccounData
 
     // all token URIs
-    var tokenUris = await Promise.all([...erc1155Promises, ...erc721Promises]);
+    var tokenUris: string[] = await Promise.all([
+        ...erc721Promises,
+        ...erc1155Promises,
+    ]);
+
+    // Prepare promises for reading metadata using 'fetch'
     var prefixesPromises = tokenUris.map((el) =>
         fetch(`${pinata}${el.split("//")[1]}`)
     );
 
     // Retrieve all urls
-    var urls: any = await Promise.all(prefixesPromises);
-    urls = await Promise.all(urls.map((url: any) => url.json()));
-    var pinata = "https://gateway.pinata.cloud/ipfs/";
-    var urlImagesPrefixes = urls.map(
-        (el: { image: string }) => `${pinata}${el.image.split("//")[1]}`
+    var attrJson: any = await Promise.all(prefixesPromises);
+    var attributesArray: INftAttributes[] = await Promise.all(
+        attrJson.map((data: any) => data.json())
     );
+    var pinata = "https://gateway.pinata.cloud/ipfs/";
+    attributesArray.forEach((attributes: INftAttributes, _ix: number) => {
+        nftResponse[_ix] = { ...nftResponse[_ix], ...attributes };
+        nftResponse[_ix].imageUrl = `${pinata}${attributes.image.split("//")[1]}`;
+    });
 
-    return urlImagesPrefixes;
+    return nftResponse;
 }

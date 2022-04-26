@@ -47,11 +47,13 @@ async function main() {
     axios(`${pinata}${el.split("//")[1]}`)
   );
   var urls = await Promise.all(prefixesPromises);
+  console.log(urls.data);
   var pinata = "https://gateway.pinata.cloud/ipfs/";
-  var urlImagesPrefixes = urls.map(
-    (el) => `${pinata}${el.data.image.split("//")[1]}`
-  );
-  console.log(urlImagesPrefixes);
+  var urlImagesPrefixes = urls.map((el, i) => {
+    if (i == 0) console.log(el.data);
+    return `${pinata}${el.data.image.split("//")[1]}`;
+  });
+  // console.log(urlImagesPrefixes);
 }
 
 main();
