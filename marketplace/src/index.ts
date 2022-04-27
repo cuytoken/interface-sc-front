@@ -2,6 +2,7 @@ import { Contract, providers, Signer } from "ethers";
 import { getListOfNftsPerAccount, tokenURI } from "pachacuy-sc";
 
 import nftMocheAbi from "./abi/nftMoche";
+import mktplcAbi from "./abi/mktplcAbi";
 
 var nftMocheAddress = "0x9af90A0fFFbe809DC4e738fB2713FF3E53B045e6";
 var nftGameAddress = "0x1517184267098FE72EAfE06971606Bb311966175";
@@ -46,7 +47,7 @@ export function init(_provider: providers.ExternalProvider): Contract[] {
     provider = new providers.Web3Provider(_provider);
     nftMocheContract = new Contract(nftMocheAddress, nftMocheAbi, provider);
     nftGameContract = new Contract(nftGameAddress, nftMocheAbi, provider);
-    mktplcContract = new Contract(mktplcAddress, nftMocheAbi, provider);
+    mktplcContract = new Contract(mktplcAddress, mktplcAbi, provider);
     return [nftMocheContract, nftGameContract, mktplcContract];
 }
 
@@ -107,6 +108,10 @@ function fillNftResponseTemplate(): INftResponse {
     };
 }
 
+/**
+ * @dev List all NFTs from an account (inlcudes ERC1155 and ERC721)
+ * @param _account: wallet address from which is going to query the NFTs
+ */
 export async function listNftsOfAccount(
     _account: string
 ): Promise<INftResponse[]> {
@@ -235,4 +240,86 @@ export async function isMarketPlaceAllowed(
         _smartContractAddress,
         _account
     );
+}
+
+
+/**
+ * @dev changes the price of a NFT
+ * @param _signer: Signer of the transaction (provider.getSigner(account))
+ * @param _smartContractAddress: address to which the NFT belongs to
+ * @param _uuid: unique identifier of the NFT when it was minted
+ * @param _newPrice: new price to change for the NFT listing
+ * @param _numberOfConfirmations: Optional pass the number of confirmations to wait for
+ */
+export async function changePriceOfNft(
+    _signer: Signer,
+    _smartContractAddress: string,
+    _uuid: number,
+    _newPrice: number,
+    _numberOfConfirmations: number = 1
+): Promise<any> {
+    var tx = await mktplcContract
+        .connect(_signer)
+        .changePriceOfNft(_smartContractAddress, _uuid, _newPrice);
+    return await tx.wait(_numberOfConfirmations);
+}
+
+/**
+ * @dev purchase NFT by using $BUSD
+ * @param _signer: Signer of the transaction (provider.getSigner(account))
+ * @param _smartContractAddress: address to which the NFT belongs to
+ * @param _uuid: unique identifier of the NFT when it was minted
+ * @param _numberOfConfirmations: Optional pass the number of confirmations to wait for
+ */
+export async function purchaseNftWithBusd(
+    _signer: Signer,
+    _smartContractAddress: string,
+    _uuid: number,
+    _numberOfConfirmations: number = 1
+) {
+    var tx = await mktplcContract
+        .connect(_signer)
+        .purchaseNftWithBusd(_smartContractAddress, _uuid);
+    return await tx.wait(_numberOfConfirmations);
+}
+
+
+/**
+ * @dev purchase NFT by using $PCUY
+ * @param _signer: Signer of the transaction (provider.getSigner(account))
+ * @param _smartContractAddress: address to which the NFT belongs to
+ * @param _uuid: unique identifier of the NFT when it was minted
+ * @param _numberOfConfirmations: Optional pass the number of confirmations to wait for
+ */
+export async function purchaseNftWithPcuy(
+    _signer: Signer,
+    _smartContractAddress: string,
+    _uuid: number,
+    _numberOfConfirmations: number = 1
+) {
+    var tx = await mktplcContract
+        .connect(_signer)
+        .purchaseNftWithPcuy(_smartContractAddress, _uuid);
+    return await tx.wait(_numberOfConfirmations);
+}
+
+/**
+ * @dev Function that set price of NFT and list it
+ * @param _signer: Signer of the transaction (provider.getSigner(account))
+ * @param _smartContractAddress: address to which the NFT belongs to
+ * @param _uuid: unique identifier of the NFT when it was minted
+ * @param _price: amount in PCUY set up by the owner of the NFT
+ * @param _numberOfConfirmations: Optional pass the number of confirmations to wait for
+ */
+export async function setPriceAndListAsset(
+    _signer: Signer,
+    _smartContractAddress: string,
+    _uuid: number,
+    _price: number,
+    _numberOfConfirmations: number = 1
+) {
+    var tx = await mktplcContract
+        .connect(_signer)
+        .setPriceAndListAsset(_smartContractAddress, _uuid, _price);
+    return await tx.wait(_numberOfConfirmations);
 }
