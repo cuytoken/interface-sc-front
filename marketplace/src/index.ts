@@ -5,11 +5,13 @@ import nftMocheAbi from "./abi/nftMoche";
 
 var nftMocheAddress = "0x9af90A0fFFbe809DC4e738fB2713FF3E53B045e6";
 var nftGameAddress = "0x1517184267098FE72EAfE06971606Bb311966175";
+var mktplcAddress = "";
 
 var provider: providers.Web3Provider = null;
 
 var nftMocheContract: Contract;
 var nftGameContract: Contract;
+var mktplcContract: Contract;
 
 interface IDataScan {
     blockNumber: string;
@@ -44,7 +46,8 @@ export function init(_provider: providers.ExternalProvider): Contract[] {
     provider = new providers.Web3Provider(_provider);
     nftMocheContract = new Contract(nftMocheAddress, nftMocheAbi, provider);
     nftGameContract = new Contract(nftGameAddress, nftMocheAbi, provider);
-    return [nftMocheContract, nftGameContract];
+    mktplcContract = new Contract(mktplcAddress, nftMocheAbi, provider);
+    return [nftMocheContract, nftGameContract, mktplcContract];
 }
 
 ////////////////////////
@@ -101,7 +104,7 @@ function fillNftResponseTemplate(): INftResponse {
         contractAddress: "",
         tokenID: "",
         imageUrl: "",
-    }
+    };
 }
 
 export async function listNftsOfAccount(
@@ -146,7 +149,7 @@ export async function listNftsOfAccount(
     }
 
     // Preparing response array
-    var nftResponse: (INftResponse)[] = [];
+    var nftResponse: INftResponse[] = [];
 
     // finding tokenURI
     // ERC721
@@ -194,4 +197,42 @@ export async function listNftsOfAccount(
     });
 
     return nftResponse;
+}
+
+/**
+ * @param nftOwner: wallet address owner of the NFT
+ * @param smartContract: smart contract to which this NFT belongs to
+ * @param uuid: unique identifier provided when the NFT was minted
+ * @param price: amount in PCUS set up by the owner when it was listed
+ * @param listed: boolean that indicates whether an NFT is listed or not. All items here must be true
+ */
+interface INftItem {
+    nftOwner: string;
+    smartContract: string;
+    uuid: number;
+    price: number;
+    listed: boolean;
+}
+
+/**
+ * @notice returns the list of all NFTs for sale that have been approved
+ * @return INftItem
+ */
+export async function getListOfNftsForSale(): Promise<INftItem[]> {
+    return await mktplcContract.getListOfNftsForSale();
+}
+
+/**
+ * @notice returns the list of all NFTs for sale that have been approved
+ * @param _smartContractAddress smart contract to which the NFT belongs to
+ * @param _account wallet address for which the permissino is going to be checked against
+ */
+export async function isMarketPlaceAllowed(
+    _smartContractAddress: string,
+    _account: string
+): Promise<boolean> {
+    return await mktplcContract.isMarketPlaceAllowed(
+        _smartContractAddress,
+        _account
+    );
 }
