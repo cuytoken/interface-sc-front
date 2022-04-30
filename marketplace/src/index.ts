@@ -6,7 +6,7 @@ import mktplcAbi from "./abi/mktplcAbi";
 
 var nftMocheAddress = "0x9af90A0fFFbe809DC4e738fB2713FF3E53B045e6";
 var nftGameAddress = "0x1517184267098FE72EAfE06971606Bb311966175";
-var mktplcAddress = "";
+var mktplcAddress = "0x78f5fA314013bf7A800e857D346c0BE2c5A8a7fb";
 
 var provider: providers.Web3Provider = null;
 
@@ -57,25 +57,26 @@ export function init(_provider: providers.ExternalProvider): Contract[] {
 /**
  * @dev Function that approves the smart contract to operate the user's funds
  * @param _signer: Signer of the transaction (provider.getSigner(account))
+ * @param _smartContractAddress: Address of either the NFT Moche Contract or NFT Game Contract
  * @param _numberOfConfirmations: Optional pass the number of confirmations to wait for
  */
 export async function givePermission(
     _signer: Signer,
+    _smartContractAddress: string,
     _numberOfConfirmations: number = 1
 ) {
     if (!provider) throw new Error("No provider set");
-    var tx = await Promise.all([
-        await nftMocheContract
+    if (_smartContractAddress == nftMocheAddress) {
+        return await nftMocheContract
             .connect(_signer)
-            .setApprovalForAll(nftMocheAddress, true),
-        await nftGameContract
+            .setApprovalForAll(mktplcAddress, true);
+    } else if (_smartContractAddress == nftGameAddress) {
+        return await nftGameContract
             .connect(_signer)
-            .setApprovalForAll(nftMocheAddress, true),
-    ]);
-    return await Promise.all([
-        await tx[0].wait(_numberOfConfirmations),
-        await tx[1].wait(_numberOfConfirmations),
-    ]);
+            .setApprovalForAll(mktplcAddress, true);
+    } else {
+        throw new Error("Smart Contracts address mismatch");
+    }
 }
 
 interface ITraitType {
@@ -242,7 +243,6 @@ export async function isMarketPlaceAllowed(
     );
 }
 
-
 /**
  * @dev changes the price of a NFT
  * @param _signer: Signer of the transaction (provider.getSigner(account))
@@ -282,7 +282,6 @@ export async function purchaseNftWithBusd(
         .purchaseNftWithBusd(_smartContractAddress, _uuid);
     return await tx.wait(_numberOfConfirmations);
 }
-
 
 /**
  * @dev purchase NFT by using $PCUY

@@ -1,6 +1,6 @@
 {
   "name": "pachacuy-marketplace",
-  "version": "0.0.17",
+  "version": "0.0.19",
   "description": "Interface that implements Smart Contract functions for the market place",
   "main": "dist",
   "types": "dist/index.d.ts",
