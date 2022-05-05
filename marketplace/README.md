@@ -10,12 +10,14 @@ export declare function initMarketplace(
 /**
  * @dev Function that approves the smart contract to operate the user's funds
  * @param _signer: Signer of the transaction (provider.getSigner(account))
+ * @param _smartContractAddress: Address of either the NFT Moche Contract or NFT Game Contract
  * @param _numberOfConfirmations: Optional pass the number of confirmations to wait for
  */
 export declare function givePermission(
   _signer: Signer,
+  _smartContractAddress: string,
   _numberOfConfirmations?: number
-): Promise<[any, any]>;
+): Promise<any>;
 interface ITraitType {
   trait_type: string;
   value: string;
@@ -38,25 +40,16 @@ interface INftResponse extends INftAttributes {
 export declare function listNftsOfAccount(
   _account: string
 ): Promise<INftResponse[]>;
-/**
- * @param nftOwner: wallet address owner of the NFT
- * @param smartContract: smart contract to which this NFT belongs to
- * @param uuid: unique identifier provided when the NFT was minted
- * @param price: amount in PCUS set up by the owner when it was listed
- * @param listed: boolean that indicates whether an NFT is listed or not. All items here must be true
- */
-interface INftItem {
-  nftOwner: string;
-  smartContract: string;
-  uuid: number;
+interface INftResponseForSale extends INftResponse {
   price: number;
+  nftOwner: string;
   listed: boolean;
 }
 /**
  * @notice returns the list of all NFTs for sale that have been approved
- * @return INftItem
+ * @return INftResponseForSale
  */
-export declare function getListOfNftsForSale(): Promise<INftItem[]>;
+export declare function getListOfNftsForSale(): Promise<INftResponseForSale[]>;
 /**
  * @notice returns the list of all NFTs for sale that have been approved
  * @param _smartContractAddress smart contract to which the NFT belongs to
