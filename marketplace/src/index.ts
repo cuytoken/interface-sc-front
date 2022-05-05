@@ -1,5 +1,5 @@
 import { Contract, providers, Signer } from "ethers";
-import { getListOfNftsPerAccount, tokenURI } from "pachacuy-sc";
+import { getListOfNftsPerAccount, init } from "pachacuy-sc";
 
 import nftMocheAbi from "./abi/nftMoche";
 import mktplcAbi from "./abi/mktplcAbi";
@@ -43,7 +43,10 @@ interface IDataScan {
  * @dev This function inits the library and connects to the blockchain
  * @param _provider: obtained from 'new providers.Web3Provider(window.ethereum);'
  */
-export function init(_provider: providers.ExternalProvider): Contract[] {
+export function initMarketplace(
+    _provider: providers.ExternalProvider
+): Contract[] {
+    init(_provider);
     provider = new providers.Web3Provider(_provider);
     nftMocheContract = new Contract(nftMocheAddress, nftMocheAbi, provider);
     nftGameContract = new Contract(nftGameAddress, nftMocheAbi, provider);
@@ -178,7 +181,6 @@ export async function listNftsOfAccount(
         nftResponse[_ix + _pos].contractAddress = nftGameContract.address;
         return nftGameContract.tokenURI(_tokenID);
     });
-    // createNftAccounData
 
     // all token URIs
     var tokenUris: string[] = await Promise.all([
@@ -220,12 +222,86 @@ interface INftItem {
     listed: boolean;
 }
 
+interface INftResponseForSale extends INftResponse {
+    price: number;
+    nftOwner: string;
+    listed: boolean;
+}
+
+function fillNftForSaleResponseTemplate(): INftResponseForSale {
+    return {
+        ...fillNftResponseTemplate(),
+        price: 0,
+        nftOwner: "",
+        listed: false,
+    };
+}
+
 /**
  * @notice returns the list of all NFTs for sale that have been approved
- * @return INftItem
+ * @return INftResponseForSale
  */
-export async function getListOfNftsForSale(): Promise<INftItem[]> {
-    return await mktplcContract.getListOfNftsForSale();
+export async function getListOfNftsForSale(): Promise<INftResponseForSale[]> {
+    var itemsForSale: INftItem[] = await mktplcContract.getListOfNftsForSale();
+
+    // Preparing response array
+    var nftResponse: INftResponseForSale[] = [];
+
+    var erc721ItemsForSaleIds = itemsForSale.filter(
+        (item: INftItem) => item.smartContract == nftMocheAddress
+    );
+    var erc721ItemsForSalPromises = erc721ItemsForSaleIds.map(
+        (nftItem: INftItem, _ix: number) => {
+            nftResponse[_ix] = fillNftForSaleResponseTemplate();
+            nftResponse[_ix].tokenID = String(nftItem.uuid);
+            nftResponse[_ix].contractAddress = nftItem.smartContract;
+            nftResponse[_ix].listed = nftItem.listed;
+            nftResponse[_ix].nftOwner = nftItem.nftOwner;
+            nftResponse[_ix].price = nftItem.price;
+            return nftMocheContract.tokenURI(Number(nftItem.uuid));
+        }
+    );
+
+    var _pos = erc721ItemsForSalPromises.length;
+    var erc1155ItemsForSaleIds = itemsForSale.filter(
+        (item: INftItem) => item.smartContract == nftGameAddress
+    );
+    var erc1155ItemsForSalePromises = erc1155ItemsForSaleIds.map(
+        (nftItem: INftItem, _ix: number) => {
+            nftResponse[_ix + _pos] = fillNftForSaleResponseTemplate();
+            nftResponse[_ix + _pos].tokenID = String(nftItem.uuid);
+            nftResponse[_ix + _pos].contractAddress = nftItem.smartContract;
+            nftResponse[_ix + _pos].listed = true;
+            nftResponse[_ix + _pos].nftOwner = nftItem.nftOwner;
+            nftResponse[_ix + _pos].price = nftItem.price;
+            return nftGameContract.tokenURI(Number(nftItem.uuid));
+        }
+    );
+
+    var pinata = "https://ipfs.io/ipfs/";
+
+    // all token URIs
+    var tokenUris: string[] = await Promise.all([
+        ...erc721ItemsForSalPromises,
+        ...erc1155ItemsForSalePromises,
+    ]);
+
+    // Prepare promises for reading metadata using 'fetch'
+    var prefixesPromises = tokenUris.map((el) =>
+        fetch(`${pinata}${el.split("//")[1]}`)
+    );
+
+    var attrJson: any = await Promise.all(prefixesPromises);
+    var attributesArray: INftAttributes[] = await Promise.all(
+        attrJson.map((data: any) => data.json())
+    );
+    var pinata = "https://gateway.pinata.cloud/ipfs/";
+    attributesArray.forEach((attributes: INftAttributes, _ix: number) => {
+        nftResponse[_ix] = { ...nftResponse[_ix], ...attributes };
+        nftResponse[_ix].imageUrl = `${pinata}${attributes.image.split("//")[1]}`;
+    });
+
+    return nftResponse;
 }
 
 /**

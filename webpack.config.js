@@ -20,18 +20,12 @@ const config = {
       amd: "ethers",
       root: "ethers",
     },
-    axios: {
-      commonjs: "axios",
-      commonjs2: "axios",
-      amd: "axios",
-      root: "axios",
-    },
-    "pachacuy-sc": {
-      commonjs: "pachacuy-sc",
-      commonjs2: "pachacuy-sc",
-      amd: "pachacuy-sc",
-      root: "pachacuy-sc",
-    },
+    // "pachacuy-sc": {
+    //   commonjs: "pachacuy-sc",
+    //   commonjs2: "pachacuy-sc",
+    //   amd: "pachacuy-sc",
+    //   root: "pachacuy-sc",
+    // },
   },
   devServer: {
     open: true,

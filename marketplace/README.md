@@ -4,7 +4,9 @@ import { Contract, providers, Signer } from "ethers";
  * @dev This function inits the library and connects to the blockchain
  * @param _provider: obtained from 'new providers.Web3Provider(window.ethereum);'
  */
-export declare function init(_provider: providers.ExternalProvider): Contract[];
+export declare function initMarketplace(
+  _provider: providers.ExternalProvider
+): Contract[];
 /**
  * @dev Function that approves the smart contract to operate the user's funds
  * @param _signer: Signer of the transaction (provider.getSigner(account))
