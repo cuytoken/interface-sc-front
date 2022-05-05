@@ -132,6 +132,8 @@ interface INftResponse extends INftAttributes {
     contractAddress: string;
     tokenID: string;
     imageUrl: string;
+    price?: number;
+    listed?: boolean;
 }
 
 function fillNftResponseTemplate(): INftResponse {
@@ -237,6 +239,31 @@ export async function listNftsOfAccount(
         nftResponse[_ix] = { ...nftResponse[_ix], ...attributes };
         nftResponse[_ix].imageUrl = `${pinata}${attributes.image.split("//")[1]}`;
     });
+
+    var itemsForSaleOfUser: INftItem[] = (
+        await mktplcContract.getListOfNftsForSale()
+    ).filter((item: INftItem) => item.nftOwner == _account);
+
+    if (itemsForSaleOfUser.length == 0) {
+        return nftResponse;
+    }
+
+    for (var i = 0; i < itemsForSaleOfUser.length; i++) {
+        var _itemForSale = itemsForSaleOfUser[i];
+        nftResponse = nftResponse.map((item: INftResponse) => {
+            if (
+                _itemForSale.smartContract == item.contractAddress &&
+                String(_itemForSale.uuid) == item.tokenID
+            ) {
+                var add = {
+                    price: _itemForSale.price,
+                    listed: _itemForSale.listed,
+                };
+                return { ...item, ...add };
+            }
+            return item;
+        });
+    }
 
     return nftResponse;
 }
