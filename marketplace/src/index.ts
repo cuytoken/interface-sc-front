@@ -7,7 +7,7 @@ import busdAbi from "./abi/busdAbi";
 
 var nftMocheAddress = "0x9af90A0fFFbe809DC4e738fB2713FF3E53B045e6";
 var nftGameAddress = "0x1517184267098FE72EAfE06971606Bb311966175";
-var mktplcAddress = "0x78f5fA314013bf7A800e857D346c0BE2c5A8a7fb";
+var mktplcAddress = "0x6a354eC3975e748fc863A77DFb0409e68384AA73";
 var busdAddress = "0x8f1c7aaf8ec93a500657aec7c030d392fd4caa13";
 
 var provider: providers.Web3Provider = null;
@@ -430,5 +430,24 @@ export async function setPriceAndListAsset(
     var tx = await mktplcContract
         .connect(_signer)
         .setPriceAndListAsset(_smartContractAddress, _uuid, _price);
+    return await tx.wait(_numberOfConfirmations);
+}
+
+/**
+ * @dev Function that removes an item from Marketplace
+ * @param _signer: Signer of the transaction (provider.getSigner(account))
+ * @param _smartContractAddress: address to which the NFT belongs to
+ * @param _uuid: unique identifier of the NFT when it was minted
+ * @param _numberOfConfirmations: Optional pass the number of confirmations to wait for
+ */
+export async function removeItemFromMarketplace(
+    _signer: Signer,
+    _smartContractAddress: string,
+    _uuid: number,
+    _numberOfConfirmations: number = 1
+) {
+    var tx = await mktplcContract
+        .connect(_signer)
+        .removeItemFromMarketplace(_smartContractAddress, _uuid);
     return await tx.wait(_numberOfConfirmations);
 }
