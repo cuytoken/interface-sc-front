@@ -1,15 +1,18 @@
-import { Contract, providers, Signer } from "ethers";
+import { Contract, providers, Signer, BigNumber } from "ethers";
 import { getListOfNftsPerAccount, init } from "pachacuy-sc";
 
 import nftMocheAbi from "./abi/nftMoche";
 import mktplcAbi from "./abi/mktplcAbi";
+import busdAbi from "./abi/busdAbi";
 
 var nftMocheAddress = "0x9af90A0fFFbe809DC4e738fB2713FF3E53B045e6";
 var nftGameAddress = "0x1517184267098FE72EAfE06971606Bb311966175";
 var mktplcAddress = "0x78f5fA314013bf7A800e857D346c0BE2c5A8a7fb";
+var busdAddress = "0x8f1c7aaf8ec93a500657aec7c030d392fd4caa13";
 
 var provider: providers.Web3Provider = null;
 
+var busdContract: Contract;
 var nftMocheContract: Contract;
 var nftGameContract: Contract;
 var mktplcContract: Contract;
@@ -48,10 +51,41 @@ export function initMarketplace(
 ): Contract[] {
     init(_provider);
     provider = new providers.Web3Provider(_provider);
+    busdContract = new Contract(busdAddress, busdAbi, provider);
     nftMocheContract = new Contract(nftMocheAddress, nftMocheAbi, provider);
     nftGameContract = new Contract(nftGameAddress, nftMocheAbi, provider);
     mktplcContract = new Contract(mktplcAddress, mktplcAbi, provider);
     return [nftMocheContract, nftGameContract, mktplcContract];
+}
+
+////////////////////////
+///       BUSD       ///
+////////////////////////
+/**
+ * @dev Function that approves the smart contract to operate the user's funds
+ * @param _amount: Amount to be approved in favor of the smart contract
+ * @param _signer: Signer of the transaction (provider.getSigner(account))
+ * @param _numberOfConfirmations: Optional pass the number of confirmations to wait for
+ */
+export async function approveBusd(
+    _amount: BigNumber,
+    _signer: Signer,
+    _numberOfConfirmations: number = 1
+) {
+    if (!provider) throw new Error("No provider set");
+    var tx = await busdContract
+        .connect(_signer)
+        .approve(mktplcContract.address, _amount);
+    return await tx.wait(_numberOfConfirmations);
+}
+
+/**
+ * @dev Function that finds the allowance give in favor of the smart contract
+ * @param _account: Wallet address of the user
+ */
+export async function allowance(_account: string): Promise<BigNumber> {
+    if (!provider) throw new Error("No provider set");
+    return await busdContract.allowance(_account, mktplcContract.address);
 }
 
 ////////////////////////
