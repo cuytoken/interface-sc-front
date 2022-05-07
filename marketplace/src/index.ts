@@ -234,7 +234,8 @@ export async function listNftsOfAccount(
     var attributesArray: INftAttributes[] = await Promise.all(
         attrJson.map((data: any) => data.json())
     );
-    var pinata = "https://gateway.pinata.cloud/ipfs/";
+    // var pinata = "https://gateway.pinata.cloud/ipfs/";
+    var pinata = "https://ipfs.io/ipfs/";
     attributesArray.forEach((attributes: INftAttributes, _ix: number) => {
         nftResponse[_ix] = { ...nftResponse[_ix], ...attributes };
         nftResponse[_ix].imageUrl = `${pinata}${attributes.image.split("//")[1]}`;
@@ -242,7 +243,9 @@ export async function listNftsOfAccount(
 
     var itemsForSaleOfUser: INftItem[] = (
         await mktplcContract.getListOfNftsForSale()
-    ).filter((item: INftItem) => item.nftOwner == _account);
+    ).filter(
+        (item: INftItem) => item.nftOwner.toLowerCase() == _account.toLowerCase()
+    );
 
     if (itemsForSaleOfUser.length == 0) {
         return nftResponse;
@@ -356,7 +359,7 @@ export async function getListOfNftsForSale(): Promise<INftResponseForSale[]> {
     var attributesArray: INftAttributes[] = await Promise.all(
         attrJson.map((data: any) => data.json())
     );
-    var pinata = "https://gateway.pinata.cloud/ipfs/";
+    // var pinata = "https://gateway.pinata.cloud/ipfs/";
     attributesArray.forEach((attributes: INftAttributes, _ix: number) => {
         nftResponse[_ix] = { ...nftResponse[_ix], ...attributes };
         nftResponse[_ix].imageUrl = `${pinata}${attributes.image.split("//")[1]}`;

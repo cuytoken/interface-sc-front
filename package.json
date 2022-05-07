@@ -13,6 +13,7 @@
     "build:prod": "webpack --mode=production --node-env=production",
     "build:pachacuy": "LIBRARY_ENV=pachacuy-sc webpack --mode=production --node-env=production",
     "build:marketplace": "LIBRARY_ENV=marketplace webpack --mode=production --node-env=production",
+    "build-dev:marketplace": "LIBRARY_ENV=marketplace webpack --mode=development",
     "watch": "webpack --watch",
     "serve": "webpack serve"
   },
