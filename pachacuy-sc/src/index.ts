@@ -6,9 +6,9 @@ import pacAbi from "./abi/pacAbi";
 import pcuyAbi from "./abi/pcuyAbi";
 
 var busdAddress = "0x8f1c7aaf8ec93a500657aec7c030d392fd4caa13";
-var pacAddress = "0x1509A051E5B91aAa3dE22Ae22D119C8f1Cd3DA80";
-var nftpAddress = "0x1517184267098FE72EAfE06971606Bb311966175";
-var pcuyTokenAddress = "0x21CC1f25B4B42A2D77025316dD57eeC9EFc81728";
+var pacAddress = "0xcC6cFf27ee0BAD7630335652fE345e11A6a5a1fF";
+var nftpAddress = "0x68B2630C50535B0c38AdFDf736E1FcDf8190129C";
+var pcuyTokenAddress = "0xf75Ee3327CfA5B5223026A08Df8a9D73B3305dFF";
 
 var provider: providers.Web3Provider = null;
 
