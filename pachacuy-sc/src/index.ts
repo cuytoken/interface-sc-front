@@ -1,4 +1,8 @@
+"use strict";
+
 import { BigNumber, Contract, ethers, providers, Signer } from "ethers";
+
+export { signTransaction } from "./sign";
 
 import busdAbi from "./abi/busdAbi";
 import nftpAbi from "./abi/nftpAbi";
