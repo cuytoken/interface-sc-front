@@ -1,39 +1,49 @@
-import { VoidSigner } from "ethers";
+import { TypedDataSigner } from "@ethersproject/abstract-signer";
+
+declare var __tatacuyAddress__: string;
+declare var __chainId__: string;
+
+interface Signer extends TypedDataSigner {
+    _address: string;
+}
+
+var tatacuyAddress = __tatacuyAddress__;
+var chainId = __chainId__;
 
 // All properties on a domain are optional
 const domain = {
-    name: "Ether Mail",
-    version: "1",
-    chainId: 1,
-    verifyingContract: "0xCcCCccccCCCCcCCCCCCcCcCccCcCCCcCcccccccC",
+    name: "Tatacuy Game",
+    version: "alpha",
+    chainId,
+    verifyingContract: tatacuyAddress,
 };
 
 // The named list of all type definitions
 const types = {
-    Person: [
-        { name: "name", type: "string" },
-        { name: "wallet", type: "address" },
-    ],
-    Mail: [
-        { name: "from", type: "Person" },
-        { name: "to", type: "Person" },
-        { name: "contents", type: "string" },
+    TatacuyGame: [
+        { name: "context", type: "string" },
+        { name: "player", type: "address" },
+        { name: "wallet", type: "string" },
+        { name: "likelihood", type: "string" },
     ],
 };
 
 // The data to sign
 const value = {
-    from: {
-        name: "Cow",
-        wallet: "0xCD2a3d9F938E13CD947Ec05AbC7FE734Df8DD826",
-    },
-    to: {
-        name: "Bob",
-        wallet: "0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB",
-    },
-    contents: "Hello, Bob!",
+    context: "Winning Sami Points at Tatacuy",
+    player: "",
+    wallet: "",
+    likelihood: "",
 };
 
-export async function signTransaction(signer: VoidSigner) {
+export async function signTatacuyTransaction(
+    signer: Signer,
+    player = signer._address,
+    wallet = signer._address,
+    likelihood: number,
+) {
+    value.player = player;
+    value.wallet = wallet;
+    value.likelihood = String(likelihood);
     return await signer._signTypedData(domain, types, value);
 }

@@ -1,6 +1,25 @@
 const path = require("path");
+var webpack = require("webpack");
+
+var busdAddress;
+var pacAddress;
+var nftpAddress;
+var pcuyTokenAddress;
+var tatacuyAddress;
+var chainId;
 
 const isProduction = process.env.NODE_ENV == "production";
+
+if (isProduction) {
+  chainId = "56";
+} else {
+  busdAddress = "0x8f1c7aaf8ec93a500657aec7c030d392fd4caa13";
+  pacAddress = "0xcC6cFf27ee0BAD7630335652fE345e11A6a5a1fF";
+  nftpAddress = "0x68B2630C50535B0c38AdFDf736E1FcDf8190129C";
+  pcuyTokenAddress = "0xf75Ee3327CfA5B5223026A08Df8a9D73B3305dFF";
+  tatacuyAddress = "0x5571780676d7D3C9498ac5Ae89089e3168923D5D";
+  chainId = "97";
+}
 
 const config = {
   entry: `./${process.env.LIBRARY_ENV}/src/index.ts`,
@@ -20,17 +39,27 @@ const config = {
       amd: "ethers",
       root: "ethers",
     },
-    // "pachacuy-sc": {
-    //   commonjs: "pachacuy-sc",
-    //   commonjs2: "pachacuy-sc",
-    //   amd: "pachacuy-sc",
-    //   root: "pachacuy-sc",
-    // },
+    dotenv: {
+      commonjs: "dotenv",
+      commonjs2: "dotenv",
+      amd: "dotenv",
+      root: "dotenv",
+    },
   },
   devServer: {
     open: true,
     host: "localhost",
   },
+  plugins: [
+    new webpack.DefinePlugin({
+      __busdAddress__: JSON.stringify(busdAddress),
+      __pacAddress__: JSON.stringify(pacAddress),
+      __nftpAddress__: JSON.stringify(nftpAddress),
+      __pcuyTokenAddress__: JSON.stringify(pcuyTokenAddress),
+      __tatacuyAddress__: JSON.stringify(tatacuyAddress),
+      __chainId__: JSON.stringify(chainId),
+    }),
+  ],
   module: {
     rules: [
       {

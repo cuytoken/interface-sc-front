@@ -2,17 +2,22 @@
 
 import { BigNumber, Contract, ethers, providers, Signer } from "ethers";
 
-export { signTransaction } from "./sign";
+export { signTatacuyTransaction } from "./sign";
 
 import busdAbi from "./abi/busdAbi";
 import nftpAbi from "./abi/nftpAbi";
 import pacAbi from "./abi/pacAbi";
 import pcuyAbi from "./abi/pcuyAbi";
 
-var busdAddress = "0x8f1c7aaf8ec93a500657aec7c030d392fd4caa13";
-var pacAddress = "0xcC6cFf27ee0BAD7630335652fE345e11A6a5a1fF";
-var nftpAddress = "0x68B2630C50535B0c38AdFDf736E1FcDf8190129C";
-var pcuyTokenAddress = "0xf75Ee3327CfA5B5223026A08Df8a9D73B3305dFF";
+declare var __busdAddress__: string;
+declare var __pacAddress__: string;
+declare var __nftpAddress__: string;
+declare var __pcuyTokenAddress__: string;
+
+var busdAddress = __busdAddress__;
+var pacAddress = __pacAddress__;
+var nftpAddress = __nftpAddress__;
+var pcuyTokenAddress = __pcuyTokenAddress__;
 
 var provider: providers.Web3Provider = null;
 
