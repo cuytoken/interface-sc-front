@@ -1,8 +1,9 @@
 "use strict";
 
 import { BigNumber, Contract, ethers, providers, Signer } from "ethers";
-
-export { signTatacuyTransaction } from "./sign";
+import { initTatacuy } from "./tatacuy";
+export { signTatacuyTransaction } from "./tatacuy";
+// export { signTatacuyTransaction } from "./wiracocha";
 
 import busdAbi from "./abi/busdAbi";
 import nftpAbi from "./abi/nftpAbi";
@@ -31,15 +32,16 @@ var pcuyContract: Contract;
 ////////////////////////
 /**
  * @dev This function inits the library and connects to the blockchain
- * @param _provider: obtained from 'new providers.Web3Provider(window.ethereum);'
+ * @param _provider: window.ethereum or an equivalent
  */
 export function init(_provider: providers.ExternalProvider): Contract[] {
+    var tataCuyContract = initTatacuy(_provider);
     provider = new providers.Web3Provider(_provider);
     busdContract = new Contract(busdAddress, busdAbi, provider);
     nftpContract = new Contract(nftpAddress, nftpAbi, provider);
     pacContract = new Contract(pacAddress, pacAbi, provider);
     pcuyContract = new Contract(pcuyTokenAddress, pcuyAbi, provider);
-    return [nftpContract, pacContract];
+    return [nftpContract, pacContract, ...tataCuyContract];
 }
 
 ////////////////////////
@@ -175,6 +177,7 @@ export async function isGuineaPigAllowedInPacha(
 /**
  * @param guineaPigs: list of uuids of each guinea pig owned by the user
  * @param lands: list of uuids of each land owned by the user
+ * @param pachaPasses: list of uuids of each pacha pass owned by the user
  */
 interface NftList {
     guineaPigs: number[];

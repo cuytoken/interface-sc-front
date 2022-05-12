@@ -19,6 +19,8 @@ if (isProduction) {
   pcuyTokenAddress = "0xf75Ee3327CfA5B5223026A08Df8a9D73B3305dFF";
   tatacuyAddress = "0x5571780676d7D3C9498ac5Ae89089e3168923D5D";
   chainId = "97";
+  rpcBinance = "https://data-seed-prebsc-1-s1.binance.org:8545/";
+  pachacuyInformationAddress = "0xB9ca45D3d4288745636d8a904a42E92741C5aBB8";
 }
 
 const config = {
@@ -39,12 +41,6 @@ const config = {
       amd: "ethers",
       root: "ethers",
     },
-    dotenv: {
-      commonjs: "dotenv",
-      commonjs2: "dotenv",
-      amd: "dotenv",
-      root: "dotenv",
-    },
   },
   devServer: {
     open: true,
@@ -58,6 +54,10 @@ const config = {
       __pcuyTokenAddress__: JSON.stringify(pcuyTokenAddress),
       __tatacuyAddress__: JSON.stringify(tatacuyAddress),
       __chainId__: JSON.stringify(chainId),
+      __pachacuyInformationAddress__: JSON.stringify(
+        pachacuyInformationAddress
+      ),
+      __rpcBinance__: JSON.stringify(rpcBinance),
     }),
   ],
   module: {
