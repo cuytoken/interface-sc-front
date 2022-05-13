@@ -20,7 +20,7 @@ if (isProduction) {
   tatacuyAddress = "0x5571780676d7D3C9498ac5Ae89089e3168923D5D";
   chainId = "97";
   rpcBinance = "https://data-seed-prebsc-1-s1.binance.org:8545/";
-  pachacuyInformationAddress = "0xB9ca45D3d4288745636d8a904a42E92741C5aBB8";
+  pachacuyInformationAddress = "0x186a2d461FBa223a0E70004c24B8F043bfc74c77";
 }
 
 const config = {

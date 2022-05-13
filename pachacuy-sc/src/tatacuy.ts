@@ -29,8 +29,8 @@ export function initTatacuy(_provider: providers.ExternalProvider): Contract[] {
 const domain = {
     name: "Tatacuy Game",
     version: "alpha",
-    chainId: "97",
-    verifyingContract: "0x5571780676d7D3C9498ac5Ae89089e3168923D5D",
+    chainId,
+    verifyingContract: tatacuyAddress,
 };
 
 // The named list of all type definitions
@@ -91,25 +91,6 @@ export async function signTatacuyTxAndVerify(
     var res = await fetch(url, data);
     return await res.json();
 }
-
-/**
- * @notice A guineapig could win Sami Points after trying luck at a Tatacuy
- * @notice It's executed by a relayer in the cloud upon signature from the user
- * @dev It uses a Random Number Generator by Chainlink and the `_likelihood`
- * @param _account: The address for which random number request has been made
- * @param _pachaOwner: Wallet address of the pacha at which this Tatacuy is placed
- * @param _pachaUuid: Uuid of the pacha received when it was minted
- * @param _tatacuyUuid: Uuid of the Tatacuy received when it was minted
- * @param _likelihood: A number between 1 and 10 in inclusive that represents tha chances of winning
- */
-export async function tryMyLuckTatacuy(
-    _account: string,
-    _pachaOwner: string,
-    _pachaUuid: number,
-    _tatacuyUuid: number,
-    _likelihood: number,
-    _signature: string
-) { }
 
 /**
  * @dev Finished a Tatacuy campaign and returns the amount of Sami Points remaining in the campaign

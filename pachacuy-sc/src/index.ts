@@ -2,7 +2,13 @@
 
 import { BigNumber, Contract, ethers, providers, Signer } from "ethers";
 import { initTatacuy } from "./tatacuy";
-export { signTatacuyTransaction } from "./tatacuy";
+export {
+    signTatacuyTxAndVerify,
+    finishTatacuyCampaign,
+    getListOfTatacuyCampaigns,
+    getTatacuyInfoForAccount,
+    startTatacuyCampaign,
+} from "./tatacuy";
 // export { signTatacuyTransaction } from "./wiracocha";
 
 import busdAbi from "./abi/busdAbi";

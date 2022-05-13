@@ -34,10 +34,11 @@ interface InformationBasedOnRank {
 }
 
 interface IGameInformation {
-    infoArrayBasedOnRank: InformationBasedOnRank[];
-    amountOfBoxesPerPachaPerDay: number;
-    amountOfMinimumSamiPoints: number;
-    amountOfMaximumSamiPoints: number;
+    _infoArrayBasedOnRank: InformationBasedOnRank[];
+    _amountOfBoxesPerPachaPerDay: number;
+    _amountOfMinimumSamiPoints: number;
+    _amountOfMaximumSamiPoints: number;
+    _exchangeRateBusdToPcuy: number;
 }
 export async function getAllGameInformation(): Promise<IGameInformation> {
     return await pachacuyInformationContract.getAllGameInformation();
@@ -47,4 +48,8 @@ export async function getInformationByRank(
     _rank: number
 ): Promise<InformationBasedOnRank> {
     return await pachacuyInformationContract.getInformationByRank(_rank);
+}
+
+export async function getExchangeRateBusdToPcuy(): Promise<number> {
+    return await pachacuyInformationContract.getExchangeRateBusdToPcuy();
 }

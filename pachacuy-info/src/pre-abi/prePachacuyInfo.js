@@ -57,6 +57,25 @@ module.exports = [
       {
         indexed: false,
         internalType: "uint256",
+        name: "previousAmount",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "amount",
+        type: "uint256",
+      },
+    ],
+    name: "ExchangeRateBusdToPcuyDx",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "uint256",
         name: "rank",
         type: "uint256",
       },
@@ -263,6 +282,13 @@ module.exports = [
   },
   {
     inputs: [],
+    name: "exchangeRateBusdToPcuy",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
     name: "getAllGameInformation",
     outputs: [
       {
@@ -272,13 +298,37 @@ module.exports = [
           { internalType: "uint256", name: "affectation", type: "uint256" },
         ],
         internalType: "struct PachacuyInformation.InformationBasedOnRank[]",
-        name: "",
+        name: "_infoArrayBasedOnRank",
         type: "tuple[]",
       },
-      { internalType: "uint256", name: "", type: "uint256" },
-      { internalType: "uint256", name: "", type: "uint256" },
-      { internalType: "uint256", name: "", type: "uint256" },
+      {
+        internalType: "uint256",
+        name: "_amountOfBoxesPerPachaPerDay",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_amountOfMinimumSamiPoints",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_amountOfMaximumSamiPoints",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_exchangeRateBusdToPcuy",
+        type: "uint256",
+      },
     ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "getExchangeRateBusdToPcuy",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
     type: "function",
   },
@@ -389,6 +439,13 @@ module.exports = [
   {
     inputs: [{ internalType: "uint256", name: "_amount", type: "uint256" }],
     name: "setAmountOfMinimumSamiPoints",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "uint256", name: "_amount", type: "uint256" }],
+    name: "setExchangeRateBusdToPcuy",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
