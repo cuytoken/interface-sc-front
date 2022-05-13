@@ -2,6 +2,8 @@
 
 import { BigNumber, Contract, ethers, providers, Signer } from "ethers";
 import { initTatacuy } from "./tatacuy";
+import { initWiracocha } from "./wiracocha";
+
 export {
     signTatacuyTxAndVerify,
     finishTatacuyCampaign,
@@ -9,7 +11,11 @@ export {
     getTatacuyInfoForAccount,
     startTatacuyCampaign,
 } from "./tatacuy";
-// export { signTatacuyTransaction } from "./wiracocha";
+
+export {
+    getWiracochaInfoForAccount,
+    signWiracochaTxAndReceivePcuy,
+} from "./wiracocha";
 
 import busdAbi from "./abi/busdAbi";
 import nftpAbi from "./abi/nftpAbi";
@@ -41,13 +47,14 @@ var pcuyContract: Contract;
  * @param _provider: window.ethereum or an equivalent
  */
 export function init(_provider: providers.ExternalProvider): Contract[] {
-    var tataCuyContract = initTatacuy(_provider);
+    var [tataCuyContract] = initTatacuy(_provider);
+    var [wiracochaContract] = initWiracocha(_provider);
     provider = new providers.Web3Provider(_provider);
     busdContract = new Contract(busdAddress, busdAbi, provider);
     nftpContract = new Contract(nftpAddress, nftpAbi, provider);
     pacContract = new Contract(pacAddress, pacAbi, provider);
     pcuyContract = new Contract(pcuyTokenAddress, pcuyAbi, provider);
-    return [nftpContract, pacContract, ...tataCuyContract];
+    return [nftpContract, pacContract, tataCuyContract, wiracochaContract];
 }
 
 ////////////////////////
@@ -199,19 +206,20 @@ export async function getListOfNftsPerAccount(
     _account: string
 ): Promise<NftList> {
     if (!provider) throw new Error("No provider set");
-    var { guineaPigs, lands, pachaPasses } = await nftpContract.getListOfNftsPerAccount(
-        _account
-    );
+    var { guineaPigs, lands, pachaPasses } =
+        await nftpContract.getListOfNftsPerAccount(_account);
     guineaPigs = guineaPigs.filter(
         (number: BigNumber) => number.toString() != String(0)
     );
     lands = lands.filter((number: BigNumber) => number.toString() != String(0));
-    pachaPasses = pachaPasses.filter((number: BigNumber) => number.toString() != String(0));
+    pachaPasses = pachaPasses.filter(
+        (number: BigNumber) => number.toString() != String(0)
+    );
 
     return {
         guineaPigs,
         lands,
-        pachaPasses
+        pachaPasses,
     };
 }
 
@@ -352,8 +360,10 @@ interface IWalletInfo {
  * @returns Returns a type of IWalletInfo that contains information about the wallee of the player
  */
 export async function getWalletData(_account: string): Promise<IWalletInfo> {
-    var { guineaPigs, lands, pachaPasses } = await getListOfNftsPerAccount(_account);
-    var tokenBalance = await pcuyContract.balanceOf(_account)
+    var { guineaPigs, lands, pachaPasses } = await getListOfNftsPerAccount(
+        _account
+    );
+    var tokenBalance = await pcuyContract.balanceOf(_account);
     return {
         guineaPigs,
         lands,
@@ -385,8 +395,33 @@ interface IPachaPass {
  * @param _uuid Pacha Pass' uuid given when it was minted
  * @returns Returns a type of IPachaPass object that contains information about the Pacha Pass properties
  */
-export async function getPachaPassData(_uuid: number): Promise<IPachaPass | boolean> {
-
+export async function getPachaPassData(
+    _uuid: number
+): Promise<IPachaPass | boolean> {
     var pachaPassData: IPachaPass = await nftpContract.getPachaPassData(_uuid);
     return pachaPassData.isPachaPass ? { ...pachaPassData } : false;
+}
+
+////////////////////////
+///     TATACUY      ///
+////////////////////////
+export async function mintTatacuy(
+    _signer: Signer,
+    _pachaUuid: number,
+    _numberOfConfirmations: number = 1
+) {
+    var tx = await nftpContract.connect(_signer).mintTatacuy(_pachaUuid);
+    return await tx.wait(_numberOfConfirmations);
+}
+
+////////////////////////
+///     Wiracocha    ///
+////////////////////////
+export async function mintWiracocha(
+    _signer: Signer,
+    _pachaUuid: number,
+    _numberOfConfirmations: number = 1
+) {
+    var tx = await nftpContract.connect(_signer).mintWiracocha(_pachaUuid);
+    return await tx.wait(_numberOfConfirmations);
 }

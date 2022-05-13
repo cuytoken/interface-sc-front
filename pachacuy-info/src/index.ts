@@ -38,7 +38,7 @@ interface IGameInformation {
     _amountOfBoxesPerPachaPerDay: number;
     _amountOfMinimumSamiPoints: number;
     _amountOfMaximumSamiPoints: number;
-    _exchangeRateBusdToPcuy: number;
+    _exchangeRatePcuyToSami: number;
 }
 export async function getAllGameInformation(): Promise<IGameInformation> {
     return await pachacuyInformationContract.getAllGameInformation();
@@ -50,6 +50,6 @@ export async function getInformationByRank(
     return await pachacuyInformationContract.getInformationByRank(_rank);
 }
 
-export async function getExchangeRateBusdToPcuy(): Promise<number> {
-    return await pachacuyInformationContract.getExchangeRateBusdToPcuy();
+export async function getExchangeRatePcuyToSami(): Promise<number> {
+    return await pachacuyInformationContract.getExchangeRatePcuyToSami();
 }

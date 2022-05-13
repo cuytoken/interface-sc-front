@@ -3,6 +3,7 @@ var {
   getContract,
   getAllGameInformation,
   getInformationByRank,
+  getExchangeRatePcuyToSami,
 } = require("pachacuy-info");
 ```
 
@@ -19,15 +20,17 @@ interface InformationBasedOnRank {
   affectation: number;
 }
 interface IGameInformation {
-  infoArrayBasedOnRank: InformationBasedOnRank[];
-  amountOfBoxesPerPachaPerDay: number;
-  amountOfMinimumSamiPoints: number;
-  amountOfMaximumSamiPoints: number;
+  _infoArrayBasedOnRank: InformationBasedOnRank[];
+  _amountOfBoxesPerPachaPerDay: number;
+  _amountOfMinimumSamiPoints: number;
+  _amountOfMaximumSamiPoints: number;
+  _exchangeRatePcuyToSami: number;
 }
 export declare function getAllGameInformation(): Promise<IGameInformation>;
 export declare function getInformationByRank(
   _rank: number
 ): Promise<InformationBasedOnRank>;
+export declare function getExchangeRatePcuyToSami(): Promise<number>;
 export {};
 ```
 

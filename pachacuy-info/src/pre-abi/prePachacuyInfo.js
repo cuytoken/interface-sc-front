@@ -67,7 +67,7 @@ module.exports = [
         type: "uint256",
       },
     ],
-    name: "ExchangeRateBusdToPcuyDx",
+    name: "ExchangeRatePcuyToSamiDx",
     type: "event",
   },
   {
@@ -282,7 +282,7 @@ module.exports = [
   },
   {
     inputs: [],
-    name: "exchangeRateBusdToPcuy",
+    name: "exchangeRatePcuyToSami",
     outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
     type: "function",
@@ -318,7 +318,7 @@ module.exports = [
       },
       {
         internalType: "uint256",
-        name: "_exchangeRateBusdToPcuy",
+        name: "_exchangeRatePcuyToSami",
         type: "uint256",
       },
     ],
@@ -327,7 +327,7 @@ module.exports = [
   },
   {
     inputs: [],
-    name: "getExchangeRateBusdToPcuy",
+    name: "getExchangeRatePcuyToSami",
     outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
     type: "function",
@@ -445,7 +445,7 @@ module.exports = [
   },
   {
     inputs: [{ internalType: "uint256", name: "_amount", type: "uint256" }],
-    name: "setExchangeRateBusdToPcuy",
+    name: "setExchangeRatePcuyToSami",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",

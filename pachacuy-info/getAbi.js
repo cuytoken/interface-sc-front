@@ -10,7 +10,7 @@ var pachacuyInformationAbi = [
   "MinimumSamiPointsDx",
   "MaximumSamiPointsDx",
   "InfoByRankUpdated",
-  "getExchangeRateBusdToPcuy",
+  "getExchangeRatePcuyToSami",
 ];
 
 async function main() {

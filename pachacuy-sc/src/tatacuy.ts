@@ -5,6 +5,7 @@ import tatacuyAbi from "./abi/tatacuyAbi";
 
 declare var __tatacuyAddress__: string;
 declare var __chainId__: string;
+declare var __webhookTatacuy__: string;
 
 interface SignerData extends TypedDataSigner {
     _address: string;
@@ -56,6 +57,8 @@ const value = {
  * @param _signer: Signer of the transaction (provider.getSigner(account))
  * @param _guineaPigUuid: Guinea Pig uuid (when minted) that is trying luck at Tatacuy Gamer
  * @param _likelihood: A number between 1 and 10 inlcusive. Represents the chances of winning
+ * @param _pachaOwner: Wallet address of the pacha owner
+ * @param _pachaUuid: Uuid of the pacha when it was minted
  */
 export async function signTatacuyTxAndVerify(
     _signer: SignerData,
@@ -71,8 +74,7 @@ export async function signTatacuyTxAndVerify(
     var signature = await _signer._signTypedData(domain, types, value);
 
     // Validating in Cloud
-    var url =
-        "https://api.defender.openzeppelin.com/autotasks/3da214c4-a2e1-407b-8f83-7227ff917f0e/runs/webhook/76c42997-e9b0-4d14-ad84-d3386204500c/8oR97h8mCyzteR52LJqcNm";
+    var url = __webhookTatacuy__;
 
     var payload = {
         ...value,

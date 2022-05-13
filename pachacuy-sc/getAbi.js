@@ -21,6 +21,8 @@ var nftpAbiList = [
   "getListOfNftsPerAccount",
   "isGuineaPigAllowedInPacha",
   "getPachaPassData",
+  "mintTatacuy",
+  "mintWiracocha",
 ];
 
 var pacAbiList = [
@@ -46,6 +48,8 @@ var tatacuyAbiList = [
   "tryMyLuckTatacuy",
 ];
 
+var wiracochaAbiList = ["getWiracochaInfoForAccount"];
+
 async function main() {
   var files = await readdir(path);
   for (var file of files) {
@@ -69,6 +73,9 @@ async function main() {
     } else if (file.includes("preTatacuy")) {
       endFile += "tatacuyAbi.ts";
       list = tatacuyAbiList;
+    } else if (file.includes("preWiracocha")) {
+      endFile += "wiracochaAbi.ts";
+      list = wiracochaAbiList;
     }
 
     abi = abi.filter((line) => {
