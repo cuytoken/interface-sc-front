@@ -211,6 +211,13 @@ module.exports = [
   },
   {
     inputs: [],
+    name: "CHAKRA",
+    outputs: [{ internalType: "bytes32", name: "", type: "bytes32" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
     name: "DEFAULT_ADMIN_ROLE",
     outputs: [{ internalType: "bytes32", name: "", type: "bytes32" }],
     stateMutability: "view",
@@ -219,6 +226,13 @@ module.exports = [
   {
     inputs: [],
     name: "GAME_MANAGER",
+    outputs: [{ internalType: "bytes32", name: "", type: "bytes32" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "HATUNWASI",
     outputs: [{ internalType: "bytes32", name: "", type: "bytes32" }],
     stateMutability: "view",
     type: "function",
@@ -308,6 +322,13 @@ module.exports = [
     type: "function",
   },
   {
+    inputs: [{ internalType: "uint256", name: "_chakraUuid", type: "uint256" }],
+    name: "burnChakra",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
     inputs: [],
     name: "decimals",
     outputs: [{ internalType: "uint8", name: "", type: "uint8" }],
@@ -367,20 +388,6 @@ module.exports = [
       { internalType: "uint256[]", name: "guineaPigs", type: "uint256[]" },
       { internalType: "uint256[]", name: "lands", type: "uint256[]" },
       { internalType: "uint256[]", name: "pachaPasses", type: "uint256[]" },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [{ internalType: "uint256", name: "_uuid", type: "uint256" }],
-    name: "getPachaPassData",
-    outputs: [
-      { internalType: "bool", name: "isPachaPass", type: "bool" },
-      { internalType: "uint256", name: "pachaUuid", type: "uint256" },
-      { internalType: "uint256", name: "typeOfDistribution", type: "uint256" },
-      { internalType: "uint256", name: "uuid", type: "uint256" },
-      { internalType: "uint256", name: "cost", type: "uint256" },
-      { internalType: "string", name: "transferMode", type: "string" },
     ],
     stateMutability: "view",
     type: "function",
@@ -456,6 +463,18 @@ module.exports = [
   },
   {
     inputs: [
+      { internalType: "address", name: "_account", type: "address" },
+      { internalType: "uint256", name: "_pachaUuid", type: "uint256" },
+      { internalType: "uint256", name: "_chakraPrice", type: "uint256" },
+      { internalType: "uint256", name: "_prizePerFood", type: "uint256" },
+    ],
+    name: "mintChakra",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
       { internalType: "address", name: "account", type: "address" },
       { internalType: "uint256", name: "gender", type: "uint256" },
       { internalType: "uint256", name: "race", type: "uint256" },
@@ -468,6 +487,13 @@ module.exports = [
     type: "function",
   },
   {
+    inputs: [{ internalType: "uint256", name: "_pachaUuid", type: "uint256" }],
+    name: "mintHatunWasi",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
     inputs: [
       { internalType: "address", name: "account", type: "address" },
       { internalType: "uint256", name: "idForJsonFile", type: "uint256" },
@@ -475,30 +501,6 @@ module.exports = [
     ],
     name: "mintLandNft",
     outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      { internalType: "address", name: "_account", type: "address" },
-      { internalType: "uint256", name: "_landUuid", type: "uint256" },
-      { internalType: "uint256", name: "_uuidPachaPass", type: "uint256" },
-      { internalType: "uint256", name: "_typeOfDistribution", type: "uint256" },
-      { internalType: "uint256", name: "_price", type: "uint256" },
-      { internalType: "string", name: "_transferMode", type: "string" },
-    ],
-    name: "mintPachaPassNft",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      { internalType: "address[]", name: "_accounts", type: "address[]" },
-      { internalType: "uint256", name: "_landUuid", type: "uint256" },
-    ],
-    name: "mintPachaPassNftAsOwner",
-    outputs: [],
     stateMutability: "nonpayable",
     type: "function",
   },
@@ -535,6 +537,18 @@ module.exports = [
     name: "paused",
     outputs: [{ internalType: "bool", name: "", type: "bool" }],
     stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "address", name: "_account", type: "address" },
+      { internalType: "uint256", name: "_chakraUuid", type: "uint256" },
+    ],
+    name: "purchaseFood",
+    outputs: [
+      { internalType: "uint256", name: "availableFood", type: "uint256" },
+    ],
+    stateMutability: "nonpayable",
     type: "function",
   },
   {
@@ -594,8 +608,10 @@ module.exports = [
     type: "function",
   },
   {
-    inputs: [{ internalType: "uint256", name: "_landUuid", type: "uint256" }],
-    name: "setPachaToPublic",
+    inputs: [
+      { internalType: "address", name: "_pachacuyInfo", type: "address" },
+    ],
+    name: "setPachacuyInfoaddress",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",

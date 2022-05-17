@@ -1,8 +1,10 @@
 export default[
   "event GuineaPigPurchaseFinish(address _account, uint256 price, uint256 _guineaPigId, uint256 _uuid, string _raceAndGender)",
-  "event GuineaPigPurchaseInit(address _account, uint256 price, uint256 _ix, address custodianWallet)",
-  "event PurchaseLand(address _account, uint256 uuid, uint256 landPrice, uint256 _location, address custodianWallet)",
+  "event GuineaPigPurchaseInit(address _account, uint256 price, uint256 _ix, address poolRewardsAddress)",
+  "event PurchaseLand(address _account, uint256 uuid, uint256 landPrice, uint256 _location, address poolRewardsAddress)",
   "function landPrice() view returns (uint256)",
+  "function purchaseChakra(uint256 _pachaUuid) returns (uint256 chakraUuid)",
+  "function purchaseFoodFromChakra(uint256 _chakraUuid) returns (uint256 availableFood)",
   "function purchaseGuineaPigWithBusd(uint256 _ix)",
   "function purchaseGuineaPigWithPcuy(uint256 _ix)",
   "function purchaseLandWithBusd(uint256 _location)",

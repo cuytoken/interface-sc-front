@@ -3,6 +3,10 @@
 import { BigNumber, Contract, ethers, providers, Signer } from "ethers";
 import { initTatacuy } from "./tatacuy";
 import { initWiracocha } from "./wiracocha";
+import { initChakra } from "./chakra";
+import { initHatunWasi } from "./hatunWasi";
+
+export { getListOfChakrasWithFood, getChakraWithUuid } from "./chakra";
 
 export {
     signTatacuyTxAndVerify,
@@ -16,6 +20,8 @@ export {
     getWiracochaInfoForAccount,
     signWiracochaTxAndReceivePcuy,
 } from "./wiracocha";
+
+export { getListOfHatunWasis, getAHatunWasi } from "./hatunWasi";
 
 import busdAbi from "./abi/busdAbi";
 import nftpAbi from "./abi/nftpAbi";
@@ -49,12 +55,21 @@ var pcuyContract: Contract;
 export function init(_provider: providers.ExternalProvider): Contract[] {
     var [tataCuyContract] = initTatacuy(_provider);
     var [wiracochaContract] = initWiracocha(_provider);
+    var [chakraContract] = initChakra(_provider);
+    var [hatunWasiContract] = initHatunWasi(_provider);
     provider = new providers.Web3Provider(_provider);
     busdContract = new Contract(busdAddress, busdAbi, provider);
     nftpContract = new Contract(nftpAddress, nftpAbi, provider);
     pacContract = new Contract(pacAddress, pacAbi, provider);
     pcuyContract = new Contract(pcuyTokenAddress, pcuyAbi, provider);
-    return [nftpContract, pacContract, tataCuyContract, wiracochaContract];
+    return [
+        nftpContract,
+        pacContract,
+        tataCuyContract,
+        wiracochaContract,
+        chakraContract,
+        hatunWasiContract,
+    ];
 }
 
 ////////////////////////
@@ -423,5 +438,49 @@ export async function mintWiracocha(
     _numberOfConfirmations: number = 1
 ) {
     var tx = await nftpContract.connect(_signer).mintWiracocha(_pachaUuid);
+    return await tx.wait(_numberOfConfirmations);
+}
+
+////////////////////////
+///      Chakra      ///
+////////////////////////
+export async function purchaseChakra(
+    _signer: Signer,
+    _pachaUuid: number,
+    _numberOfConfirmations: number = 1
+) {
+    var tx = await nftpContract.connect(_signer).purchaseChakra(_pachaUuid);
+    return await tx.wait(_numberOfConfirmations);
+}
+
+export async function purchaseFoodFromChakra(
+    _signer: Signer,
+    _chakraUuid: number,
+    _numberOfConfirmations: number = 1
+) {
+    var tx = await nftpContract
+        .connect(_signer)
+        .purchaseFoodFromChakra(_chakraUuid);
+    return await tx.wait(_numberOfConfirmations);
+}
+
+export async function burnChakra(
+    _signer: Signer,
+    _chakraUuid: number,
+    _numberOfConfirmations: number = 1
+) {
+    var tx = await nftpContract.connect(_signer).burnChakra(_chakraUuid);
+    return await tx.wait(_numberOfConfirmations);
+}
+
+////////////////////////
+///    Hatun Wasi    ///
+////////////////////////
+export async function mintHatunWasi(
+    _signer: Signer,
+    _pachaUuid: number,
+    _numberOfConfirmations: number = 1
+) {
+    var tx = await nftpContract.connect(_signer).mintHatunWasi(_pachaUuid);
     return await tx.wait(_numberOfConfirmations);
 }

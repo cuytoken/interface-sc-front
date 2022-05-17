@@ -23,6 +23,8 @@ var nftpAbiList = [
   "getPachaPassData",
   "mintTatacuy",
   "mintWiracocha",
+  "burnChakra",
+  "mintHatunWasi",
 ];
 
 var pacAbiList = [
@@ -36,6 +38,8 @@ var pacAbiList = [
   "purchaseLandWithPcuy",
   "purchasePachaPassWithPcuy",
   "purchasePachaPassWithBusd",
+  "purchaseChakra",
+  "purchaseFoodFromChakra",
 ];
 
 var pachacuyAbiList = ["balanceOf"];
@@ -49,6 +53,10 @@ var tatacuyAbiList = [
 ];
 
 var wiracochaAbiList = ["getWiracochaInfoForAccount"];
+
+var chakraAbiList = ["getChakraWithUuid", "getListOfChakrasWithFood"];
+
+var hatunWasiAbiList = ["getListOfHatunWasis", "getAHatunWasi"];
 
 async function main() {
   var files = await readdir(path);
@@ -76,6 +84,12 @@ async function main() {
     } else if (file.includes("preWiracocha")) {
       endFile += "wiracochaAbi.ts";
       list = wiracochaAbiList;
+    } else if (file.includes("preChakra")) {
+      endFile += "chakraAbi.ts";
+      list = chakraAbiList;
+    } else if (file.includes("preHatunWasi")) {
+      endFile += "hatunWasiAbi.ts";
+      list = hatunWasiAbiList;
     }
 
     abi = abi.filter((line) => {
