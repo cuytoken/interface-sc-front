@@ -1,10 +1,10 @@
 "use strict";
 import { BigNumber, Contract, ethers, providers, Signer } from "ethers";
 
-declare var __pachacuyInformationAddress__: string;
+declare var __pachacuyInfoAddress__: string;
 declare var __rpcBinance__: string;
 
-var pachacuyInformationAddress = __pachacuyInformationAddress__;
+var pachacuyInformationAddress = __pachacuyInfoAddress__;
 var rpcBinance = __rpcBinance__;
 
 import pachacuyInformationAbi from "./abi/pachacuyInfoAbi";
@@ -52,4 +52,27 @@ export async function getInformationByRank(
 
 export async function getExchangeRatePcuyToSami(): Promise<number> {
     return await pachacuyInformationContract.getExchangeRatePcuyToSami();
+}
+
+export interface BoxesPerDayPerPachaDx {
+    previousAmount: number;
+    newAmount: number;
+}
+export interface MinimumSamiPointsDx {
+    previousAmount: number;
+    newAmount: number;
+}
+export interface MaximumSamiPointsDx {
+    previousAmount: number;
+    newAmount: number;
+}
+export interface InfoByRankUpdate {
+    rank: number;
+    maxSamiPoints: number;
+    boxes: number;
+    affectation: number;
+}
+export interface ExchangeRatePcuyToSamiDx {
+    previousAmount: number;
+    amount: number;
 }

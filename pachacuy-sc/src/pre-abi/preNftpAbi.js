@@ -393,6 +393,16 @@ module.exports = [
     type: "function",
   },
   {
+    inputs: [{ internalType: "address", name: "_account", type: "address" }],
+    name: "getListOfUuidsPerAccount",
+    outputs: [
+      { internalType: "uint256[]", name: "_listOfUuids", type: "uint256[]" },
+      { internalType: "bytes32[]", name: "_listOfTypes", type: "bytes32[]" },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
     inputs: [{ internalType: "bytes32", name: "role", type: "bytes32" }],
     name: "getRoleAdmin",
     outputs: [{ internalType: "bytes32", name: "", type: "bytes32" }],

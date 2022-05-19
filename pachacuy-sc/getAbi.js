@@ -25,6 +25,7 @@ var nftpAbiList = [
   "mintWiracocha",
   "burnChakra",
   "mintHatunWasi",
+  "getListOfUuidsPerAccount",
 ];
 
 var pacAbiList = [
@@ -52,7 +53,11 @@ var tatacuyAbiList = [
   "tryMyLuckTatacuy",
 ];
 
-var wiracochaAbiList = ["getWiracochaInfoForAccount"];
+var wiracochaAbiList = [
+  "getWiracochaInfoForAccount",
+  "exchangeSamiToPcuy",
+  "WiracochaExchange",
+];
 
 var chakraAbiList = ["getChakraWithUuid", "getListOfChakrasWithFood"];
 

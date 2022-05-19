@@ -30,30 +30,35 @@ export function initWiracocha(
 }
 
 // All properties on a domain are optional
-const domain = {
+var domain = {
     name: "Wiracocha",
     version: "alpha",
-    chainId,
+    chainId: "97",
     verifyingContract: wiracochaAddress,
 };
 
 // The named list of all type definitions
-const types = {
-    Wiracocha: [
+var types = {
+    TatacuyGame: [
         { name: "context", type: "string" },
         { name: "guineaPig", type: "string" },
         { name: "wallet", type: "address" },
+        { name: "pachaUuid", type: "string" },
         { name: "samiPoints", type: "string" },
+        { name: "amountPcuy", type: "string" },
     ],
 };
 
 // The data to sign
-const value = {
-    context: "Exchanging Sami Points to $PCUY",
+var value = {
+    context: "Exchanging Sami Points to PCUYs",
     guineaPig: "",
     wallet: "",
+    pachaUuid: "",
     samiPoints: "",
+    amountPcuy: "",
 };
+
 
 /**
  * @notice Signs a transaction for exchanging Sami Points by Pacuy tokens
@@ -62,6 +67,8 @@ const value = {
  * @param _samiPoints: Sami points to be exchanged by a Guinea Pig at Wiracocha
  * @param _pachaOwner: Wallet address of the pacha owner
  * @param _pachaUuid: Uuid of the pacha when it was minted
+ * @param _amountPcuy: Amount of PCUY to receive
+ * @param _rateSamiPointsToPcuy: Exchange rate being applied to convert Sami Points to PCUYs
  */
 export async function signWiracochaTxAndReceivePcuy(
     _signer: SignerData,
@@ -75,7 +82,9 @@ export async function signWiracochaTxAndReceivePcuy(
     // Signing the transaction
     value.guineaPig = String(_guineaPigUuid);
     value.wallet = _signer._address;
+    value.pachaUuid = String(_pachaUuid);
     value.samiPoints = String(_samiPoints);
+    value.amountPcuy = String(_amountPcuy);
     var signature = await _signer._signTypedData(domain, types, value);
 
     // Validating in Cloud
@@ -84,8 +93,6 @@ export async function signWiracochaTxAndReceivePcuy(
     var payload = {
         ...value,
         pachaOwner: _pachaOwner,
-        pachaUuid: _pachaUuid,
-        amountPcuy: _amountPcuy,
         rateSamiPointsToPcuy: _rateSamiPointsToPcuy,
         signature,
     };

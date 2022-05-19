@@ -211,6 +211,10 @@ interface NftList {
     guineaPigs: number[];
     lands: number[];
     pachaPasses: number[];
+    tatacuy: number[];
+    wiracocha: number[];
+    chakra: number[];
+    hatunwasi: number[];
 }
 /**
  * @dev Get's a list of all the NFTs owned by the user separated in two arrays
@@ -231,10 +235,46 @@ export async function getListOfNftsPerAccount(
         (number: BigNumber) => number.toString() != String(0)
     );
 
+    var TATACUY = ethers.utils.keccak256(ethers.utils.toUtf8Bytes("TATACUY"));
+    var WIRACOCHA = ethers.utils.keccak256(ethers.utils.toUtf8Bytes("WIRACOCHA"));
+    var CHAKRA = ethers.utils.keccak256(ethers.utils.toUtf8Bytes("CHAKRA"));
+    var HATUNWASI = ethers.utils.keccak256(ethers.utils.toUtf8Bytes("HATUNWASI"));
+
+    var { _listOfUuids, _listOfTypes } =
+        await nftpContract.getListOfUuidsPerAccount(_account);
+
+    var tatacuy = [];
+    var wiracocha = [];
+    var chakra = [];
+    var hatunwasi = [];
+
+    for (var ix = 0; ix < _listOfUuids.length; ix++) {
+        switch (_listOfTypes[ix]) {
+            case TATACUY:
+                tatacuy.push(ix);
+                break;
+            case WIRACOCHA:
+                wiracocha.push(ix);
+                break;
+            case CHAKRA:
+                chakra.push(ix);
+                break;
+            case HATUNWASI:
+                hatunwasi.push(ix);
+                break;
+            default:
+                break;
+        }
+    }
+
     return {
         guineaPigs,
         lands,
         pachaPasses,
+        tatacuy,
+        wiracocha,
+        chakra,
+        hatunwasi,
     };
 }
 
@@ -449,7 +489,7 @@ export async function purchaseChakra(
     _pachaUuid: number,
     _numberOfConfirmations: number = 1
 ) {
-    var tx = await nftpContract.connect(_signer).purchaseChakra(_pachaUuid);
+    var tx = await pacContract.connect(_signer).purchaseChakra(_pachaUuid);
     return await tx.wait(_numberOfConfirmations);
 }
 
@@ -458,7 +498,7 @@ export async function purchaseFoodFromChakra(
     _chakraUuid: number,
     _numberOfConfirmations: number = 1
 ) {
-    var tx = await nftpContract
+    var tx = await pacContract
         .connect(_signer)
         .purchaseFoodFromChakra(_chakraUuid);
     return await tx.wait(_numberOfConfirmations);

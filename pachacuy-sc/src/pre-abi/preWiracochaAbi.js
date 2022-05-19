@@ -132,6 +132,49 @@ module.exports = [
     type: "event",
   },
   {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "exchanger",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "address",
+        name: "pachaOwner",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "pachaUuid",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "amountPcuy",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "samiPoints",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "rateSamiPointsToPcuy",
+        type: "uint256",
+      },
+    ],
+    name: "WiracochaExchange",
+    type: "event",
+  },
+  {
     inputs: [],
     name: "DEFAULT_ADMIN_ROLE",
     outputs: [{ internalType: "bytes32", name: "", type: "bytes32" }],
@@ -161,7 +204,8 @@ module.exports = [
   },
   {
     inputs: [
-      { internalType: "address", name: "_account", type: "address" },
+      { internalType: "address", name: "_exchanger", type: "address" },
+      { internalType: "address", name: "_pachaOwner", type: "address" },
       { internalType: "uint256", name: "_pachaUuid", type: "uint256" },
       { internalType: "uint256", name: "_samiPoints", type: "uint256" },
       { internalType: "uint256", name: "_amountPcuy", type: "uint256" },
@@ -305,7 +349,7 @@ module.exports = [
         type: "address",
       },
     ],
-    name: "setAddressPurchaseAssetController",
+    name: "setAddPAController",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
