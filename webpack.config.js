@@ -19,15 +19,15 @@ if (isProduction) {
 } else {
   busdAddress = "0x8f1c7aaf8ec93a500657aec7c030d392fd4caa13";
   // SC
-  pachacuyInfoAddress = "0x9eadf5161b66046386e24a6c13179b134d0b7af5";
-  randomNumber_PLACEHOLDER = "0xdfc303e10a29ba6970da02540413d469ebe9eaf3";
-  pacAddress = "0x85747e1602965e0085fd5eb6718fbc4455134318";
-  nftpAddress = "0xd991d1c6e5c669b8aec320816726a32e69b3db42";
-  tatacuyAddress = "0xe949b78721d9d7e7a2bd18860fbcbe0e9e8794bf";
-  wiracochaAddress = "0x77dd16139d3fc8a007a69addb66e14cfbf9b2905";
-  pcuyTokenAddress = "0x8cd05abeac7cd0b36a00f4e43bffbbf42c0741f5";
-  chakraAddress = "0xded7db3093c9a416e768dbf830a3f65227e68480";
-  hatunWasiAddress = "0xdf237f13d8f6d20607cc895c393e0b41d19a913b";
+  pachacuyInfoAddress = "0xC980069bEAe792be83906DC7996dDdb5aCC04938";
+  randomNumber_PLACEHOLDER = "0xc1A3C119955896DF5eE0327b50529A66aEe08052";
+  pacAddress = "0x04DA3bCB953Dd65eA5E4CEB6586d0ae4C002a467";
+  nftpAddress = "0x5B42d7906AE52DdEf9751a347f303789753cACD1";
+  tatacuyAddress = "0xd09Eb12047905B6C4Ec9f445D6871346645c1e8c";
+  wiracochaAddress = "0xd5906d1A3596749652A428eC908F2fF8Db915b4C";
+  pcuyTokenAddress = "0xD594033986130a2D4F8c15f3Bf8B5b10B66a9bb4";
+  chakraAddress = "0x3a0a404d9123deADd0A41bc4dAEBbA417C800389";
+  hatunWasiAddress = "0x23fc03e634a686d74d96641F40251D9855A544F0";
 
   chainId = "97";
   rpcBinance = "https://data-seed-prebsc-1-s1.binance.org:8545/";

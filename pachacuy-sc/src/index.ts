@@ -464,9 +464,17 @@ export async function mintTatacuy(
     _signer: Signer,
     _pachaUuid: number,
     _numberOfConfirmations: number = 1
-) {
+): Promise<BigNumber> {
     var tx = await nftpContract.connect(_signer).mintTatacuy(_pachaUuid);
-    return await tx.wait(_numberOfConfirmations);
+    var res = await tx.wait(_numberOfConfirmations);
+    var topic =
+        "0x9f87cb7b8a6c54debaaa0d12a571441914663d4a4300341e3805f85b854ee337";
+    for (var ev of res.events) {
+        if (ev.topics.includes(topic)) {
+            return ethers.BigNumber.from(ev.data);
+        }
+    }
+    return ethers.BigNumber.from(0);
 }
 
 ////////////////////////
@@ -476,9 +484,17 @@ export async function mintWiracocha(
     _signer: Signer,
     _pachaUuid: number,
     _numberOfConfirmations: number = 1
-) {
+): Promise<BigNumber> {
     var tx = await nftpContract.connect(_signer).mintWiracocha(_pachaUuid);
-    return await tx.wait(_numberOfConfirmations);
+    var res = await tx.wait(_numberOfConfirmations);
+    var topic =
+        "0x9f87cb7b8a6c54debaaa0d12a571441914663d4a4300341e3805f85b854ee337";
+    for (var ev of res.events) {
+        if (ev.topics.includes(topic)) {
+            return ethers.BigNumber.from(ev.data);
+        }
+    }
+    return ethers.BigNumber.from(0);
 }
 
 ////////////////////////
@@ -488,9 +504,17 @@ export async function purchaseChakra(
     _signer: Signer,
     _pachaUuid: number,
     _numberOfConfirmations: number = 1
-) {
+): Promise<BigNumber> {
     var tx = await pacContract.connect(_signer).purchaseChakra(_pachaUuid);
-    return await tx.wait(_numberOfConfirmations);
+    var res = await tx.wait(_numberOfConfirmations);
+    var topic =
+        "0x9f87cb7b8a6c54debaaa0d12a571441914663d4a4300341e3805f85b854ee337";
+    for (var ev of res.events) {
+        if (ev.topics.includes(topic)) {
+            return ethers.BigNumber.from(ev.data);
+        }
+    }
+    return ethers.BigNumber.from(0);
 }
 
 export async function purchaseFoodFromChakra(
@@ -520,7 +544,15 @@ export async function mintHatunWasi(
     _signer: Signer,
     _pachaUuid: number,
     _numberOfConfirmations: number = 1
-) {
+): Promise<BigNumber> {
     var tx = await nftpContract.connect(_signer).mintHatunWasi(_pachaUuid);
-    return await tx.wait(_numberOfConfirmations);
+    var res = await tx.wait(_numberOfConfirmations);
+    var topic =
+        "0x9f87cb7b8a6c54debaaa0d12a571441914663d4a4300341e3805f85b854ee337";
+    for (var ev of res.events) {
+        if (ev.topics.includes(topic)) {
+            return ethers.BigNumber.from(ev.data);
+        }
+    }
+    return ethers.BigNumber.from(0);
 }
