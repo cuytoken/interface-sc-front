@@ -14,6 +14,7 @@ export {
     getListOfTatacuyCampaigns,
     getTatacuyInfoForAccount,
     startTatacuyCampaign,
+    TatacuyTryMyLuckResult,
 } from "./tatacuy";
 
 export {

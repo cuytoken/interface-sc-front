@@ -38,6 +38,37 @@ module.exports = [
       {
         indexed: false,
         internalType: "address",
+        name: "tatacuyOwner",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "totalSamiPoints",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "samiPointsClaimed",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "changeSamiPoints",
+        type: "uint256",
+      },
+    ],
+    name: "FinishTatacuyCampaign",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "address",
         name: "account",
         type: "address",
       },
@@ -123,25 +154,7 @@ module.exports = [
       {
         indexed: false,
         internalType: "uint256",
-        name: "ratePcuyToSamiPoints",
-        type: "uint256",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "totalFundsSamiPoints",
-        type: "uint256",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "prizePerWinnerSamiPoints",
-        type: "uint256",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "dateOfCreation",
+        name: "_prizePerWinnerPcuy",
         type: "uint256",
       },
     ],
@@ -158,6 +171,12 @@ module.exports = [
         type: "address",
       },
       { indexed: false, internalType: "bool", name: "hasWon", type: "bool" },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "prizeWinner",
+        type: "uint256",
+      },
       {
         indexed: false,
         internalType: "uint256",
@@ -181,6 +200,12 @@ module.exports = [
         internalType: "address",
         name: "pachaOwner",
         type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "idFromFront",
+        type: "uint256",
       },
     ],
     name: "TatacuyTryMyLuckResult",
@@ -250,7 +275,7 @@ module.exports = [
   {
     inputs: [{ internalType: "uint256", name: "_pachaUuid", type: "uint256" }],
     name: "finishTatacuyCampaign",
-    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    outputs: [],
     stateMutability: "nonpayable",
     type: "function",
   },
@@ -427,19 +452,6 @@ module.exports = [
   },
   {
     inputs: [],
-    name: "purchaseAssetController",
-    outputs: [
-      {
-        internalType: "contract IPurchaseAssetController",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
     name: "randomNumberGenerator",
     outputs: [
       {
@@ -485,13 +497,9 @@ module.exports = [
   },
   {
     inputs: [
-      {
-        internalType: "address",
-        name: "_purchaseAssetController",
-        type: "address",
-      },
+      { internalType: "address", name: "_infoAddress", type: "address" },
     ],
-    name: "setAddressPurchaseAssetController",
+    name: "setPachacuyInfoAddress",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -505,21 +513,7 @@ module.exports = [
         name: "_totalFundsPcuyDeposited",
         type: "uint256",
       },
-      {
-        internalType: "uint256",
-        name: "_ratePcuyToSamiPoints",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "_totalFundsSamiPoints",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "_prizePerWinnerSamiPoints",
-        type: "uint256",
-      },
+      { internalType: "uint256", name: "_prizePerWinnerPcuy", type: "uint256" },
     ],
     name: "startTatacuyCampaign",
     outputs: [],
@@ -539,6 +533,7 @@ module.exports = [
       { internalType: "address", name: "_pachaOwner", type: "address" },
       { internalType: "uint256", name: "_pachaUuid", type: "uint256" },
       { internalType: "uint256", name: "_likelihood", type: "uint256" },
+      { internalType: "uint256", name: "_idFromFront", type: "uint256" },
     ],
     name: "tryMyLuckTatacuy",
     outputs: [],

@@ -109,6 +109,7 @@ export async function finishTatacuyCampaign(
     var tx = await tatacuyContract
         .connect(_signer)
         .finishTatacuyCampaign(_pachaUuid);
+    // PENDING APPLY TOPIC FILTER
     return await tx.wait(_numberOfConfirmations);
 }
 
@@ -169,35 +170,48 @@ export async function getTatacuyInfoForAccount(
 /**
  * @dev Starts a Tatacuy Campaign for a particular account and saves its info
  * @dev A user can create as many campaigns as Tatacuys he has
- * @param _signer: Signer of the transaction (provider.getSigner(account))
  * @param _pachaUuid: Uuid of the Pacha that will received a Tatacuy
  * @param _tatacuyUuid: Uuid assigned when a Tatacuy was minted
- * @param _totalFundsPcuyDeposited: Total funds (in Sami Points) to be distributed in a Tatacuy campaign
- * @param _ratePcuyToSamiPoints: Total funds (in Sami Points) to be distributed in a Tatacuy campaign
- * @param _totalFundsSamiPoints: Total funds (in Sami Points) to be distributed in a Tatacuy campaign
- * @param _prizePerWinnerSamiPoints: Prize (in Sami Points) to be given to a winner after playing at Tatacuy
- * @param _numberOfConfirmations: Optional pass the number of confirmations to wait for
+ * @param _totalFundsPcuyDeposited: Total funds (in PCUY) to be distributed in a Tatacuy campaign
+ * @param _prizePerWinnerPcuy: Prize to be given (in PCUY) to each winner at tatacuy
  */
 export async function startTatacuyCampaign(
     _signer: Signer,
     _pachaUuid: number,
     _tatacuyUuid: number,
     _totalFundsPcuyDeposited: number,
-    _ratePcuyToSamiPoints: number,
-    _totalFundsSamiPoints: number,
-    _prizePerWinnerSamiPoints: number,
+    _prizePerWinnerPcuy: number,
     _numberOfConfirmations: number = 1
 ) {
     var tx = await tatacuyContract
         .connect(_signer)
         .startTatacuyCampaign(
-            _signer,
             _pachaUuid,
             _tatacuyUuid,
             _totalFundsPcuyDeposited,
-            _ratePcuyToSamiPoints,
-            _totalFundsSamiPoints,
-            _prizePerWinnerSamiPoints
+            _prizePerWinnerPcuy
         );
     return await tx.wait(_numberOfConfirmations);
+}
+
+/**
+ * @notice Event emitted when there is a result from playing at Tatacuy
+ * @param account: wallet address of the player at tatacuy
+ * @param hasWon: indicates (boolean) whether the player has won or loose
+ * @param prizeWinner: amount of sami points to be given to the winner
+ * @param likelihood: chances of winning at Tatacuy (1 to 10)
+ * @param pachaUuid: uuid of the pacha when it was minted
+ * @param tatacuyUuid: uuid of the tatacuy when it was minted
+ * @param pachaOwner: wallet address of the pacha owner
+ * @param idFromFront: An ID coming from front to keep track of the winner at Tatacuy
+ */
+export interface TatacuyTryMyLuckResult {
+    account: string;
+    hasWon: boolean;
+    prizeWinner: number;
+    likelihood: number;
+    pachaUuid: number;
+    tatacuyUuid: number;
+    pachaOwner: string;
+    idFromFront: number;
 }

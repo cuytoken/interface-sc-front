@@ -50,10 +50,46 @@ export async function getInformationByRank(
     return await pachacuyInformationContract.getInformationByRank(_rank);
 }
 
+////////////////////////
+///  EXCHANGE RATE   ///
+////////////////////////
 export async function getExchangeRatePcuyToSami(): Promise<number> {
     return await pachacuyInformationContract.getExchangeRatePcuyToSami();
 }
 
+export async function convertBusdToPcuy(_busdAmount: number): Promise<number> {
+    return await pachacuyInformationContract.convertBusdToPcuy(_busdAmount);
+}
+export async function convertPcuyToSami(_pcuyAmount: number): Promise<number> {
+    return await pachacuyInformationContract.convertPcuyToSami(_pcuyAmount);
+}
+export async function convertSamiToPcuy(_samiAmount: number): Promise<number> {
+    return await pachacuyInformationContract.convertSamiToPcuy(_samiAmount);
+}
+
+export async function exchangeRateBusdToPcuy(): Promise<number> {
+    return await pachacuyInformationContract.exchangeRateBusdToPcuy();
+}
+export async function exchangeRatePcuyToSami(): Promise<number> {
+    return await pachacuyInformationContract.exchangeRatePcuyToSami();
+}
+
+export async function chakraPrice(): Promise<number> {
+    return await pachacuyInformationContract.chakraPrice();
+}
+export async function misayWasiPrice(): Promise<number> {
+    return await pachacuyInformationContract.misayWasiPrice();
+}
+export async function pachaPrice(): Promise<number> {
+    return await pachacuyInformationContract.pachaPrice();
+}
+export async function qhatuWasiPrice(): Promise<number> {
+    return await pachacuyInformationContract.qhatuWasiPrice();
+}
+
+////////////////////////
+///      EVENTS      ///
+////////////////////////
 export interface BoxesPerDayPerPachaDx {
     previousAmount: number;
     newAmount: number;
@@ -73,6 +109,10 @@ export interface InfoByRankUpdate {
     affectation: number;
 }
 export interface ExchangeRatePcuyToSamiDx {
+    previousAmount: number;
+    amount: number;
+}
+export interface ExchangeRateBusdToPcuyDx {
     previousAmount: number;
     amount: number;
 }

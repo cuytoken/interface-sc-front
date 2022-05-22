@@ -11,23 +11,26 @@ var chakraAddress;
 var hatunWasiAddress;
 var pachacuyInfoAddress;
 var chainId;
+var tatacuyEndPoinValidation;
 
 const isProduction = process.env.NODE_ENV == "production";
 
 if (isProduction) {
   chainId = "56";
 } else {
+  tatacuyEndPoinValidation =
+    "3.80.7.117:3000/tatacuy/gift-participations/0x718429dde591a305610a664c7046664422095ac3/wallet/1652859269000/timestamp";
   busdAddress = "0x8f1c7aaf8ec93a500657aec7c030d392fd4caa13";
   // SC
-  pachacuyInfoAddress = "0xC980069bEAe792be83906DC7996dDdb5aCC04938";
-  randomNumber_PLACEHOLDER = "0xc1A3C119955896DF5eE0327b50529A66aEe08052";
-  pacAddress = "0x04DA3bCB953Dd65eA5E4CEB6586d0ae4C002a467";
-  nftpAddress = "0x5B42d7906AE52DdEf9751a347f303789753cACD1";
-  tatacuyAddress = "0xd09Eb12047905B6C4Ec9f445D6871346645c1e8c";
-  wiracochaAddress = "0xd5906d1A3596749652A428eC908F2fF8Db915b4C";
-  pcuyTokenAddress = "0xD594033986130a2D4F8c15f3Bf8B5b10B66a9bb4";
-  chakraAddress = "0x3a0a404d9123deADd0A41bc4dAEBbA417C800389";
-  hatunWasiAddress = "0x23fc03e634a686d74d96641F40251D9855A544F0";
+  pachacuyInfoAddress = "0xcF2dbF4C6C3574c5Aa189dd1630cfBcCfCbd3821";
+  randomNumber_PLACEHOLDER = "0xE10Dd96e835bB644ED5ee56F8aeC22fa919001bc";
+  pacAddress = "0xaAD60f7776a309096B412544EfB2A0340CC7D25A";
+  nftpAddress = "0xae4c9B5aFCa4ce804cD9c6f39D8B6ed761fa6b1d";
+  tatacuyAddress = "0x7dc7ea4A35879D6cb3A0f40076671e8c768952cA";
+  wiracochaAddress = "0xA5100bE10f9e9da4cD1bA33553Fe119861E11a27";
+  pcuyTokenAddress = "0x88114135e76b555490d9040c1d01A548B0570e99";
+  chakraAddress = "0xab87082eCac2A7D4fcAB8Fa8f097C9C4F75E05D1";
+  hatunWasiAddress = "0xE6E11D8825420cDe677a78057053BEEf5490664B";
 
   chainId = "97";
   rpcBinance = "https://data-seed-prebsc-1-s1.binance.org:8545/";

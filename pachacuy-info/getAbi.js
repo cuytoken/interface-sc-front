@@ -11,6 +11,17 @@ var pachacuyInformationAbi = [
   "MaximumSamiPointsDx",
   "InfoByRankUpdated",
   "getExchangeRatePcuyToSami",
+  "ExchangeRatePcuyToSamiDx",
+  "ExchangeRateBusdToPcuyDx",
+  "exchangeRatePcuyToSami",
+  "exchangeRateBusdToPcuy",
+  "convertBusdToPcuy",
+  "convertPcuyToSami",
+  "convertSamiToPcuy",
+  "chakraPrice",
+  "pachaPrice",
+  "qhatuWasiPrice",
+  "misayWasiPrice",
 ];
 
 async function main() {

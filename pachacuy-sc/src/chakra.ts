@@ -20,7 +20,6 @@ export function initChakra(_provider: providers.ExternalProvider): Contract[] {
     return [chakraContract];
 }
 
-
 /**
  * @dev Details the information of a Tatacuy. Additional properties attached for its campaign
  * @param owner: Wallet address of the current owner of the Tatacuy
@@ -45,10 +44,30 @@ interface ChakraInfo {
     hasChakra: boolean;
 }
 
-export async function getChakraWithUuid(_chakraUuid: number): Promise<ChakraInfo> {
+export async function getChakraWithUuid(
+    _chakraUuid: number
+): Promise<ChakraInfo> {
     return await chakraContract.getChakraWithUuid(_chakraUuid);
 }
 
 export async function getListOfChakrasWithFood(): Promise<ChakraInfo[]> {
     return await chakraContract.getListOfChakrasWithFood();
+}
+
+/**
+ * @param _signer: Signer of the transaction(provider.getSigner(account))
+ * @param _chakraUuid: Uuid of chakra where food is being purchased
+ * @param _pricePerFood: Price of food to be set by the owner of chakra
+ * @param _numberOfConfirmations: Optional pass the number of confirmations to wait for
+ */
+export async function updateFoodPriceAtChakra(
+    _signer: Signer,
+    _chakraUuid: number,
+    _pricePerFood: number,
+    _numberOfConfirmations: number = 1
+) {
+    var tx = await chakraContract
+        .connect(_signer)
+        .updateFoodPriceAtChakra(_chakraUuid, _pricePerFood);
+    return await tx.wait(_numberOfConfirmations);
 }

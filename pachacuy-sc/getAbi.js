@@ -51,6 +51,8 @@ var tatacuyAbiList = [
   "getTatacuyInfoForAccount",
   "getListOfTatacuyCampaigns",
   "tryMyLuckTatacuy",
+  "FinishTatacuyCampaign",
+  "TatacuyTryMyLuckResult",
 ];
 
 var wiracochaAbiList = [
@@ -59,7 +61,11 @@ var wiracochaAbiList = [
   "WiracochaExchange",
 ];
 
-var chakraAbiList = ["getChakraWithUuid", "getListOfChakrasWithFood"];
+var chakraAbiList = [
+  "getChakraWithUuid",
+  "getListOfChakrasWithFood",
+  "updateFoodPriceAtChakra",
+];
 
 var hatunWasiAbiList = ["getListOfHatunWasis", "getAHatunWasi"];
 

@@ -45,7 +45,6 @@ var types = {
         { name: "wallet", type: "address" },
         { name: "pachaUuid", type: "string" },
         { name: "samiPoints", type: "string" },
-        { name: "amountPcuy", type: "string" },
     ],
 };
 
@@ -56,7 +55,6 @@ var value = {
     wallet: "",
     pachaUuid: "",
     samiPoints: "",
-    amountPcuy: "",
 };
 
 
@@ -67,8 +65,6 @@ var value = {
  * @param _samiPoints: Sami points to be exchanged by a Guinea Pig at Wiracocha
  * @param _pachaOwner: Wallet address of the pacha owner
  * @param _pachaUuid: Uuid of the pacha when it was minted
- * @param _amountPcuy: Amount of PCUY to receive
- * @param _rateSamiPointsToPcuy: Exchange rate being applied to convert Sami Points to PCUYs
  */
 export async function signWiracochaTxAndReceivePcuy(
     _signer: SignerData,
@@ -76,15 +72,12 @@ export async function signWiracochaTxAndReceivePcuy(
     _samiPoints: number,
     _pachaOwner: string,
     _pachaUuid: number,
-    _amountPcuy: number,
-    _rateSamiPointsToPcuy: number
 ): Promise<boolean> {
     // Signing the transaction
     value.guineaPig = String(_guineaPigUuid);
     value.wallet = _signer._address;
     value.pachaUuid = String(_pachaUuid);
     value.samiPoints = String(_samiPoints);
-    value.amountPcuy = String(_amountPcuy);
     var signature = await _signer._signTypedData(domain, types, value);
 
     // Validating in Cloud
@@ -93,7 +86,6 @@ export async function signWiracochaTxAndReceivePcuy(
     var payload = {
         ...value,
         pachaOwner: _pachaOwner,
-        rateSamiPointsToPcuy: _rateSamiPointsToPcuy,
         signature,
     };
     var data = {
