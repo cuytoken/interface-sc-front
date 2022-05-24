@@ -57,7 +57,6 @@ var value = {
     samiPoints: "",
 };
 
-
 /**
  * @notice Signs a transaction for exchanging Sami Points by Pacuy tokens
  * @param _signer: Signer of the transaction (provider.getSigner(account))
@@ -71,7 +70,7 @@ export async function signWiracochaTxAndReceivePcuy(
     _guineaPigUuid: number,
     _samiPoints: number,
     _pachaOwner: string,
-    _pachaUuid: number,
+    _pachaUuid: number
 ): Promise<boolean> {
     // Signing the transaction
     value.guineaPig = String(_guineaPigUuid);
@@ -113,4 +112,24 @@ export async function getWiracochaInfoForAccount(
     _pachaUuid: number
 ): Promise<WiracochaInfo> {
     return wiracochaContract.getWiracochaInfoForAccount(_account, _pachaUuid);
+}
+
+/**
+ * @notice Fired after a guinea pig gives sami points and gets back PCUY tokens
+ * @param exchanger: wallet address of the guinea pig exchanging Sami Points to PCUY tokens
+ * @param pachaOwner: wallet addres of the pacha owner
+ * @param pachaUuid: uuid of the pacha when it was minted
+ * @param amountPcuy: amount of PCUY tokens gained as a result of the exchanged
+ * @param totalPcuyBalance: total PCUY tokens of the exchanger's wallet address
+ * @param samiPoints: samit points to be given
+ * @param ratePcuyToSami: rate applied to exchange PCUY to Sami
+ */
+export interface WiracochaExchange {
+    exchanger: string;
+    pachaOwner: string;
+    pachaUuid: number;
+    amountPcuy: number;
+    totalPcuyBalance: number;
+    samiPoints: number;
+    ratePcuyToSami: number;
 }

@@ -1,5 +1,5 @@
 import { TypedDataSigner } from "@ethersproject/abstract-signer";
-import { Contract, providers, Signer } from "ethers";
+import { Contract, providers, Signer, ethers } from "ethers";
 
 import tatacuyAbi from "./abi/tatacuyAbi";
 
@@ -94,6 +94,13 @@ export async function signTatacuyTxAndVerify(
     return await res.json();
 }
 
+export interface IFinishTatacuy {
+    tatacuyOwner: string;
+    totalSamiPoints: number;
+    samiPointsClaimed: number;
+    changeSamiPoints: number;
+}
+
 /**
  * @dev Finished a Tatacuy campaign and returns the amount of Sami Points remaining in the campaign
  * @param _signer: Signer of the transaction (provider.getSigner(account))
@@ -104,13 +111,27 @@ export async function finishTatacuyCampaign(
     _signer: Signer,
     _pachaUuid: number,
     _numberOfConfirmations: number = 1
-): Promise<number> {
+): Promise<IFinishTatacuy> {
     if (!provider) throw new Error("No provider set");
     var tx = await tatacuyContract
         .connect(_signer)
         .finishTatacuyCampaign(_pachaUuid);
-    // PENDING APPLY TOPIC FILTER
-    return await tx.wait(_numberOfConfirmations);
+
+    var res = await tx.wait(_numberOfConfirmations);
+    var topic =
+        "0x66267755a2fa60145357d3d833bf483b85709ef52488982aced05d7c17fcb70b";
+
+    var args;
+    for (var ev of res.events) {
+        if (ev.topics.includes(topic)) {
+            args = ev.args;
+            break;
+        }
+    }
+    var { tatacuyOwner, totalSamiPoints, samiPointsClaimed, changeSamiPoints } =
+        args;
+
+    return { tatacuyOwner, totalSamiPoints, samiPointsClaimed, changeSamiPoints };
 }
 
 /**

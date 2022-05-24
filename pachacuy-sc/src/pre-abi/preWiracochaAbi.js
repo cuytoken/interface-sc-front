@@ -161,13 +161,19 @@ module.exports = [
       {
         indexed: false,
         internalType: "uint256",
+        name: "totalPcuyBalance",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
         name: "samiPoints",
         type: "uint256",
       },
       {
         indexed: false,
         internalType: "uint256",
-        name: "rateSamiPointsToPcuy",
+        name: "ratePcuyToSami",
         type: "uint256",
       },
     ],
@@ -208,12 +214,6 @@ module.exports = [
       { internalType: "address", name: "_pachaOwner", type: "address" },
       { internalType: "uint256", name: "_pachaUuid", type: "uint256" },
       { internalType: "uint256", name: "_samiPoints", type: "uint256" },
-      { internalType: "uint256", name: "_amountPcuy", type: "uint256" },
-      {
-        internalType: "uint256",
-        name: "_rateSamiPointsToPcuy",
-        type: "uint256",
-      },
     ],
     name: "exchangeSamiToPcuy",
     outputs: [],
@@ -297,19 +297,6 @@ module.exports = [
     type: "function",
   },
   {
-    inputs: [],
-    name: "purchaseAssetController",
-    outputs: [
-      {
-        internalType: "contract IPurchaseAssetController",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
     inputs: [
       { internalType: "address", name: "_account", type: "address" },
       { internalType: "uint256", name: "_pachaUuid", type: "uint256" },
@@ -343,13 +330,9 @@ module.exports = [
   },
   {
     inputs: [
-      {
-        internalType: "address",
-        name: "_purchaseAssetController",
-        type: "address",
-      },
+      { internalType: "address", name: "_infoAddress", type: "address" },
     ],
-    name: "setAddPAController",
+    name: "setPachacuyInfoAddress",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",

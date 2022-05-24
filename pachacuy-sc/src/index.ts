@@ -20,6 +20,7 @@ export {
 export {
     getWiracochaInfoForAccount,
     signWiracochaTxAndReceivePcuy,
+    WiracochaExchange,
 } from "./wiracocha";
 
 export { getListOfHatunWasis, getAHatunWasi } from "./hatunWasi";
