@@ -113,6 +113,50 @@ module.exports = [
     inputs: [
       {
         indexed: false,
+        internalType: "uint256",
+        name: "chakraUuid",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "amountOfFood",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "availableFood",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "address",
+        name: "chakraOwner",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "pcuyReceived",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "pcuyTaxed",
+        type: "uint256",
+      },
+      { indexed: false, internalType: "uint256", name: "tax", type: "uint256" },
+    ],
+    name: "PurchaseFoodChakra",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
         internalType: "address",
         name: "_account",
         type: "address",
@@ -326,13 +370,6 @@ module.exports = [
     type: "function",
   },
   {
-    inputs: [],
-    name: "chakraPrice",
-    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
     inputs: [
       { internalType: "address", name: "_account", type: "address" },
       { internalType: "uint256[]", name: "_randomNumbers", type: "uint256[]" },
@@ -445,11 +482,12 @@ module.exports = [
     type: "function",
   },
   {
-    inputs: [{ internalType: "uint256", name: "_chakraUuid", type: "uint256" }],
-    name: "purchaseFoodFromChakra",
-    outputs: [
-      { internalType: "uint256", name: "availableFood", type: "uint256" },
+    inputs: [
+      { internalType: "uint256", name: "_chakraUuid", type: "uint256" },
+      { internalType: "uint256", name: "_amountFood", type: "uint256" },
     ],
+    name: "purchaseFoodFromChakra",
+    outputs: [],
     stateMutability: "nonpayable",
     type: "function",
   },
@@ -477,6 +515,13 @@ module.exports = [
   {
     inputs: [{ internalType: "uint256", name: "_location", type: "uint256" }],
     name: "purchaseLandWithPcuy",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "uint256", name: "_pachaUuid", type: "uint256" }],
+    name: "purchaseMisayWasi",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",

@@ -6,7 +6,11 @@ import { initWiracocha } from "./wiracocha";
 import { initChakra } from "./chakra";
 import { initHatunWasi } from "./hatunWasi";
 
-export { getListOfChakrasWithFood, getChakraWithUuid } from "./chakra";
+export {
+    getListOfChakrasWithFood,
+    getChakraWithUuid,
+    updateFoodPriceAtChakra,
+} from "./chakra";
 
 export {
     signTatacuyTxAndVerify,
@@ -24,6 +28,8 @@ export {
 } from "./wiracocha";
 
 export { getListOfHatunWasis, getAHatunWasi } from "./hatunWasi";
+
+export { playRockPaperScissors } from "./rockPaperScissors";
 
 import busdAbi from "./abi/busdAbi";
 import nftpAbi from "./abi/nftpAbi";
@@ -522,11 +528,12 @@ export async function purchaseChakra(
 export async function purchaseFoodFromChakra(
     _signer: Signer,
     _chakraUuid: number,
+    _amountFood: number,
     _numberOfConfirmations: number = 1
 ) {
     var tx = await pacContract
         .connect(_signer)
-        .purchaseFoodFromChakra(_chakraUuid);
+        .purchaseFoodFromChakra(_chakraUuid, _amountFood);
     return await tx.wait(_numberOfConfirmations);
 }
 

@@ -300,6 +300,13 @@ module.exports = [
     type: "function",
   },
   {
+    inputs: [{ internalType: "bytes32", name: "", type: "bytes32" }],
+    name: "businesses",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
     inputs: [],
     name: "chakraAddress",
     outputs: [{ internalType: "address", name: "", type: "address" }],
@@ -407,6 +414,13 @@ module.exports = [
         type: "tuple",
       },
     ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "bytes", name: "_type", type: "bytes" }],
+    name: "getPriceInPcuy",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
     type: "function",
   },
@@ -577,6 +591,16 @@ module.exports = [
   },
   {
     inputs: [
+      { internalType: "uint256[]", name: "_prices", type: "uint256[]" },
+      { internalType: "bytes32[]", name: "_types", type: "bytes32[]" },
+    ],
+    name: "setBusinessesPrice",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
       { internalType: "address", name: "_chakraAddress", type: "address" },
     ],
     name: "setChakraAddress",
@@ -631,6 +655,16 @@ module.exports = [
       { internalType: "address", name: "_poolRewardAddress", type: "address" },
     ],
     name: "setPoolRewardAddress",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "bytes32", name: "_type", type: "bytes32" },
+      { internalType: "uint256", name: "_newPrice", type: "uint256" },
+    ],
+    name: "setPriceBusinessInBusd",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",

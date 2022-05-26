@@ -35,19 +35,6 @@ module.exports = [
   {
     anonymous: false,
     inputs: [
-      {
-        indexed: false,
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-    ],
-    name: "Paused",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
       { indexed: true, internalType: "bytes32", name: "role", type: "bytes32" },
       {
         indexed: true,
@@ -109,19 +96,6 @@ module.exports = [
     anonymous: false,
     inputs: [
       {
-        indexed: false,
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-    ],
-    name: "Unpaused",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
         indexed: true,
         internalType: "address",
         name: "implementation",
@@ -129,61 +103,6 @@ module.exports = [
       },
     ],
     name: "Upgraded",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "address",
-        name: "exchanger",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "address",
-        name: "pachaOwner",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "pachaUuid",
-        type: "uint256",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "amountPcuy",
-        type: "uint256",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "totalPcuyBalance",
-        type: "uint256",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "samiPoints",
-        type: "uint256",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "ratePcuyToSami",
-        type: "uint256",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "idFromFront",
-        type: "uint256",
-      },
-    ],
-    name: "WiracochaExchange",
     type: "event",
   },
   {
@@ -195,15 +114,22 @@ module.exports = [
   },
   {
     inputs: [],
-    name: "GAME_MANAGER",
-    outputs: [{ internalType: "bytes32", name: "", type: "bytes32" }],
+    name: "P",
+    outputs: [{ internalType: "uint8", name: "", type: "uint8" }],
     stateMutability: "view",
     type: "function",
   },
   {
     inputs: [],
-    name: "PAUSER_ROLE",
-    outputs: [{ internalType: "bytes32", name: "", type: "bytes32" }],
+    name: "R",
+    outputs: [{ internalType: "uint8", name: "", type: "uint8" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "S",
+    outputs: [{ internalType: "uint8", name: "", type: "uint8" }],
     stateMutability: "view",
     type: "function",
   },
@@ -215,50 +141,9 @@ module.exports = [
     type: "function",
   },
   {
-    inputs: [
-      { internalType: "address", name: "_exchanger", type: "address" },
-      { internalType: "address", name: "_pachaOwner", type: "address" },
-      { internalType: "uint256", name: "_pachaUuid", type: "uint256" },
-      { internalType: "uint256", name: "_samiPoints", type: "uint256" },
-      { internalType: "uint256", name: "_idFromFront", type: "uint256" },
-    ],
-    name: "exchangeSamiToPcuy",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
     inputs: [{ internalType: "bytes32", name: "role", type: "bytes32" }],
     name: "getRoleAdmin",
     outputs: [{ internalType: "bytes32", name: "", type: "bytes32" }],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      { internalType: "address", name: "_account", type: "address" },
-      { internalType: "uint256", name: "_pachaUuid", type: "uint256" },
-    ],
-    name: "getWiracochaInfoForAccount",
-    outputs: [
-      {
-        components: [
-          { internalType: "address", name: "owner", type: "address" },
-          { internalType: "uint256", name: "wiracochaUuid", type: "uint256" },
-          { internalType: "uint256", name: "pachaUuid", type: "uint256" },
-          { internalType: "uint256", name: "creationDate", type: "uint256" },
-          {
-            internalType: "uint256",
-            name: "amountPcuyExchanged",
-            type: "uint256",
-          },
-          { internalType: "bool", name: "hasWiracocha", type: "bool" },
-        ],
-        internalType: "struct Wiracocha.WiracochaInfo",
-        name: "",
-        type: "tuple",
-      },
-    ],
     stateMutability: "view",
     type: "function",
   },
@@ -290,29 +175,13 @@ module.exports = [
     type: "function",
   },
   {
-    inputs: [],
-    name: "pause",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "paused",
-    outputs: [{ internalType: "bool", name: "", type: "bool" }],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
     inputs: [
-      { internalType: "address", name: "_account", type: "address" },
-      { internalType: "uint256", name: "_pachaUuid", type: "uint256" },
-      { internalType: "uint256", name: "_wiracochaUuid", type: "uint256" },
-      { internalType: "bytes", name: "", type: "bytes" },
+      { internalType: "uint8", name: "_playerOne", type: "uint8" },
+      { internalType: "uint8", name: "_playerTwo", type: "uint8" },
     ],
-    name: "registerWiracocha",
-    outputs: [],
-    stateMutability: "nonpayable",
+    name: "playRockPaperScissors",
+    outputs: [{ internalType: "uint8", name: "winner", type: "uint8" }],
+    stateMutability: "pure",
     type: "function",
   },
   {
@@ -336,26 +205,10 @@ module.exports = [
     type: "function",
   },
   {
-    inputs: [
-      { internalType: "address", name: "_infoAddress", type: "address" },
-    ],
-    name: "setPachacuyInfoAddress",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
     inputs: [{ internalType: "bytes4", name: "interfaceId", type: "bytes4" }],
     name: "supportsInterface",
     outputs: [{ internalType: "bool", name: "", type: "bool" }],
     stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "unpause",
-    outputs: [],
-    stateMutability: "nonpayable",
     type: "function",
   },
   {

@@ -59,13 +59,15 @@ const value = {
  * @param _likelihood: A number between 1 and 10 inlcusive. Represents the chances of winning
  * @param _pachaOwner: Wallet address of the pacha owner
  * @param _pachaUuid: Uuid of the pacha when it was minted
+ * @param _timeStampFront: Timestamp used to be evaluated at backend to determine if guinea pig is playing or not
  */
 export async function signTatacuyTxAndVerify(
     _signer: SignerData,
     _guineaPigUuid: number,
     _likelihood: number,
     _pachaOwner: string,
-    _pachaUuid: number
+    _pachaUuid: number,
+    _timeStampFront: number,
 ): Promise<boolean> {
     // Signing the transaction
     value.guineaPig = String(_guineaPigUuid);
@@ -81,6 +83,7 @@ export async function signTatacuyTxAndVerify(
         pachaOwner: _pachaOwner,
         pachaUuid: _pachaUuid,
         signature,
+        timeStampFront: _timeStampFront
     };
     var data = {
         method: "POST",

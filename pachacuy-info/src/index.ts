@@ -87,6 +87,28 @@ export async function qhatuWasiPrice(): Promise<number> {
     return await pachacuyInformationContract.qhatuWasiPrice();
 }
 
+/**
+ * @notice Calculates the price of businesses and returns it in PCUY tokens
+ * @dev Allow businesses "CHAKRA", "PACHA", "QHATU_WASI", "MISAY_WASI", "GUINEA_PIG_1", "GUINEA_PIG_2", "GUINEA_PIG_3"
+ * @param key Describe a type of business (CHAKRA, PACHA, ...)
+ * @return Its price in PCUY tokens
+ */
+export async function getPriceInPcuy(key: string): Promise<number> {
+    var businesses = [
+        "CHAKRA",
+        "PACHA",
+        "QHATU_WASI",
+        "MISAY_WASI",
+        "GUINEA_PIG_1",
+        "GUINEA_PIG_2",
+        "GUINEA_PIG_3",
+    ];
+    if (!businesses.includes(key)) throw new Error("Incorrect business");
+    return await pachacuyInformationContract.getPriceInPcuy(
+        ethers.utils.toUtf8Bytes(key)
+    );
+}
+
 ////////////////////////
 ///      EVENTS      ///
 ////////////////////////

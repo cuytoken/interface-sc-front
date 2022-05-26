@@ -69,6 +69,8 @@ var chakraAbiList = [
 
 var hatunWasiAbiList = ["getListOfHatunWasis", "getAHatunWasi"];
 
+var rpsAbiList = ["playRockPaperScissors"];
+
 async function main() {
   var files = await readdir(path);
   for (var file of files) {
@@ -101,6 +103,9 @@ async function main() {
     } else if (file.includes("preHatunWasi")) {
       endFile += "hatunWasiAbi.ts";
       list = hatunWasiAbiList;
+    } else if (file.includes("preRPS")) {
+      endFile += "rpsiAbi.ts";
+      list = rpsAbiList;
     }
 
     abi = abi.filter((line) => {

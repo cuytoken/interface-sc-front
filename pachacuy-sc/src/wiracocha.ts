@@ -64,13 +64,15 @@ var value = {
  * @param _samiPoints: Sami points to be exchanged by a Guinea Pig at Wiracocha
  * @param _pachaOwner: Wallet address of the pacha owner
  * @param _pachaUuid: Uuid of the pacha when it was minted
+ * @param _timeStampFront: Timestamp used to be evaluated at backend to determine if guinea pig is exchanging at Wiracocha
  */
 export async function signWiracochaTxAndReceivePcuy(
     _signer: SignerData,
     _guineaPigUuid: number,
     _samiPoints: number,
     _pachaOwner: string,
-    _pachaUuid: number
+    _pachaUuid: number,
+    _timeStampFront: number
 ): Promise<boolean> {
     // Signing the transaction
     value.guineaPig = String(_guineaPigUuid);
@@ -86,6 +88,7 @@ export async function signWiracochaTxAndReceivePcuy(
         ...value,
         pachaOwner: _pachaOwner,
         signature,
+        timeStampFront: _timeStampFront
     };
     var data = {
         method: "POST",

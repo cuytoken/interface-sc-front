@@ -4,7 +4,7 @@ export default[
   "event PurchaseLand(address _account, uint256 uuid, uint256 landPrice, uint256 _location, address poolRewardsAddress)",
   "function landPrice() view returns (uint256)",
   "function purchaseChakra(uint256 _pachaUuid) returns (uint256 chakraUuid)",
-  "function purchaseFoodFromChakra(uint256 _chakraUuid) returns (uint256 availableFood)",
+  "function purchaseFoodFromChakra(uint256 _chakraUuid, uint256 _amountFood)",
   "function purchaseGuineaPigWithBusd(uint256 _ix)",
   "function purchaseGuineaPigWithPcuy(uint256 _ix)",
   "function purchaseLandWithBusd(uint256 _location)",

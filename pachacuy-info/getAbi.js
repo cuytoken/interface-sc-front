@@ -22,6 +22,7 @@ var pachacuyInformationAbi = [
   "pachaPrice",
   "qhatuWasiPrice",
   "misayWasiPrice",
+  "getPriceInPcuy",
 ];
 
 async function main() {

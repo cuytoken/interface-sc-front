@@ -21,6 +21,7 @@ if (isProduction) {
   tatacuyEndPoinValidation =
     "3.80.7.117:3000/tatacuy/gift-participations/0x718429dde591a305610a664c7046664422095ac3/wallet/1652859269000/timestamp";
   busdAddress = "0x8f1c7aaf8ec93a500657aec7c030d392fd4caa13";
+  rockPapetScissorsAddress = "0x2F308566ca703d5Edbc2AA602410Aa8a358d4dE8";
   // SC
   pachacuyInfoAddress = "0xcF2dbF4C6C3574c5Aa189dd1630cfBcCfCbd3821";
   randomNumber_PLACEHOLDER = "0xE10Dd96e835bB644ED5ee56F8aeC22fa919001bc";
@@ -83,6 +84,7 @@ const config = {
       __rpcBinance__: JSON.stringify(rpcBinance),
       __webhookTatacuy__: JSON.stringify(webhookTatacuy),
       __webhookWiracocha__: JSON.stringify(webhookWiracocha),
+      __rockPapetScissorsAddress__: JSON.stringify(rockPapetScissorsAddress),
     }),
   ],
   module: {
