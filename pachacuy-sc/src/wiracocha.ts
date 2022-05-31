@@ -23,10 +23,10 @@ var wiracochaContract: Contract;
  */
 export function initWiracocha(
     _provider: providers.ExternalProvider
-): Contract[] {
+): Contract {
     provider = new providers.Web3Provider(_provider);
     wiracochaContract = new Contract(wiracochaAddress, wiracochaAbi, provider);
-    return [wiracochaContract];
+    return wiracochaContract;
 }
 
 // All properties on a domain are optional

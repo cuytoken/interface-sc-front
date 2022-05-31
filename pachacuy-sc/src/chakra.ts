@@ -14,10 +14,10 @@ var chakraContract: Contract;
  * @dev This function inits the library and connects to the blockchain
  * @param _provider: window.ethereum or an equivalent
  */
-export function initChakra(_provider: providers.ExternalProvider): Contract[] {
+export function initChakra(_provider: providers.ExternalProvider): Contract {
     provider = new providers.Web3Provider(_provider);
     chakraContract = new Contract(chakraAddress, chakraAbi, provider);
-    return [chakraContract];
+    return chakraContract;
 }
 
 /**

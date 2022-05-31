@@ -12,10 +12,10 @@ var hatunWasiContract: Contract;
  * @dev This function inits the library and connects to the blockchain
  * @param _provider: window.ethereum or an equivalent
  */
-export function initHatunWasi(_provider: providers.ExternalProvider): Contract[] {
+export function initHatunWasi(_provider: providers.ExternalProvider): Contract {
     provider = new providers.Web3Provider(_provider);
     hatunWasiContract = new Contract(hatunWasiAddress, hatunWasiAbi, provider);
-    return [hatunWasiContract];
+    return hatunWasiContract;
 }
 /**
  * @dev Details the information of a Hatun Wasi. 

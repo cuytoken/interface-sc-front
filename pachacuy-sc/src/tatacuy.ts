@@ -20,10 +20,10 @@ var tatacuyContract: Contract;
  * @dev This function inits the library and connects to the blockchain
  * @param _provider: window.ethereum or an equivalent
  */
-export function initTatacuy(_provider: providers.ExternalProvider): Contract[] {
+export function initTatacuy(_provider: providers.ExternalProvider): Contract {
     provider = new providers.Web3Provider(_provider);
     tatacuyContract = new Contract(tatacuyAddress, tatacuyAbi, provider);
-    return [tatacuyContract];
+    return tatacuyContract;
 }
 
 // All properties on a domain are optional

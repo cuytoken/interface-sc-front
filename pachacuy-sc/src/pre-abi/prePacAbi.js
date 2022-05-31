@@ -435,13 +435,6 @@ module.exports = [
   },
   {
     inputs: [],
-    name: "landPrice",
-    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
     name: "nftProducerPachacuy",
     outputs: [
       {
@@ -485,6 +478,7 @@ module.exports = [
     inputs: [
       { internalType: "uint256", name: "_chakraUuid", type: "uint256" },
       { internalType: "uint256", name: "_amountFood", type: "uint256" },
+      { internalType: "uint256", name: "_guineaPigUuid", type: "uint256" },
     ],
     name: "purchaseFoodFromChakra",
     outputs: [],
@@ -541,6 +535,23 @@ module.exports = [
     type: "function",
   },
   {
+    inputs: [{ internalType: "uint256", name: "_pachaUuid", type: "uint256" }],
+    name: "purchaseQhatuWasi",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "uint256", name: "_misayWasiUuid", type: "uint256" },
+      { internalType: "uint256", name: "_amountOfTickets", type: "uint256" },
+    ],
+    name: "purchaseTicketFromMisayWasi",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
     inputs: [],
     name: "randomNumberGenerator",
     outputs: [
@@ -550,13 +561,6 @@ module.exports = [
         type: "address",
       },
     ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "rateBusdToPcuy",
-    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
     type: "function",
   },
@@ -583,13 +587,6 @@ module.exports = [
       { internalType: "address", name: "account", type: "address" },
     ],
     name: "revokeRole",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [{ internalType: "uint256", name: "_landPrice", type: "uint256" }],
-    name: "setLandPrice",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -638,13 +635,6 @@ module.exports = [
       },
     ],
     name: "setRandomNumberGeneratorAddress",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [{ internalType: "uint256", name: "_newRate", type: "uint256" }],
-    name: "setRateBusdToPcuy",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",

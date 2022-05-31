@@ -41,6 +41,9 @@ var pacAbiList = [
   "purchasePachaPassWithBusd",
   "purchaseChakra",
   "purchaseFoodFromChakra",
+  "purchaseTicketFromMisayWasi",
+  "purchaseMisayWasi",
+  "purchaseQhatuWasi",
 ];
 
 var pachacuyAbiList = ["balanceOf"];
@@ -71,6 +74,28 @@ var hatunWasiAbiList = ["getListOfHatunWasis", "getAHatunWasi"];
 
 var rpsAbiList = ["playRockPaperScissors"];
 
+var guineaPigAbiList = ["getGuineaPigWithUuid", "getListOfGuineaPigs"];
+
+var pachaAbiList = [
+  "isPachaAlreadyTaken",
+  "getListOfPachas",
+  "getPachaWithUuid",
+];
+
+var misayWasiAbiList = [
+  "startMisayWasiRaffle",
+  "startRaffleContest",
+  "getListOfMisayWasisReadyToRaffle",
+  "getListOfActiveMWRaffles",
+  "getMisayWasiWithUuid",
+  "getMiswayWasiWithTicketUuid",
+];
+var qhatuWasiAbiList = [
+  "startQhatuWasiCampaign",
+  "getListOfQhatuWasi",
+  "getQhatuWasiWithUuid",
+];
+
 async function main() {
   var files = await readdir(path);
   for (var file of files) {
@@ -85,7 +110,7 @@ async function main() {
     if (file.includes("preNftp")) {
       endFile += "nftpAbi.ts";
       list = nftpAbiList;
-    } else if (file.includes("prePac")) {
+    } else if (file.includes("prePacAbi")) {
       endFile += "pacAbi.ts";
       list = pacAbiList;
     } else if (file.includes("prePcuy")) {
@@ -106,6 +131,18 @@ async function main() {
     } else if (file.includes("preRPS")) {
       endFile += "rpsiAbi.ts";
       list = rpsAbiList;
+    } else if (file.includes("preGuineaPig")) {
+      endFile += "guineaPigAbi.ts";
+      list = guineaPigAbiList;
+    } else if (file.includes("prePachaAbi")) {
+      endFile += "pachaAbi.ts";
+      list = pachaAbiList;
+    } else if (file.includes("preMisayWasi")) {
+      endFile += "misayWasiAbi.ts";
+      list = misayWasiAbiList;
+    } else if (file.includes("preQhatuWasi")) {
+      endFile += "qhatuWasiAbi.ts";
+      list = qhatuWasiAbiList;
     }
 
     abi = abi.filter((line) => {

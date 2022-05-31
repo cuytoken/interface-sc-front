@@ -1,0 +1,8 @@
+export default[
+  "function getListOfActiveMWRaffles() view returns (tuple(address owner, uint256 misayWasiUuid, uint256 pachaUuid, uint256 creationDate, uint256 ticketPrice, uint256 ticketUuid, uint256 misayWasiPrice, uint256 rafflePrize, uint256 numberTicketsPurchased, uint256 campaignStartDate, uint256 campaignEndDate, bool isCampaignActive, bool hasMisayWasi, address[] listOfParticipants)[] listOfMisayWasis)",
+  "function getListOfMisayWasisReadyToRaffle() view returns (uint256[] _listOfRafflesToStart)",
+  "function getMisayWasiWithUuid(uint256 _misayWasiUuid) view returns (tuple(address owner, uint256 misayWasiUuid, uint256 pachaUuid, uint256 creationDate, uint256 ticketPrice, uint256 ticketUuid, uint256 misayWasiPrice, uint256 rafflePrize, uint256 numberTicketsPurchased, uint256 campaignStartDate, uint256 campaignEndDate, bool isCampaignActive, bool hasMisayWasi, address[] listOfParticipants))",
+  "function getMiswayWasiWithTicketUuid(uint256 _ticketUuid) view returns (tuple(address owner, uint256 misayWasiUuid, uint256 pachaUuid, uint256 creationDate, uint256 ticketPrice, uint256 ticketUuid, uint256 misayWasiPrice, uint256 rafflePrize, uint256 numberTicketsPurchased, uint256 campaignStartDate, uint256 campaignEndDate, bool isCampaignActive, bool hasMisayWasi, address[] listOfParticipants))",
+  "function startMisayWasiRaffle(uint256 _misayWasiUuid, uint256 _rafflePrize, uint256 _ticketPrice, uint256 _campaignEndDate)",
+  "function startRaffleContest(uint256[] _misayWasiUuids)"
+]
