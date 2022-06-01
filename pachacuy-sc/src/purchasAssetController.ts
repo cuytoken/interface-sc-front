@@ -1,4 +1,4 @@
-import { BigNumber, Contract, ethers, providers, Signer } from "ethers";
+import { BigNumber, Contract, ethers, providers, Signer, utils } from "ethers";
 
 import pacAbi from "./abi/pacAbi";
 
@@ -124,16 +124,47 @@ export async function purchaseFoodFromChakra(
     return await tx.wait(_numberOfConfirmations);
 }
 
+/**
+ * @param uuidTicket: All tickets from the a Misay Wasi have the same Uuid
+ * @param amountOfTickets: Total amount of tickets purchased at a Misay Wasi
+ */
+interface IPurchaseResult {
+    uuidTicket: string;
+    amountOfTickets: string;
+}
+/**
+ *
+ * @param _signer: Signer of the transaction (provider.getSigner(account))
+ * @param _misayWasiUuid: Uuid of the Misay Wasi when it was minted
+ * @param _amountOfTickets: Amount of tickets to be purchased from the Misay Wasi
+ * @param _numberOfConfirmations: Optional pass the number of confirmations to wait for
+ * @return
+ */
 export async function purchaseTicketFromMisayWasi(
     _signer: Signer,
     _misayWasiUuid: number,
     _amountOfTickets: number,
     _numberOfConfirmations: number = 1
-) {
+): Promise<IPurchaseResult> {
     var tx = await pacContract
         .connect(_signer)
         .purchaseTicketFromMisayWasi(_misayWasiUuid, _amountOfTickets);
-    return await tx.wait(_numberOfConfirmations);
+    var res = await tx.wait(_numberOfConfirmations);
+
+    var topic = // UuidAndAmount (uint256 uuid, uint256 amount)
+        "0x242425d5071d5eaaf8f6f82889dd13cdd464fc74ff50b8c6a1c85780e8958c3f";
+    var data;
+    for (var ev of res.events) {
+        if (ev.topics.includes(topic)) {
+            data = ev.data;
+            break;
+        }
+    }
+    res = utils.defaultAbiCoder.decode(["uint256", "uint256"], data);
+    return {
+        uuidTicket: res[0].toString(),
+        amountOfTickets: res[1].toString(),
+    };
 }
 
 export async function purchaseMisayWasi(
@@ -143,7 +174,7 @@ export async function purchaseMisayWasi(
 ): Promise<BigNumber> {
     if (!provider) throw new Error("No provider set");
     var tx = await pacContract.connect(_signer).purchaseMisayWasi(_pachaUuid);
-    var res = tx.wait(_numberOfConfirmations);
+    var res = await tx.wait(_numberOfConfirmations);
 
     var topic =
         "0x9f87cb7b8a6c54debaaa0d12a571441914663d4a4300341e3805f85b854ee337";
@@ -166,7 +197,7 @@ export async function purchaseQhatuWasi(
 ): Promise<BigNumber> {
     if (!provider) throw new Error("No provider set");
     var tx = await pacContract.connect(_signer).purchaseQhatuWasi(_pachaUuid);
-    var res = tx.wait(_numberOfConfirmations);
+    var res = await tx.wait(_numberOfConfirmations);
 
     var topic =
         "0x9f87cb7b8a6c54debaaa0d12a571441914663d4a4300341e3805f85b854ee337";

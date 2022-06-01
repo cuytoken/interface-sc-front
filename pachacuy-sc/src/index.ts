@@ -9,8 +9,10 @@ import { initGuineaPig } from "./guineaPig";
 import { initHatunWasi } from "./hatunWasi";
 import { initMisayWasi } from "./misayWasi";
 import { initNftProducer } from "./nftProducer";
+import { initPacha } from "./pacha";
 import { initPachacuyToken } from "./pachacuyToken";
 import { initPurchaseAssetController } from "./purchasAssetController";
+import { initqhatuWasi } from "./qhatuWasi";
 import { initTatacuy } from "./tatacuy";
 import { initWiracocha } from "./wiracocha";
 
@@ -67,7 +69,7 @@ export { getGuineaPigWithUuid, getListOfGuineaPigs } from "./guineaPig";
 /******************
  *      BUSD      *
  *****************/
-export { allowance, approveBusd } from "./busd"
+export { allowance, approveBusd } from "./busd";
 
 /******************
  *  PURCHASE A C  *
@@ -84,7 +86,13 @@ export {
     purchaseTicketFromMisayWasi,
     purchaseMisayWasi,
     purchaseQhatuWasi,
-} from "./purchasAssetController"
+} from "./purchasAssetController";
+
+/******************
+ *   MISAY WASI   *
+ *****************/
+
+export { startMisayWasiRaffle } from "./misayWasi";
 
 /******************
  *  NFT PRODUCER  *
@@ -102,6 +110,16 @@ export {
     mintHatunWasi,
 } from "./nftProducer";
 
+/******************
+ *  CONSOLIDATED  *
+ *****************/
+export { startQhatuWasiCampaign } from "./qhatuWasi";
+
+/******************
+ *  CONSOLIDATED  *
+ *****************/
+export { getListOfNftsPerAccount, getWalletData } from "./dataConsolidated";
+
 /**
  * @dev This function inits the library and connects to the blockchain
  * @param _provider: window.ethereum or an equivalent
@@ -114,7 +132,9 @@ export function init(_provider: providers.ExternalProvider): Contract[] {
     var misayWasiContract = initMisayWasi(_provider);
     var nftpContract = initNftProducer(_provider);
     var pacContract = initPurchaseAssetController(_provider);
+    var pachaContract = initPacha(_provider);
     var pcuyContract = initPachacuyToken(_provider);
+    var qhatuWasiContract = initqhatuWasi(_provider);
     var tataCuyContract = initTatacuy(_provider);
     var wiracochaContract = initWiracocha(_provider);
     return [

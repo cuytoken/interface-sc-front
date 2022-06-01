@@ -26,6 +26,7 @@ var nftpAbiList = [
   "burnChakra",
   "mintHatunWasi",
   "getListOfUuidsPerAccount",
+  "UuidAndAmount",
 ];
 
 var pacAbiList = [
@@ -75,7 +76,11 @@ var hatunWasiAbiList = ["getListOfHatunWasis", "getHatunWasiWithUuid"];
 
 var rpsAbiList = ["playRockPaperScissors"];
 
-var guineaPigAbiList = ["getGuineaPigWithUuid", "getListOfGuineaPigs"];
+var guineaPigAbiList = [
+  "getGuineaPigWithUuid",
+  "getListOfGuineaPigs",
+  "getGuineaPigData",
+];
 
 var pachaAbiList = [
   "isPachaAlreadyTaken",

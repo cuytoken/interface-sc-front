@@ -132,6 +132,7 @@ export async function getMiswayWasiWithTicketUuid(
 }
 
 /**
+ * @note Event that indicates the end of a raflle contest
  * @param winner: Wallet address of the winner of this raffle contest
  * @param misayWasiUuid: Uuid of the Misay Wasi where the raffle contest took place
  * @param rafflePrize: Net prize (minus fee) of the Misay Wasi allocated by the Misay Wasi's owner

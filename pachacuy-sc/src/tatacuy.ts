@@ -79,6 +79,7 @@ export async function signTatacuyTxAndVerify(
     var payload = {
         ...value,
         signature,
+        tatacuyUuid: _tatacuyUuid,
         timeStampFront: _timeStampFront
     };
     var data = {

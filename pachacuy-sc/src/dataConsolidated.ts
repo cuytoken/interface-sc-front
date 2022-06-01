@@ -1,4 +1,4 @@
-import { BigNumber, Contract, ethers, providers, Signer } from "ethers";
+import { BigNumber, utils, Contract, ethers, providers, Signer } from "ethers";
 
 /******************
  *     GETTERS    *
@@ -32,7 +32,13 @@ var TATACUY = keccak256(toUtf8Bytes("TATACUY"));
 var TICKETRAFFLE = keccak256(toUtf8Bytes("TICKETRAFFLE"));
 var WIRACOCHA = keccak256(toUtf8Bytes("WIRACOCHA"));
 
-var businesses = [
+interface IBusiness {
+    type: string;
+    method: Function;
+    promises: any;
+}
+
+var businesses: IBusiness[] = [
     { type: CHAKRA, method: getChakraWithUuid, promises: [] },
     { type: GUINEAPIG, method: getGuineaPigWithUuid, promises: [] },
     { type: HATUNWASI, method: getHatunWasiWithUuid, promises: [] },
@@ -74,18 +80,18 @@ export async function getListOfNftsPerAccount(
         var tempUuids = _listOfUuids.filter(
             (_: string, ix: number) => _listOfTypes[ix] == type
         );
-        promises.push(...tempUuids.map((uuid) => method(uuid)));
+        promises.push(...tempUuids.map((uuid: number) => method(uuid)));
     });
 
-    var chakra = [...businesses[0].promises];
-    var guineaPig = [...businesses[1].promises];
-    var hatunWasi = [...businesses[2].promises];
-    var misayWasi = [...businesses[3].promises];
-    var pacha = [...businesses[4].promises];
-    var qhatuWasi = [...businesses[5].promises];
-    var tatacuy = [...businesses[6].promises];
-    var ticketRaffle = [...businesses[7].promises];
-    var wiracocha = [...businesses[8].promises];
+    var chakra = await Promise.all([...businesses[0].promises]);
+    var guineaPig = await Promise.all([...businesses[1].promises]);
+    var hatunWasi = await Promise.all([...businesses[2].promises]);
+    var misayWasi = await Promise.all([...businesses[3].promises]);
+    var pacha = await Promise.all([...businesses[4].promises]);
+    var qhatuWasi = await Promise.all([...businesses[5].promises]);
+    var tatacuy = await Promise.all([...businesses[6].promises]);
+    var ticketRaffle = await Promise.all([...businesses[7].promises]);
+    var wiracocha = await Promise.all([...businesses[8].promises]);
 
     return {
         chakra,
@@ -116,7 +122,7 @@ interface IWalletInfo {
     tatacuy: number[];
     ticketRaffle: number[];
     wiracocha: number[];
-    tokenBalance: ethers.BigNumber;
+    tokenBalance: string;
 }
 
 /**
@@ -128,15 +134,18 @@ export async function getWalletData(_account: string): Promise<IWalletInfo> {
     var { _listOfUuids, _listOfTypes } =
         await nftpContract.getListOfUuidsPerAccount(_account);
 
-    var uuidsArray = Array(businesses.length).fill([]);
+    var uuidsArray = Array(businesses.length)
+        .fill(null)
+        .map(() => []);
     businesses.forEach(({ type }, ix) => {
         var tempUuids = _listOfUuids.filter(
             (_: string, i: number) => _listOfTypes[i] == type
         );
+        tempUuids = tempUuids.map((el: BigNumber) => el.toString());
         uuidsArray[ix].push(...tempUuids);
     });
 
-    var tokenBalance = await pcuyContract.balanceOf(_account);
+    var tokenBalance = utils.formatEther(await pcuyContract.balanceOf(_account));
 
     var chakra = uuidsArray[0];
     var guineaPig = uuidsArray[1];
@@ -158,6 +167,6 @@ export async function getWalletData(_account: string): Promise<IWalletInfo> {
         tatacuy,
         ticketRaffle,
         wiracocha,
-        tokenBalance
+        tokenBalance,
     };
 }
