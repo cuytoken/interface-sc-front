@@ -4,15 +4,15 @@ var { readdir, readFile, writeFile } = fs.promises;
 var path = __dirname + "/src/pre-abi";
 
 var pachacuyInformationAbi = [
-  "getAllGameInformation",
-  "getInformationByRank",
   "BoxesPerDayPerPachaDx",
   "MinimumSamiPointsDx",
   "MaximumSamiPointsDx",
   "InfoByRankUpdated",
-  "getExchangeRatePcuyToSami",
   "ExchangeRatePcuyToSamiDx",
   "ExchangeRateBusdToPcuyDx",
+  "getAllGameInformation",
+  "getInformationByRank",
+  "getExchangeRatePcuyToSami",
   "exchangeRatePcuyToSami",
   "exchangeRateBusdToPcuy",
   "convertBusdToPcuy",

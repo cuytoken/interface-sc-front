@@ -20,6 +20,13 @@ export function initqhatuWasi(
     return [qhatuWasiContract];
 }
 
+/**
+ * 
+ * @param _signer: Signer of the transaction (provider.getSigner(account))
+ * @param _qhatuWasiUuid: Uuid of the Qhatu Wasi when it was minted 
+ * @param _amountPcuyCampaign: Amount in PCUY to be deposited by the campaign
+ * @param _numberOfConfirmations: Optional pass the number of confirmations to wait for
+ */
 export async function startQhatuWasiCampaign(
     _signer: Signer,
     _qhatuWasiUuid: number,
@@ -30,6 +37,11 @@ export async function startQhatuWasiCampaign(
         _qhatuWasiUuid,
         _amountPcuyCampaign
     );
+    // PENDING
+    /**
+     * extract
+     * QhatuWasiCampaignStarted topic
+     */
     var res = await tx.wait(_numberOfConfirmations);
 }
 
