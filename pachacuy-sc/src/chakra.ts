@@ -32,7 +32,7 @@ export function initChakra(_provider: providers.ExternalProvider): Contract {
  * @param availableFood: Amount of food available to sell. Decrease one by one as Guinea Pig purchase food
  * @param hasChakra: Indicates wheter a chakra exists or not
  */
-interface ChakraInfo {
+export interface ChakraInfo {
     owner: string;
     chakraUuid: number;
     pachaUuid: number;

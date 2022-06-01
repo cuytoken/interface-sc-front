@@ -33,7 +33,7 @@ export async function startQhatuWasiCampaign(
     var res = await tx.wait(_numberOfConfirmations);
 }
 
-interface QhatuWasiInfo {
+export interface QhatuWasiInfo {
     uuid: number;
     owner: string;
     creationDate: number;

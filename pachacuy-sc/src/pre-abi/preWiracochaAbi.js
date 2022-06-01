@@ -217,14 +217,38 @@ module.exports = [
   {
     inputs: [
       { internalType: "address", name: "_exchanger", type: "address" },
-      { internalType: "address", name: "_pachaOwner", type: "address" },
-      { internalType: "uint256", name: "_pachaUuid", type: "uint256" },
       { internalType: "uint256", name: "_samiPoints", type: "uint256" },
       { internalType: "uint256", name: "_idFromFront", type: "uint256" },
+      { internalType: "uint256", name: "_wiracochaUuid", type: "uint256" },
     ],
     name: "exchangeSamiToPcuy",
     outputs: [],
     stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "getListOfWiracochas",
+    outputs: [
+      {
+        components: [
+          { internalType: "address", name: "owner", type: "address" },
+          { internalType: "uint256", name: "wiracochaUuid", type: "uint256" },
+          { internalType: "uint256", name: "pachaUuid", type: "uint256" },
+          { internalType: "uint256", name: "creationDate", type: "uint256" },
+          {
+            internalType: "uint256",
+            name: "amountPcuyExchanged",
+            type: "uint256",
+          },
+          { internalType: "bool", name: "hasWiracocha", type: "bool" },
+        ],
+        internalType: "struct Wiracocha.WiracochaInfo[]",
+        name: "listOfWiracochas",
+        type: "tuple[]",
+      },
+    ],
+    stateMutability: "view",
     type: "function",
   },
   {
@@ -236,10 +260,9 @@ module.exports = [
   },
   {
     inputs: [
-      { internalType: "address", name: "_account", type: "address" },
-      { internalType: "uint256", name: "_pachaUuid", type: "uint256" },
+      { internalType: "uint256", name: "_wiracochaUuid", type: "uint256" },
     ],
-    name: "getWiracochaInfoForAccount",
+    name: "getWiracochaWithUuid",
     outputs: [
       {
         components: [
@@ -278,6 +301,13 @@ module.exports = [
       { internalType: "address", name: "account", type: "address" },
     ],
     name: "hasRole",
+    outputs: [{ internalType: "bool", name: "", type: "bool" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "address", name: "_account", type: "address" }],
+    name: "hasWiracocha",
     outputs: [{ internalType: "bool", name: "", type: "bool" }],
     stateMutability: "view",
     type: "function",

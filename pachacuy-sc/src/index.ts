@@ -1,42 +1,77 @@
 "use strict";
 
-import { BigNumber, Contract, ethers, providers, Signer } from "ethers";
+import { Contract, providers } from "ethers";
 
 // INIT
-import { initTatacuy } from "./tatacuy";
-import { initWiracocha } from "./wiracocha";
-import { initChakra } from "./chakra";
-import { initHatunWasi } from "./hatunWasi";
-import { initGuineaPig } from "./guineaPig";
-import { initMisayWasi } from "./misayWasi";
 import { initBusd } from "./busd";
-import { initPurchaseAssetController } from "./purchasAssetController";
+import { initChakra } from "./chakra";
+import { initGuineaPig } from "./guineaPig";
+import { initHatunWasi } from "./hatunWasi";
+import { initMisayWasi } from "./misayWasi";
 import { initNftProducer } from "./nftProducer";
 import { initPachacuyToken } from "./pachacuyToken";
+import { initPurchaseAssetController } from "./purchasAssetController";
+import { initTatacuy } from "./tatacuy";
+import { initWiracocha } from "./wiracocha";
 
+/******************
+ *     CHAKRA     *
+ *****************/
 export {
     getListOfChakrasWithFood,
     getChakraWithUuid,
     updateFoodPriceAtChakra,
 } from "./chakra";
+
+/******************
+ *     TATACUY    *
+ *****************/
 export {
     signTatacuyTxAndVerify,
     finishTatacuyCampaign,
     getListOfTatacuyCampaigns,
-    getTatacuyInfoForAccount,
+    getTatacuyWithUuid,
     startTatacuyCampaign,
     TatacuyTryMyLuckResult,
 } from "./tatacuy";
+
+/******************
+ *    WIRACOCHA   *
+ *****************/
 export {
-    getWiracochaInfoForAccount,
+    getWiracochaWithUuid,
     signWiracochaTxAndReceivePcuy,
     WiracochaExchange,
 } from "./wiracocha";
-export { getListOfHatunWasis, getAHatunWasi } from "./hatunWasi";
+
+/******************
+ *   HATUN WASI   *
+ *****************/
+export { getListOfHatunWasis, getHatunWasiWithUuid } from "./hatunWasi";
+
+/******************
+ *  ROCK PAPER S  *
+ *****************/
 export { playRockPaperScissors } from "./rockPaperScissors";
+
+/******************
+ *     PACHA      *
+ *****************/
 export { getListOfPachas, getPachaWithUuid } from "./pacha";
+
+/******************
+ *   GUINEA PIG   *
+ *****************/
 export { getGuineaPigWithUuid, getListOfGuineaPigs } from "./guineaPig";
+
+/******************
+ *      BUSD      *
+ *****************/
 export { allowance, approveBusd } from "./busd"
+
+/******************
+ *  PURCHASE A C  *
+ *****************/
 export {
     purchaseGuineaPigWithBusd,
     purchaseGuineaPigWithPcuy,
@@ -50,6 +85,10 @@ export {
     purchaseMisayWasi,
     purchaseQhatuWasi,
 } from "./purchasAssetController"
+
+/******************
+ *  NFT PRODUCER  *
+ *****************/
 export {
     getGuineaPigData,
     getLandData,
@@ -63,25 +102,21 @@ export {
     mintHatunWasi,
 } from "./nftProducer";
 
-
-var provider: providers.Web3Provider = null;
-
 /**
  * @dev This function inits the library and connects to the blockchain
  * @param _provider: window.ethereum or an equivalent
  */
 export function init(_provider: providers.ExternalProvider): Contract[] {
+    var busdContract = initBusd(_provider);
+    var chakraContract = initChakra(_provider);
+    var guineaPigContract = initGuineaPig(_provider);
+    var hatunWasiContract = initHatunWasi(_provider);
+    var misayWasiContract = initMisayWasi(_provider);
+    var nftpContract = initNftProducer(_provider);
+    var pacContract = initPurchaseAssetController(_provider);
+    var pcuyContract = initPachacuyToken(_provider);
     var tataCuyContract = initTatacuy(_provider);
     var wiracochaContract = initWiracocha(_provider);
-    var chakraContract = initChakra(_provider);
-    var hatunWasiContract = initHatunWasi(_provider);
-    var pacContract = initPurchaseAssetController(_provider);
-    var nftpContract = initNftProducer(_provider);
-    var pcuyContract = initPachacuyToken(_provider);
-    initBusd(_provider);
-    initGuineaPig(_provider);
-    initMisayWasi(_provider);
-    provider = new providers.Web3Provider(_provider);
     return [
         nftpContract,
         pacContract,
@@ -91,10 +126,3 @@ export function init(_provider: providers.ExternalProvider): Contract[] {
         hatunWasiContract,
     ];
 }
-
-
-////////////////////////
-///    Misay Wasi    ///
-////////////////////////
-
-

@@ -51,7 +51,7 @@ var pachacuyAbiList = ["balanceOf"];
 var tatacuyAbiList = [
   "startTatacuyCampaign",
   "finishTatacuyCampaign",
-  "getTatacuyInfoForAccount",
+  "getTatacuyWithUuid",
   "getListOfTatacuyCampaigns",
   "tryMyLuckTatacuy",
   "FinishTatacuyCampaign",
@@ -59,9 +59,10 @@ var tatacuyAbiList = [
 ];
 
 var wiracochaAbiList = [
-  "getWiracochaInfoForAccount",
+  "getWiracochaWithUuid",
   "exchangeSamiToPcuy",
   "WiracochaExchange",
+  "getListOfWiracochas",
 ];
 
 var chakraAbiList = [
@@ -70,7 +71,7 @@ var chakraAbiList = [
   "updateFoodPriceAtChakra",
 ];
 
-var hatunWasiAbiList = ["getListOfHatunWasis", "getAHatunWasi"];
+var hatunWasiAbiList = ["getListOfHatunWasis", "getHatunWasiWithUuid"];
 
 var rpsAbiList = ["playRockPaperScissors"];
 

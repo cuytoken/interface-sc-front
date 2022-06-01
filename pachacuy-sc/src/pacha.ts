@@ -23,7 +23,7 @@ export async function isPachaAlreadyTaken(_location: number): Promise<boolean> {
     return await pachaContract.isPachaAlreadyTaken(_location);
 }
 
-interface PachaInfo {
+export interface PachaInfo {
     isPacha: boolean;
     isPublic: boolean;
     uuid: number;

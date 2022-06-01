@@ -6,6 +6,7 @@ import wiracochaAbi from "./abi/wiracochaAbi";
 declare var __wiracochaAddress__: string;
 declare var __chainId__: string;
 declare var __webhookWiracocha__: string;
+declare var __version__: string;
 
 interface SignerData extends TypedDataSigner {
     _address: string;
@@ -13,6 +14,7 @@ interface SignerData extends TypedDataSigner {
 
 var wiracochaAddress = __wiracochaAddress__;
 var chainId = __chainId__;
+var version = __version__;
 var webhookWiracocha = __webhookWiracocha__;
 var provider: providers.Web3Provider = null;
 var wiracochaContract: Contract;
@@ -32,8 +34,8 @@ export function initWiracocha(
 // All properties on a domain are optional
 var domain = {
     name: "Wiracocha",
-    version: "alpha",
-    chainId: "97",
+    version,
+    chainId,
     verifyingContract: wiracochaAddress,
 };
 
@@ -62,17 +64,17 @@ var value = {
  * @param _signer: Signer of the transaction (provider.getSigner(account))
  * @param _guineaPigUuid: Guinea Pig uuid (when minted) that is trying exchange
  * @param _samiPoints: Sami points to be exchanged by a Guinea Pig at Wiracocha
- * @param _pachaOwner: Wallet address of the pacha owner
  * @param _pachaUuid: Uuid of the pacha when it was minted
+ * @param _wiracochaUuid: Uuid of the Wiracocha when it was minted
  * @param _timeStampFront: Timestamp used to be evaluated at backend to determine if guinea pig is exchanging at Wiracocha
  */
 export async function signWiracochaTxAndReceivePcuy(
     _signer: SignerData,
     _guineaPigUuid: number,
     _samiPoints: number,
-    _pachaOwner: string,
     _pachaUuid: number,
-    _timeStampFront: number
+    _timeStampFront: number,
+    _wiracochaUuid: number
 ): Promise<boolean> {
     // Signing the transaction
     value.guineaPig = String(_guineaPigUuid);
@@ -81,12 +83,9 @@ export async function signWiracochaTxAndReceivePcuy(
     value.samiPoints = String(_samiPoints);
     var signature = await _signer._signTypedData(domain, types, value);
 
-    // Validating in Cloud
-    var url = webhookWiracocha;
-
     var payload = {
         ...value,
-        pachaOwner: _pachaOwner,
+        wiracochaUuid: _wiracochaUuid,
         signature,
         timeStampFront: _timeStampFront
     };
@@ -98,11 +97,11 @@ export async function signWiracochaTxAndReceivePcuy(
         },
         body: JSON.stringify(payload),
     };
-    var res = await fetch(url, data);
+    var res = await fetch(webhookWiracocha, data);
     return await res.json();
 }
 
-interface WiracochaInfo {
+export interface WiracochaInfo {
     owner: string;
     wiracochaUuid: number;
     pachaUuid: number;
@@ -110,11 +109,10 @@ interface WiracochaInfo {
     amountPcuyExchanged: number;
     hasWiracocha: boolean;
 }
-export async function getWiracochaInfoForAccount(
-    _account: string,
-    _pachaUuid: number
+export async function getWiracochaWithUuid(
+    _wiracochaUuid: number
 ): Promise<WiracochaInfo> {
-    return wiracochaContract.getWiracochaInfoForAccount(_account, _pachaUuid);
+    return wiracochaContract.getWiracochaWithUuid(_wiracochaUuid);
 }
 
 /**

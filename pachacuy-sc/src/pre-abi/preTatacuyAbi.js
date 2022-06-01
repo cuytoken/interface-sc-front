@@ -273,7 +273,9 @@ module.exports = [
     type: "function",
   },
   {
-    inputs: [{ internalType: "uint256", name: "_pachaUuid", type: "uint256" }],
+    inputs: [
+      { internalType: "uint256", name: "_tatacuyUuid", type: "uint256" },
+    ],
     name: "finishTatacuyCampaign",
     outputs: [],
     stateMutability: "nonpayable",
@@ -334,7 +336,7 @@ module.exports = [
           { internalType: "bool", name: "isCampaignActive", type: "bool" },
         ],
         internalType: "struct Tatacuy.TatacuyInfo[]",
-        name: "",
+        name: "listActiveCampaigns",
         type: "tuple[]",
       },
     ],
@@ -350,10 +352,9 @@ module.exports = [
   },
   {
     inputs: [
-      { internalType: "address", name: "_account", type: "address" },
-      { internalType: "uint256", name: "_pachaUuid", type: "uint256" },
+      { internalType: "uint256", name: "_tatacuyUuid", type: "uint256" },
     ],
-    name: "getTatacuyInfoForAccount",
+    name: "getTatacuyWithUuid",
     outputs: [
       {
         components: [
@@ -506,7 +507,6 @@ module.exports = [
   },
   {
     inputs: [
-      { internalType: "uint256", name: "_pachaUuid", type: "uint256" },
       { internalType: "uint256", name: "_tatacuyUuid", type: "uint256" },
       {
         internalType: "uint256",
@@ -530,10 +530,9 @@ module.exports = [
   {
     inputs: [
       { internalType: "address", name: "_account", type: "address" },
-      { internalType: "address", name: "_pachaOwner", type: "address" },
-      { internalType: "uint256", name: "_pachaUuid", type: "uint256" },
       { internalType: "uint256", name: "_likelihood", type: "uint256" },
       { internalType: "uint256", name: "_idFromFront", type: "uint256" },
+      { internalType: "uint256", name: "_tatacuyUuid", type: "uint256" },
     ],
     name: "tryMyLuckTatacuy",
     outputs: [],

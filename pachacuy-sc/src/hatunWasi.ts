@@ -25,7 +25,7 @@ export function initHatunWasi(_provider: providers.ExternalProvider): Contract {
  * @param creationDate: Date when the Hatun Wasi was minted
  * @param hasHatunWasi: Indicates wheter a Hatun Wasi exists exists or not
  */
-interface IHatunWasiInfo {
+export interface IHatunWasiInfo {
     owner: string;
     hatunWasiUuid: number;
     pachaUuid: number;
@@ -36,9 +36,8 @@ export async function getListOfHatunWasis(): Promise<IHatunWasiInfo[]> {
     return await hatunWasiContract.getListOfHatunWasis();
 }
 
-export async function getAHatunWasi(
-    _account: string,
-    _pachaUuid: number
+export async function getHatunWasiWithUuid(
+    _hatunWasiUuid: number
 ): Promise<IHatunWasiInfo> {
-    return await hatunWasiContract.getAHatunWasi(_account, _pachaUuid);
+    return await hatunWasiContract.getHatunWasiWithUuid(_hatunWasiUuid);
 }

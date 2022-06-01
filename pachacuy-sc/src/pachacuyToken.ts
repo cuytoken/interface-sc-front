@@ -1,4 +1,4 @@
-import { BigNumber, Contract, ethers, providers, Signer } from "ethers";
+import { Contract, ethers, providers, Signer } from "ethers";
 
 import pcuyAbi from "./abi/pcuyAbi";
 

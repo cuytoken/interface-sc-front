@@ -21,14 +21,13 @@ export function initMisayWasi(
 }
 
 /**
- * @notice initiated by the owner of the misay wasi who deposts funds
- * @param _signer
- * @param _misayWasiUuid
- * @param _rafflePrize
- * @param _ticketPrice
- * @param _campaignEndDate
- * @param _numberOfConfirmations
- * @returns
+ * @notice initiated by the owner of the misay wasi who deposits funds
+ * @param _signer: Signer of the transaction (provider.getSigner(account))
+ * @param _misayWasiUuid: Uuid of the Misay Wasi where the owner is creating a raffle
+ * @param _rafflePrize: Prize of the raffle to be given by the owner
+ * @param _ticketPrice: Price to pay by a participant of the raffle
+ * @param _campaignEndDate: Timestamp ending date where the raffle will finish
+ * @param _numberOfConfirmations: Optional pass the number of confirmations to wait for
  */
 export async function startMisayWasiRaffle(
     _signer: Signer,
@@ -53,17 +52,28 @@ export async function startMisayWasiRaffle(
 
 /**
  * Initiated by the backend
- * @param _misayWasiUuids 
- * @returns 
+ * @param _misayWasiUuids Array of Uuid of the Misay Wasis that will start the raffle
+ * @dev Called only by the cloud using an access role
+ * @dev Called every day at 10 AM UTC-5
  */
 export async function startRaffleContest(_misayWasiUuids: number[]) {
     return await misayWasiContract.startRaffleContest(_misayWasiUuids);
 }
-export async function getListOfMisayWasisReadyToRaffle() {
+
+/**
+ * Returns the list raffles that have a passed contest date
+ * @returns IMisayWasiInfo[]
+ */
+export async function getListOfMisayWasisReadyToRaffle(): Promise<
+    IMisayWasiInfo[]
+> {
     return await misayWasiContract.getListOfMisayWasisReadyToRaffle();
 }
-
-export async function getListOfActiveMWRaffles() {
+/**
+ * Returns the list of active raffles
+ * @returns IMisayWasiInfo[]
+ */
+export async function getListOfActiveMWRaffles(): Promise<IMisayWasiInfo[]> {
     return await misayWasiContract.getListOfActiveMWRaffles();
 }
 
@@ -83,7 +93,7 @@ export async function getListOfActiveMWRaffles() {
  * @param isCampaignActive: Indicates wheter this misay waysi is running a raffle or not
  * @param hasMisayWasi: Indicates wheter a misay wasi exists or not
  */
-interface MisayWasiInfo {
+export interface IMisayWasiInfo {
     owner: string;
     misayWasiUuid: number;
     pachaUuid: number;
@@ -99,14 +109,39 @@ interface MisayWasiInfo {
     hasMisayWasi: boolean;
     listOfParticipants: string[];
 }
+/**
+ * Returns informantion about the Misay Wasi NFT
+ * @param _misayWasiUuid Uuid of the Misay Wasi when it was minted
+ * @returns ImsayWasiInfo
+ */
 export async function getMisayWasiWithUuid(
     _misayWasiUuid: number
-): Promise<MisayWasiInfo> {
+): Promise<IMisayWasiInfo> {
     return await misayWasiContract.getMisayWasiWithUuid(_misayWasiUuid);
 }
 
+/**
+ * Returns information about the Misay Wasi where the ticket was purchased
+ * @param _ticketUuid Uuid of the ticket purchased at Misay Wasi
+ * @returns IMisayWasiInfo
+ */
 export async function getMiswayWasiWithTicketUuid(
     _ticketUuid: number
-): Promise<MisayWasiInfo> {
+): Promise<IMisayWasiInfo> {
     return await misayWasiContract.getMiswayWasiWithTicketUuid(_ticketUuid);
+}
+
+/**
+ * @param winner: Wallet address of the winner of this raffle contest
+ * @param misayWasiUuid: Uuid of the Misay Wasi where the raffle contest took place
+ * @param rafflePrize: Net prize (minus fee) of the Misay Wasi allocated by the Misay Wasi's owner
+ * @param raffleTax: Tax applied to the prize
+ * @param ticketUuid: Uuid of the ticket purchased at this Misay Wasi
+ */
+export interface RaffleContestFinished {
+    winner: string;
+    misayWasiUuid: number;
+    rafflePrize: number;
+    raffleTax: number;
+    ticketUuid: number;
 }

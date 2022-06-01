@@ -1,84 +1,102 @@
 import { BigNumber, Contract, ethers, providers, Signer } from "ethers";
 
+/******************
+ *     GETTERS    *
+ *****************/
+import { getChakraWithUuid, ChakraInfo } from "./chakra";
+import { getGuineaPigWithUuid, IGuineaPigInfo } from "./guineaPig";
+import { getHatunWasiWithUuid, IHatunWasiInfo } from "./hatunWasi";
+import {
+    getMisayWasiWithUuid,
+    getMiswayWasiWithTicketUuid,
+    IMisayWasiInfo,
+} from "./misayWasi";
+import { getPachaWithUuid, PachaInfo } from "./pacha";
+import { getQhatuWasiWithUuid, QhatuWasiInfo } from "./qhatuWasi";
+import { getTatacuyWithUuid, ITatacuyCampaign } from "./tatacuy";
+import { getWiracochaWithUuid, WiracochaInfo } from "./wiracocha";
+
 import { nftpContract } from "./nftProducer";
 import { pcuyContract } from "./pachacuyToken";
 
+var keccak256 = ethers.utils.keccak256;
+var toUtf8Bytes = ethers.utils.toUtf8Bytes;
 // types of businesses
-var TATACUY = ethers.utils.keccak256(ethers.utils.toUtf8Bytes("TATACUY"));
-var WIRACOCHA = ethers.utils.keccak256(ethers.utils.toUtf8Bytes("WIRACOCHA"));
-var CHAKRA = ethers.utils.keccak256(ethers.utils.toUtf8Bytes("CHAKRA"));
-var HATUNWASI = ethers.utils.keccak256(ethers.utils.toUtf8Bytes("HATUNWASI"));
+var CHAKRA = keccak256(toUtf8Bytes("CHAKRA"));
+var GUINEAPIG = keccak256(toUtf8Bytes("GUINEAPIG"));
+var HATUNWASI = keccak256(toUtf8Bytes("HATUNWASI"));
+var MISAYWASI = keccak256(toUtf8Bytes("MISAYWASI"));
+var PACHA = keccak256(toUtf8Bytes("PACHA"));
+var QHATUWASI = keccak256(toUtf8Bytes("QHATUWASI"));
+var TATACUY = keccak256(toUtf8Bytes("TATACUY"));
+var TICKETRAFFLE = keccak256(toUtf8Bytes("TICKETRAFFLE"));
+var WIRACOCHA = keccak256(toUtf8Bytes("WIRACOCHA"));
 
-////////////////////////
-///     NFT DATA     ///
-////////////////////////
+var businesses = [
+    { type: CHAKRA, method: getChakraWithUuid, promises: [] },
+    { type: GUINEAPIG, method: getGuineaPigWithUuid, promises: [] },
+    { type: HATUNWASI, method: getHatunWasiWithUuid, promises: [] },
+    { type: MISAYWASI, method: getMisayWasiWithUuid, promises: [] },
+    { type: PACHA, method: getPachaWithUuid, promises: [] },
+    { type: QHATUWASI, method: getQhatuWasiWithUuid, promises: [] },
+    { type: TATACUY, method: getTatacuyWithUuid, promises: [] },
+    { type: TICKETRAFFLE, method: getMiswayWasiWithTicketUuid, promises: [] },
+    { type: WIRACOCHA, method: getWiracochaWithUuid, promises: [] },
+];
 /**
  * @param guineaPigs: list of uuids of each guinea pig owned by the user
  * @param lands: list of uuids of each land owned by the user
  * @param pachaPasses: list of uuids of each pacha pass owned by the user
  */
 interface NftList {
-    guineaPigs: number[];
-    lands: number[];
-    pachaPasses: number[];
-    tatacuy: number[];
-    wiracocha: number[];
-    chakra: number[];
-    hatunwasi: number[];
+    chakra: ChakraInfo[];
+    guineaPig: IGuineaPigInfo[];
+    hatunWasi: IHatunWasiInfo[];
+    misayWasi: IMisayWasiInfo[];
+    pacha: PachaInfo[];
+    qhatuWasi: QhatuWasiInfo[];
+    tatacuy: ITatacuyCampaign[];
+    ticketRaffle: IMisayWasiInfo[];
+    wiracocha: WiracochaInfo[];
 }
 /**
  * @dev Get's a list of all the NFTs owned by the user separated in two arrays
- * @param _account: Address of the user
- * @return Three lists of NFTs owned by the user: one for Guinea Pigs, one for Lands and one for Pacha Passes
+ * @param _account: Wallet address of the user
+ * @return Lists of NFTs owned by the user
  */
 export async function getListOfNftsPerAccount(
     _account: string
 ): Promise<NftList> {
-    var { guineaPigs, lands, pachaPasses } =
-        await nftpContract.getListOfNftsPerAccount(_account);
-    guineaPigs = guineaPigs.filter(
-        (number: BigNumber) => number.toString() != String(0)
-    );
-    lands = lands.filter((number: BigNumber) => number.toString() != String(0));
-    pachaPasses = pachaPasses.filter(
-        (number: BigNumber) => number.toString() != String(0)
-    );
-
     var { _listOfUuids, _listOfTypes } =
         await nftpContract.getListOfUuidsPerAccount(_account);
 
-    var tatacuy = [];
-    var wiracocha = [];
-    var chakra = [];
-    var hatunwasi = [];
+    businesses.forEach(({ type, method, promises }, ix) => {
+        var tempUuids = _listOfUuids.filter(
+            (_: string, ix: number) => _listOfTypes[ix] == type
+        );
+        promises.push(...tempUuids.map((uuid) => method(uuid)));
+    });
 
-    for (var ix = 0; ix < _listOfUuids.length; ix++) {
-        switch (_listOfTypes[ix]) {
-            case TATACUY:
-                tatacuy.push(ix);
-                break;
-            case WIRACOCHA:
-                wiracocha.push(ix);
-                break;
-            case CHAKRA:
-                chakra.push(ix);
-                break;
-            case HATUNWASI:
-                hatunwasi.push(ix);
-                break;
-            default:
-                break;
-        }
-    }
+    var chakra = [...businesses[0].promises];
+    var guineaPig = [...businesses[1].promises];
+    var hatunWasi = [...businesses[2].promises];
+    var misayWasi = [...businesses[3].promises];
+    var pacha = [...businesses[4].promises];
+    var qhatuWasi = [...businesses[5].promises];
+    var tatacuy = [...businesses[6].promises];
+    var ticketRaffle = [...businesses[7].promises];
+    var wiracocha = [...businesses[8].promises];
 
     return {
-        guineaPigs,
-        lands,
-        pachaPasses,
-        tatacuy,
-        wiracocha,
         chakra,
-        hatunwasi,
+        guineaPig,
+        hatunWasi,
+        misayWasi,
+        pacha,
+        qhatuWasi,
+        tatacuy,
+        ticketRaffle,
+        wiracocha,
     };
 }
 
@@ -89,9 +107,15 @@ export async function getListOfNftsPerAccount(
  * @param tokenBalance shows the balance of Pacha Cuy tokens for this wallet
  */
 interface IWalletInfo {
-    guineaPigs: number[];
-    lands: number[];
-    pachaPasses: number[];
+    chakra: number[];
+    guineaPig: number[];
+    hatunWasi: number[];
+    misayWasi: number[];
+    pacha: number[];
+    qhatuWasi: number[];
+    tatacuy: number[];
+    ticketRaffle: number[];
+    wiracocha: number[];
     tokenBalance: ethers.BigNumber;
 }
 
@@ -101,14 +125,39 @@ interface IWalletInfo {
  * @returns Returns a type of IWalletInfo that contains information about the wallee of the player
  */
 export async function getWalletData(_account: string): Promise<IWalletInfo> {
-    var { guineaPigs, lands, pachaPasses } = await getListOfNftsPerAccount(
-        _account
-    );
+    var { _listOfUuids, _listOfTypes } =
+        await nftpContract.getListOfUuidsPerAccount(_account);
+
+    var uuidsArray = Array(businesses.length).fill([]);
+    businesses.forEach(({ type }, ix) => {
+        var tempUuids = _listOfUuids.filter(
+            (_: string, i: number) => _listOfTypes[i] == type
+        );
+        uuidsArray[ix].push(...tempUuids);
+    });
+
     var tokenBalance = await pcuyContract.balanceOf(_account);
+
+    var chakra = uuidsArray[0];
+    var guineaPig = uuidsArray[1];
+    var hatunWasi = uuidsArray[2];
+    var misayWasi = uuidsArray[3];
+    var pacha = uuidsArray[4];
+    var qhatuWasi = uuidsArray[5];
+    var tatacuy = uuidsArray[6];
+    var ticketRaffle = uuidsArray[7];
+    var wiracocha = uuidsArray[8];
+
     return {
-        guineaPigs,
-        lands,
-        pachaPasses,
-        tokenBalance,
+        chakra,
+        guineaPig,
+        hatunWasi,
+        misayWasi,
+        pacha,
+        qhatuWasi,
+        tatacuy,
+        ticketRaffle,
+        wiracocha,
+        tokenBalance
     };
 }

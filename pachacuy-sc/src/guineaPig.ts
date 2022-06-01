@@ -20,7 +20,7 @@ export function initGuineaPig(
     return [guineaPigContract];
 }
 
-interface GuineaPigInfo {
+export interface IGuineaPigInfo {
     isGuineaPig: boolean;
     race: string;
     gender: string;
@@ -38,10 +38,10 @@ interface GuineaPigInfo {
 
 export async function getGuineaPigWithUuid(
     _guineaPigUuid: number
-): Promise<GuineaPigInfo> {
+): Promise<IGuineaPigInfo> {
     return await guineaPigContract.getGuineaPigWithUuid(_guineaPigUuid);
 }
 
-export async function getListOfGuineaPigs(): Promise<GuineaPigInfo[]> {
+export async function getListOfGuineaPigs(): Promise<IGuineaPigInfo[]> {
     return await guineaPigContract.getListOfGuineaPigs();
 }
