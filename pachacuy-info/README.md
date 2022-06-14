@@ -8,5 +8,9 @@ var {
 ```
 
 **CHANGELOGS**
-0.0.8
-getPriceInPcuy
+0.013
+
+- response from 'convertSamiToPcuy' is formatted
+
+  0.0.8
+  getPriceInPcuy

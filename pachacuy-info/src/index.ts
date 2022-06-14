@@ -1,15 +1,15 @@
 "use strict";
-import { BigNumber, Contract, ethers, providers, Signer } from "ethers";
+import { BigNumber, utils, Contract, ethers, providers, Signer } from "ethers";
 
 declare var __pachacuyInfoAddress__: string;
-declare var __rpcBinance__: string;
+declare var __rpcUrl__: string;
 
 var pachacuyInformationAddress = __pachacuyInfoAddress__;
-var rpcBinance = __rpcBinance__;
+var rpcUrl = __rpcUrl__;
 
 import pachacuyInformationAbi from "./abi/pachacuyInfoAbi";
 
-var provider = new providers.JsonRpcProvider(rpcBinance);
+var provider = new providers.JsonRpcProvider(rpcUrl);
 var pachacuyInformationContract: Contract = new Contract(
     pachacuyInformationAddress,
     pachacuyInformationAbi,
@@ -63,8 +63,10 @@ export async function convertBusdToPcuy(_busdAmount: number): Promise<number> {
 export async function convertPcuyToSami(_pcuyAmount: number): Promise<number> {
     return await pachacuyInformationContract.convertPcuyToSami(_pcuyAmount);
 }
-export async function convertSamiToPcuy(_samiAmount: number): Promise<number> {
-    return await pachacuyInformationContract.convertSamiToPcuy(_samiAmount);
+export async function convertSamiToPcuy(_samiAmount: number): Promise<string> {
+    return utils.formatEther(
+        await pachacuyInformationContract.convertSamiToPcuy(_samiAmount)
+    );
 }
 
 export async function exchangeRateBusdToPcuy(): Promise<number> {
