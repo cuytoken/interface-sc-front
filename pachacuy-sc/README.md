@@ -1,9 +1,14 @@
 **CHANGELOGS**
+<u>0.0.69</u>
+
+- getPachacuyBalance
+- nuevo parametro para 'startQhatuWasiCampaign': \_prizePerView
+
 <u>0.0.52</u>
 
-- Se cambio de "finishTatacuyCampaign(uint256 \_pachaUuid)" a "finishTatacuyCampaign(uint256 \_tatacuyId)"
+- Se cambio de "finishTatacuyCampaign(uint256 \_pachaUuid)" a "finishTatacuyCampaign(uint256 \_tatacuyUuid)"
 - "getTatacuyInfoForAccount" solo necesita \_tatacuyUuid
-- "signTatacuyTxAndVerify" no necesita "\_pachaOwner" ni "\_pachaUuid" pero sí "\_tatacuyId"
+- "signTatacuyTxAndVerify" no necesita "\_pachaOwner" ni "\_pachaUuid" pero sí "\_tatacuyUuid"
 - "startTatacuyCampaign" no lleva \_pachaUuid
 - "finishTatacuyCampaign" solo necesita \_tatacuyUuid
 - "getWiracochaInfoForAccount" solo necesita "\_wiracochaUuid"

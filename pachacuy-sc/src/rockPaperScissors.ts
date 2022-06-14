@@ -4,12 +4,12 @@ import { Contract, providers, Signer } from "ethers";
 import rpsAbi from "./abi/rpsAbi";
 
 declare var __rockPapetScissorsAddress__: string;
-declare var __rpcBinance__: string;
+declare var __rpcUrl__: string;
 
 var rockPapetScissorsAddress = __rockPapetScissorsAddress__;
-var rpcBinance = __rpcBinance__;
+var rpcUrl = __rpcUrl__;
 
-var provider = new providers.JsonRpcProvider(rpcBinance);
+var provider = new providers.JsonRpcProvider(rpcUrl);
 var rockPaperScissorsContract: Contract = new Contract(
     rockPapetScissorsAddress,
     rpsAbi,

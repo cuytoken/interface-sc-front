@@ -27,6 +27,7 @@ export function initqhatuWasi(
  * @param samiPointsToGiveAway: Amount of Sami Points equivalent to the Net PCUY tokens deposited
  * @param qhatuWasiuuid: Uuid of the Qhatu Wasi when it was minted
  * @param owner: Owner of the Qhatu Wasi
+ * @param prizePerView: Amount in Sami Points to be paid when someone sees the add until the end
  */
 interface IStartQhatuWasiCampaign {
     campaignTax: string;
@@ -34,6 +35,7 @@ interface IStartQhatuWasiCampaign {
     samiPointsToGiveAway: string;
     qhatuWasiuuid: string;
     owner: string;
+    prizePerView: string;
 }
 
 /**
@@ -41,26 +43,24 @@ interface IStartQhatuWasiCampaign {
  * @param _signer: Signer of the transaction (provider.getSigner(account))
  * @param _qhatuWasiUuid: Uuid of the Qhatu Wasi when it was minted
  * @param _amountPcuyCampaign: Amount in PCUY to be deposited by the campaign
+ * @param _prizePerView: Amount in PCUY to be paid when someone sees the add until the end
  * @param _numberOfConfirmations: Optional pass the number of confirmations to wait for
  */
 export async function startQhatuWasiCampaign(
     _signer: Signer,
     _qhatuWasiUuid: number,
     _amountPcuyCampaign: number,
+    _prizePerView: number,
     _numberOfConfirmations: number = 1
 ): Promise<IStartQhatuWasiCampaign> {
     var tx = await qhatuWasiContract
         .connect(_signer)
-        .startQhatuWasiCampaign(_qhatuWasiUuid, _amountPcuyCampaign);
-    // PENDING
-    /**
-     * extract
-     * QhatuWasiCampaignStarted topic
-     */
+        .startQhatuWasiCampaign(_qhatuWasiUuid, _amountPcuyCampaign, _prizePerView);
+
     var res = await tx.wait(_numberOfConfirmations);
 
-    var topic = // QhatuWasiCampaignStarted (uint256 campaignTax, uint256 netPcuyDeposited, uint256 samiPointsToGiveAway, uint256 qhatuWasiuuid, address owner)
-        "0xa9a1ebba1bc9b285c6d53acddd3cb90b178a4bf005be1a0334a00759e08f7c1c";
+    var topic = // event QhatuWasiCampaignStarted(uint256 campaignTax, uint256 netPcuyDeposited, uint256 samiPointsToGiveAway, uint256 qhatuWasiuuid, address owner, uint256 _prizePerView)
+        "0x05e6dad6af6902df2ec6193b80842ef17ae4af66cdc66790c146e816c4fbef7d";
 
     var data;
     for (var ev of res.events) {
@@ -70,7 +70,7 @@ export async function startQhatuWasiCampaign(
         }
     }
     res = utils.defaultAbiCoder.decode(
-        ["uint256", "uint256", "uint256", "uint256", "address"],
+        ["uint256", "uint256", "uint256", "uint256", "address", "uint256"],
         data
     );
 
@@ -80,6 +80,7 @@ export async function startQhatuWasiCampaign(
         samiPointsToGiveAway: res[2].toString(),
         qhatuWasiuuid: res[3].toString(),
         owner: res[4],
+        prizePerView: res[5].toString(),
     };
 }
 

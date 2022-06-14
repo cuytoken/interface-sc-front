@@ -3,16 +3,13 @@ import { BigNumber, Contract, ethers, providers, Signer } from "ethers";
 import nftpAbi from "./abi/nftpAbi";
 
 declare var __nftpAddress__: string;
-declare var __pcuyTokenAddress__: string;
 
 var provider: providers.Web3Provider = null;
 export var nftpContract: Contract;
 
-var pcuyTokenAddress = __pcuyTokenAddress__;
 var nftpAddress = __nftpAddress__;
 
 var pcuyContract: Contract;
-
 
 export function initNftProducer(
     _provider: providers.ExternalProvider
@@ -71,7 +68,6 @@ export async function getGuineaPigData(
         : false;
 }
 
-
 /**
  *
  * @param isLand Indicates wheter the NFT is a Land or not
@@ -99,7 +95,6 @@ export async function getLandData(_uuid: number): Promise<IDataLand | boolean> {
     return landData.isLand ? { ...landData } : false;
 }
 
-
 /**
  *
  * @param _account Wallet address of the user
@@ -112,7 +107,6 @@ export async function balanceOf(
 ): Promise<number> {
     return await nftpContract.balanceOf(_account, _uuid);
 }
-
 
 /**
  *
@@ -141,7 +135,6 @@ export async function tokenURI(_uuid: number): Promise<string> {
 
     return `${pinata}${image}`;
 }
-
 
 // NOT IMPLEMENTED
 // Pacha Pass
@@ -173,7 +166,6 @@ export async function getPachaPassData(
     return pachaPassData.isPachaPass ? { ...pachaPassData } : false;
 }
 
-
 ////////////////////////
 ///     TATACUY      ///
 ////////////////////////
@@ -181,17 +173,17 @@ export async function mintTatacuy(
     _signer: Signer,
     _pachaUuid: number,
     _numberOfConfirmations: number = 1
-): Promise<BigNumber> {
+): Promise<string> {
     var tx = await nftpContract.connect(_signer).mintTatacuy(_pachaUuid);
     var res = await tx.wait(_numberOfConfirmations);
     var topic =
         "0x9f87cb7b8a6c54debaaa0d12a571441914663d4a4300341e3805f85b854ee337";
     for (var ev of res.events) {
         if (ev.topics.includes(topic)) {
-            return ethers.BigNumber.from(ev.data);
+            return ethers.BigNumber.from(ev.data).toString();
         }
     }
-    return ethers.BigNumber.from(0);
+    return ethers.BigNumber.from(0).toString();
 }
 
 ////////////////////////
@@ -201,19 +193,18 @@ export async function mintWiracocha(
     _signer: Signer,
     _pachaUuid: number,
     _numberOfConfirmations: number = 1
-): Promise<BigNumber> {
+): Promise<string> {
     var tx = await nftpContract.connect(_signer).mintWiracocha(_pachaUuid);
     var res = await tx.wait(_numberOfConfirmations);
     var topic =
         "0x9f87cb7b8a6c54debaaa0d12a571441914663d4a4300341e3805f85b854ee337";
     for (var ev of res.events) {
         if (ev.topics.includes(topic)) {
-            return ethers.BigNumber.from(ev.data);
+            return ethers.BigNumber.from(ev.data).toString();
         }
     }
-    return ethers.BigNumber.from(0);
+    return ethers.BigNumber.from(0).toString();
 }
-
 
 export async function burnChakra(
     _signer: Signer,
@@ -231,16 +222,31 @@ export async function mintHatunWasi(
     _signer: Signer,
     _pachaUuid: number,
     _numberOfConfirmations: number = 1
-): Promise<BigNumber> {
+): Promise<string> {
     var tx = await nftpContract.connect(_signer).mintHatunWasi(_pachaUuid);
     var res = await tx.wait(_numberOfConfirmations);
     var topic =
         "0x9f87cb7b8a6c54debaaa0d12a571441914663d4a4300341e3805f85b854ee337";
     for (var ev of res.events) {
         if (ev.topics.includes(topic)) {
-            return ethers.BigNumber.from(ev.data);
+            return ethers.BigNumber.from(ev.data).toString();
         }
     }
-    return ethers.BigNumber.from(0);
+    return ethers.BigNumber.from(0).toString();
 }
 
+export async function getListOfUuidsPerAccount(_account: string): Promise<any> {
+    try {
+        var { _listOfUuids, _listOfTypes } =
+            await nftpContract.getListOfUuidsPerAccount(_account);
+    } catch (error) {
+        console.log("getListOfUuidsPerAccount error", error);
+    }
+
+    console.log("NFT Producer", _listOfUuids, _listOfTypes);
+
+    return {
+        _listOfUuids,
+        _listOfTypes,
+    };
+}

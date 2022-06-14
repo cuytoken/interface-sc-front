@@ -14,10 +14,10 @@ var misayWasiContract: Contract;
  */
 export function initMisayWasi(
     _provider: providers.ExternalProvider
-): Contract[] {
+): Contract {
     provider = new providers.Web3Provider(_provider);
     misayWasiContract = new Contract(misayWasiAddress, misayWasiAbi, provider);
-    return [misayWasiContract];
+    return misayWasiContract;
 }
 
 /**

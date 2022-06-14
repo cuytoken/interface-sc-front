@@ -98,17 +98,17 @@ export async function purchaseChakra(
     _signer: Signer,
     _pachaUuid: number,
     _numberOfConfirmations: number = 1
-): Promise<BigNumber> {
+): Promise<string> {
     var tx = await pacContract.connect(_signer).purchaseChakra(_pachaUuid);
     var res = await tx.wait(_numberOfConfirmations);
     var topic =
         "0x9f87cb7b8a6c54debaaa0d12a571441914663d4a4300341e3805f85b854ee337";
     for (var ev of res.events) {
         if (ev.topics.includes(topic)) {
-            return ethers.BigNumber.from(ev.data);
+            return ethers.BigNumber.from(ev.data).toString();
         }
     }
-    return ethers.BigNumber.from(0);
+    return ethers.BigNumber.from(0).toString();
 }
 
 export async function purchaseFoodFromChakra(
@@ -171,7 +171,7 @@ export async function purchaseMisayWasi(
     _signer: Signer,
     _pachaUuid: number,
     _numberOfConfirmations: number = 1
-): Promise<BigNumber> {
+): Promise<string> {
     if (!provider) throw new Error("No provider set");
     var tx = await pacContract.connect(_signer).purchaseMisayWasi(_pachaUuid);
     var res = await tx.wait(_numberOfConfirmations);
@@ -180,10 +180,10 @@ export async function purchaseMisayWasi(
         "0x9f87cb7b8a6c54debaaa0d12a571441914663d4a4300341e3805f85b854ee337";
     for (var ev of res.events) {
         if (ev.topics.includes(topic)) {
-            return ethers.BigNumber.from(ev.data);
+            return ethers.BigNumber.from(ev.data).toString();
         }
     }
-    return ethers.BigNumber.from(0);
+    return ethers.BigNumber.from(0).toString();
 }
 
 ////////////////////////
@@ -194,7 +194,7 @@ export async function purchaseQhatuWasi(
     _signer: Signer,
     _pachaUuid: number,
     _numberOfConfirmations: number = 1
-): Promise<BigNumber> {
+): Promise<string> {
     if (!provider) throw new Error("No provider set");
     var tx = await pacContract.connect(_signer).purchaseQhatuWasi(_pachaUuid);
     var res = await tx.wait(_numberOfConfirmations);
@@ -203,8 +203,8 @@ export async function purchaseQhatuWasi(
         "0x9f87cb7b8a6c54debaaa0d12a571441914663d4a4300341e3805f85b854ee337";
     for (var ev of res.events) {
         if (ev.topics.includes(topic)) {
-            return ethers.BigNumber.from(ev.data);
+            return ethers.BigNumber.from(ev.data).toString();
         }
     }
-    return ethers.BigNumber.from(0);
+    return ethers.BigNumber.from(0).toString();
 }

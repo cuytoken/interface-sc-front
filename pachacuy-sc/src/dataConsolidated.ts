@@ -16,7 +16,7 @@ import { getQhatuWasiWithUuid, QhatuWasiInfo } from "./qhatuWasi";
 import { getTatacuyWithUuid, ITatacuyCampaign } from "./tatacuy";
 import { getWiracochaWithUuid, WiracochaInfo } from "./wiracocha";
 
-import { nftpContract } from "./nftProducer";
+import { nftpContract, getListOfUuidsPerAccount } from "./nftProducer";
 import { pcuyContract } from "./pachacuyToken";
 
 var keccak256 = ethers.utils.keccak256;
@@ -35,19 +35,18 @@ var WIRACOCHA = keccak256(toUtf8Bytes("WIRACOCHA"));
 interface IBusiness {
     type: string;
     method: Function;
-    promises: any;
 }
 
 var businesses: IBusiness[] = [
-    { type: CHAKRA, method: getChakraWithUuid, promises: [] },
-    { type: GUINEAPIG, method: getGuineaPigWithUuid, promises: [] },
-    { type: HATUNWASI, method: getHatunWasiWithUuid, promises: [] },
-    { type: MISAYWASI, method: getMisayWasiWithUuid, promises: [] },
-    { type: PACHA, method: getPachaWithUuid, promises: [] },
-    { type: QHATUWASI, method: getQhatuWasiWithUuid, promises: [] },
-    { type: TATACUY, method: getTatacuyWithUuid, promises: [] },
-    { type: TICKETRAFFLE, method: getMiswayWasiWithTicketUuid, promises: [] },
-    { type: WIRACOCHA, method: getWiracochaWithUuid, promises: [] },
+    { type: CHAKRA, method: getChakraWithUuid },
+    { type: GUINEAPIG, method: getGuineaPigWithUuid },
+    { type: HATUNWASI, method: getHatunWasiWithUuid },
+    { type: MISAYWASI, method: getMisayWasiWithUuid },
+    { type: PACHA, method: getPachaWithUuid },
+    { type: QHATUWASI, method: getQhatuWasiWithUuid },
+    { type: TATACUY, method: getTatacuyWithUuid },
+    { type: TICKETRAFFLE, method: getMiswayWasiWithTicketUuid },
+    { type: WIRACOCHA, method: getWiracochaWithUuid },
 ];
 /**
  * @param guineaPigs: list of uuids of each guinea pig owned by the user
@@ -73,25 +72,33 @@ interface NftList {
 export async function getListOfNftsPerAccount(
     _account: string
 ): Promise<NftList> {
-    var { _listOfUuids, _listOfTypes } =
-        await nftpContract.getListOfUuidsPerAccount(_account);
-
-    businesses.forEach(({ type, method, promises }, ix) => {
-        var tempUuids = _listOfUuids.filter(
-            (_: string, ix: number) => _listOfTypes[ix] == type
+    try {
+        var { _listOfUuids, _listOfTypes } = await getListOfUuidsPerAccount(
+            _account
         );
-        promises.push(...tempUuids.map((uuid: number) => method(uuid)));
+    } catch (error) {
+        console.log("dataConsolidated error", error);
+    }
+
+    var promisesArray = Array(businesses.length)
+        .fill(null)
+        .map(() => []);
+    businesses.forEach(({ type, method }, ix) => {
+        var tempUuids = _listOfUuids.filter(
+            (_: string, i: number) => _listOfTypes[i] == type
+        );
+        promisesArray[ix].push(...tempUuids.map((uuid: number) => method(uuid)));
     });
 
-    var chakra = await Promise.all([...businesses[0].promises]);
-    var guineaPig = await Promise.all([...businesses[1].promises]);
-    var hatunWasi = await Promise.all([...businesses[2].promises]);
-    var misayWasi = await Promise.all([...businesses[3].promises]);
-    var pacha = await Promise.all([...businesses[4].promises]);
-    var qhatuWasi = await Promise.all([...businesses[5].promises]);
-    var tatacuy = await Promise.all([...businesses[6].promises]);
-    var ticketRaffle = await Promise.all([...businesses[7].promises]);
-    var wiracocha = await Promise.all([...businesses[8].promises]);
+    var chakra = await Promise.all([...promisesArray[0]]);
+    var guineaPig = await Promise.all([...promisesArray[1]]);
+    var hatunWasi = await Promise.all([...promisesArray[2]]);
+    var misayWasi = await Promise.all([...promisesArray[3]]);
+    var pacha = await Promise.all([...promisesArray[4]]);
+    var qhatuWasi = await Promise.all([...promisesArray[5]]);
+    var tatacuy = await Promise.all([...promisesArray[6]]);
+    var ticketRaffle = await Promise.all([...promisesArray[7]]);
+    var wiracocha = await Promise.all([...promisesArray[8]]);
 
     return {
         chakra,

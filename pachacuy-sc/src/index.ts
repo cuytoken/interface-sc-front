@@ -17,6 +17,13 @@ import { initTatacuy } from "./tatacuy";
 import { initWiracocha } from "./wiracocha";
 
 /******************
+ *      PCUY      *
+ *****************/
+export {
+    getPachacuyBalance,
+} from "./pachacuyToken";
+
+/******************
  *     CHAKRA     *
  *****************/
 export {
@@ -113,7 +120,7 @@ export {
 /******************
  *  CONSOLIDATED  *
  *****************/
-export { startQhatuWasiCampaign } from "./qhatuWasi";
+export { startQhatuWasiCampaign, getQhatuWasiWithUuid } from "./qhatuWasi";
 
 /******************
  *  CONSOLIDATED  *
@@ -144,5 +151,6 @@ export function init(_provider: providers.ExternalProvider): Contract[] {
         wiracochaContract,
         chakraContract,
         hatunWasiContract,
+        misayWasiContract,
     ];
 }

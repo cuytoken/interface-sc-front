@@ -100,6 +100,7 @@ var qhatuWasiAbiList = [
   "startQhatuWasiCampaign",
   "getListOfQhatuWasi",
   "getQhatuWasiWithUuid",
+  "QhatuWasiCampaignStarted",
 ];
 
 async function main() {
