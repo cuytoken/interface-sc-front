@@ -11,7 +11,12 @@ import {
     getMiswayWasiWithTicketUuid,
     IMisayWasiInfo,
 } from "./misayWasi";
-import { getPachaWithUuid, PachaInfo } from "./pacha";
+import {
+    getPachaWithUuid,
+    PachaInfo,
+    getPachaPassWithUuid,
+    PachaPassInfo,
+} from "./pacha";
 import { getQhatuWasiWithUuid, QhatuWasiInfo } from "./qhatuWasi";
 import { getTatacuyWithUuid, ITatacuyCampaign } from "./tatacuy";
 import { getWiracochaWithUuid, WiracochaInfo } from "./wiracocha";
@@ -31,6 +36,7 @@ var QHATUWASI = keccak256(toUtf8Bytes("QHATUWASI"));
 var TATACUY = keccak256(toUtf8Bytes("TATACUY"));
 var TICKETRAFFLE = keccak256(toUtf8Bytes("TICKETRAFFLE"));
 var WIRACOCHA = keccak256(toUtf8Bytes("WIRACOCHA"));
+var PACHAPASS = keccak256(toUtf8Bytes("PACHAPASS"));
 
 interface IBusiness {
     type: string;
@@ -47,6 +53,7 @@ var businesses: IBusiness[] = [
     { type: TATACUY, method: getTatacuyWithUuid },
     { type: TICKETRAFFLE, method: getMiswayWasiWithTicketUuid },
     { type: WIRACOCHA, method: getWiracochaWithUuid },
+    { type: PACHAPASS, method: getPachaPassWithUuid },
 ];
 /**
  * @param guineaPigs: list of uuids of each guinea pig owned by the user
@@ -63,6 +70,7 @@ interface NftList {
     tatacuy: ITatacuyCampaign[];
     ticketRaffle: IMisayWasiInfo[];
     wiracocha: WiracochaInfo[];
+    pachapass: PachaPassInfo[];
 }
 /**
  * @dev Get's a list of all the NFTs owned by the user separated in two arrays
@@ -99,6 +107,7 @@ export async function getListOfNftsPerAccount(
     var tatacuy = await Promise.all([...promisesArray[6]]);
     var ticketRaffle = await Promise.all([...promisesArray[7]]);
     var wiracocha = await Promise.all([...promisesArray[8]]);
+    var pachapass = await Promise.all([...promisesArray[9]]);
 
     return {
         chakra,
@@ -110,6 +119,7 @@ export async function getListOfNftsPerAccount(
         tatacuy,
         ticketRaffle,
         wiracocha,
+        pachapass,
     };
 }
 
@@ -129,6 +139,7 @@ interface IWalletInfo {
     tatacuy: number[];
     ticketRaffle: number[];
     wiracocha: number[];
+    pachapass: number[];
     tokenBalance: string;
 }
 
@@ -163,6 +174,7 @@ export async function getWalletData(_account: string): Promise<IWalletInfo> {
     var tatacuy = uuidsArray[6];
     var ticketRaffle = uuidsArray[7];
     var wiracocha = uuidsArray[8];
+    var pachapass = uuidsArray[9];
 
     return {
         chakra,
@@ -174,6 +186,7 @@ export async function getWalletData(_account: string): Promise<IWalletInfo> {
         tatacuy,
         ticketRaffle,
         wiracocha,
+        pachapass,
         tokenBalance,
     };
 }

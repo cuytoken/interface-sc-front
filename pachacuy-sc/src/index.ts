@@ -3,7 +3,6 @@
 import { Contract, providers } from "ethers";
 
 // INIT
-import { initBusd } from "./busd";
 import { initChakra } from "./chakra";
 import { initGuineaPig } from "./guineaPig";
 import { initHatunWasi } from "./hatunWasi";
@@ -19,9 +18,7 @@ import { initWiracocha } from "./wiracocha";
 /******************
  *      PCUY      *
  *****************/
-export {
-    getPachacuyBalance,
-} from "./pachacuyToken";
+export { getPachacuyBalance } from "./pachacuyToken";
 
 /******************
  *     CHAKRA     *
@@ -66,17 +63,17 @@ export { playRockPaperScissors } from "./rockPaperScissors";
 /******************
  *     PACHA      *
  *****************/
-export { getListOfPachas, getPachaWithUuid } from "./pacha";
+export {
+    getListOfPachas,
+    getPachaWithUuid,
+    setPachaToPublic,
+    isPachaAlreadyTaken,
+} from "./pacha";
 
 /******************
  *   GUINEA PIG   *
  *****************/
 export { getGuineaPigWithUuid, getListOfGuineaPigs } from "./guineaPig";
-
-/******************
- *      BUSD      *
- *****************/
-export { allowance, approveBusd } from "./busd";
 
 /******************
  *  PURCHASE A C  *
@@ -86,8 +83,7 @@ export {
     purchaseGuineaPigWithPcuy,
     purchaseLandWithBusd,
     purchaseLandWithPcuy,
-    purchasePachaPassWithPcuy,
-    purchasePachaPassWithBusd,
+    purchasePachaPass,
     purchaseChakra,
     purchaseFoodFromChakra,
     purchaseTicketFromMisayWasi,
@@ -99,7 +95,13 @@ export {
  *   MISAY WASI   *
  *****************/
 
-export { startMisayWasiRaffle } from "./misayWasi";
+export {
+    startMisayWasiRaffle,
+    getMisayWasiWithUuid,
+    getMiswayWasiWithTicketUuid,
+    getListOfActiveMWRaffles,
+    getListOfMisayWasisReadyToRaffle,
+} from "./misayWasi";
 
 /******************
  *  NFT PRODUCER  *
@@ -110,11 +112,12 @@ export {
     balanceOf,
     totalSupply,
     tokenURI,
-    getPachaPassData,
     mintTatacuy,
     mintWiracocha,
     burnChakra,
     mintHatunWasi,
+    isGuineaPigAllowedInPacha,
+    mintPachaPassAsOwner,
 } from "./nftProducer";
 
 /******************
@@ -132,7 +135,6 @@ export { getListOfNftsPerAccount, getWalletData } from "./dataConsolidated";
  * @param _provider: window.ethereum or an equivalent
  */
 export function init(_provider: providers.ExternalProvider): Contract[] {
-    var busdContract = initBusd(_provider);
     var chakraContract = initChakra(_provider);
     var guineaPigContract = initGuineaPig(_provider);
     var hatunWasiContract = initHatunWasi(_provider);

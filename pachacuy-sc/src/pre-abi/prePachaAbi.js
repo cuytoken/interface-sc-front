@@ -161,6 +161,36 @@ module.exports = [
   },
   {
     inputs: [],
+    name: "getListOfPachaPasses",
+    outputs: [
+      {
+        components: [
+          { internalType: "bool", name: "isPachaPass", type: "bool" },
+          { internalType: "uint256", name: "pachaUuid", type: "uint256" },
+          {
+            internalType: "uint256",
+            name: "typeOfDistribution",
+            type: "uint256",
+          },
+          { internalType: "uint256", name: "uuid", type: "uint256" },
+          { internalType: "uint256", name: "price", type: "uint256" },
+          { internalType: "string", name: "transferMode", type: "string" },
+          {
+            internalType: "address[]",
+            name: "listPachaPassOwners",
+            type: "address[]",
+          },
+        ],
+        internalType: "struct Pacha.PachaPassInfo[]",
+        name: "listOfPachaPasses",
+        type: "tuple[]",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
     name: "getListOfPachas",
     outputs: [
       {
@@ -179,10 +209,48 @@ module.exports = [
           { internalType: "uint256", name: "wasPurchased", type: "uint256" },
           { internalType: "uint256", name: "location", type: "uint256" },
           { internalType: "address", name: "owner", type: "address" },
+          { internalType: "uint256", name: "price", type: "uint256" },
+          {
+            internalType: "address[]",
+            name: "listPachaPassOwners",
+            type: "address[]",
+          },
         ],
         internalType: "struct Pacha.PachaInfo[]",
         name: "listOfPachas",
         type: "tuple[]",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "uint256", name: "_pachaPassUuid", type: "uint256" },
+    ],
+    name: "getPachaPassWithUuid",
+    outputs: [
+      {
+        components: [
+          { internalType: "bool", name: "isPachaPass", type: "bool" },
+          { internalType: "uint256", name: "pachaUuid", type: "uint256" },
+          {
+            internalType: "uint256",
+            name: "typeOfDistribution",
+            type: "uint256",
+          },
+          { internalType: "uint256", name: "uuid", type: "uint256" },
+          { internalType: "uint256", name: "price", type: "uint256" },
+          { internalType: "string", name: "transferMode", type: "string" },
+          {
+            internalType: "address[]",
+            name: "listPachaPassOwners",
+            type: "address[]",
+          },
+        ],
+        internalType: "struct Pacha.PachaPassInfo",
+        name: "",
+        type: "tuple",
       },
     ],
     stateMutability: "view",
@@ -208,6 +276,12 @@ module.exports = [
           { internalType: "uint256", name: "wasPurchased", type: "uint256" },
           { internalType: "uint256", name: "location", type: "uint256" },
           { internalType: "address", name: "owner", type: "address" },
+          { internalType: "uint256", name: "price", type: "uint256" },
+          {
+            internalType: "address[]",
+            name: "listPachaPassOwners",
+            type: "address[]",
+          },
         ],
         internalType: "struct Pacha.PachaInfo",
         name: "",
@@ -277,8 +351,21 @@ module.exports = [
       { internalType: "address", name: "_account", type: "address" },
       { internalType: "uint256", name: "_idForJsonFile", type: "uint256" },
       { internalType: "uint256", name: "_pachaUuid", type: "uint256" },
+      { internalType: "uint256", name: "_price", type: "uint256" },
     ],
     name: "registerPacha",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "address", name: "_account", type: "address" },
+      { internalType: "uint256", name: "_pachaUuid", type: "uint256" },
+      { internalType: "uint256", name: "_pachaPassUuid", type: "uint256" },
+      { internalType: "string", name: "_transferMode", type: "string" },
+    ],
+    name: "registerPachaPass",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -305,6 +392,24 @@ module.exports = [
   },
   {
     inputs: [
+      { internalType: "uint256", name: "_pachaUuid", type: "uint256" },
+      { internalType: "uint256", name: "_price", type: "uint256" },
+      { internalType: "uint256", name: "_typeOfDistribution", type: "uint256" },
+    ],
+    name: "setPachaPrivacyAndDistribution",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "uint256", name: "_pachaUuid", type: "uint256" }],
+    name: "setPachaToPublic",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
       { internalType: "address", name: "_infoAddress", type: "address" },
     ],
     name: "setPachacuyInfoAddress",
@@ -316,6 +421,16 @@ module.exports = [
     inputs: [{ internalType: "bytes4", name: "interfaceId", type: "bytes4" }],
     name: "supportsInterface",
     outputs: [{ internalType: "bool", name: "", type: "bool" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "string", name: "_prefix", type: "string" },
+      { internalType: "uint256", name: "_pachaUuid", type: "uint256" },
+    ],
+    name: "tokenUri",
+    outputs: [{ internalType: "string", name: "", type: "string" }],
     stateMutability: "view",
     type: "function",
   },

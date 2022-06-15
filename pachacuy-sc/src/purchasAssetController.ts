@@ -69,29 +69,27 @@ export async function purchaseLandWithPcuy(_location: number, _signer: Signer) {
 }
 
 /**
- * @notice Purchases a Pacha Pass from a land that exists
- * @param _landUuid: A land's uuid for which the pacha pass will be purchased
+ * @notice Purchases a Pacha Pass from a pacha that exists
+ * @param _pachaUuid: A pacha's uuid for which the pacha pass will be purchased
  * @param _signer: Signer of the transaction (provider.getSigner(account))
+ * @return the uuid of the pacha pass
  */
-export async function purchasePachaPassWithPcuy(
-    _landUuid: number,
-    _signer: Signer
-) {
+export async function purchasePachaPass(
+    _signer: Signer,
+    _pachaUuid: number,
+    _numberOfConfirmations: number = 1
+): Promise<string> {
     if (!provider) throw new Error("No provider set");
-    await pacContract.connect(_signer).purchasePachaPassWithPcuy(_landUuid);
-}
-
-/**
- * @notice Purchases a Pacha Pass from a land that exists
- * @param _landUuid: A land's uuid for which the pacha pass will be purchased
- * @param _signer: Signer of the transaction (provider.getSigner(account))
- */
-export async function purchasePachaPassWithBusd(
-    _landUuid: number,
-    _signer: Signer
-) {
-    if (!provider) throw new Error("No provider set");
-    await pacContract.connect(_signer).purchasePachaPassWithBusd(_landUuid);
+    var tx = await pacContract.connect(_signer).purchasePachaPass(_pachaUuid);
+    var res = await tx.wait(_numberOfConfirmations);
+    var topic =
+        "0x9f87cb7b8a6c54debaaa0d12a571441914663d4a4300341e3805f85b854ee337";
+    for (var ev of res.events) {
+        if (ev.topics.includes(topic)) {
+            return ethers.BigNumber.from(ev.data).toString();
+        }
+    }
+    return ethers.BigNumber.from(0).toString();
 }
 
 export async function purchaseChakra(

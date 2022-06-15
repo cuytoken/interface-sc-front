@@ -1,4 +1,30 @@
 **CHANGELOGS**
+<u>0.0.83</u>
+Pacha
+
+- PachaInfo has another property listPachaPassOwners
+- setPachaToPublic
+- setPachaPrivacyAndDistribution
+- getListOfPachaPasses
+- getPachaPassWithUuid
+- isPachaAlreadyTaken
+
+Purchase asset controller
+
+- purchasePachaPass
+
+Nft Producer
+
+- isGuineaPigAllowedInPacha
+- mintPachaPassAsOwner
+
+Misay Wasi
+
+- getMisayWasiWithUuid,
+- getMiswayWasiWithTicketUuid
+- getListOfActiveMWRaffles
+- getListOfMisayWasisReadyToRaffle,
+
 <u>0.0.69</u>
 
 - getPachacuyBalance

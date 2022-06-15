@@ -9,8 +9,7 @@ export default[
   "function purchaseLandWithBusd(uint256 _location)",
   "function purchaseLandWithPcuy(uint256 _location)",
   "function purchaseMisayWasi(uint256 _pachaUuid)",
-  "function purchasePachaPassWithBusd(uint256 _landUuid) returns (uint256)",
-  "function purchasePachaPassWithPcuy(uint256 _landUuid) returns (uint256)",
+  "function purchasePachaPass(uint256 _pachaUuid)",
   "function purchaseQhatuWasi(uint256 _pachaUuid)",
   "function purchaseTicketFromMisayWasi(uint256 _misayWasiUuid, uint256 _amountOfTickets)"
 ]

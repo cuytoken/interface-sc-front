@@ -9,8 +9,6 @@ export var nftpContract: Contract;
 
 var nftpAddress = __nftpAddress__;
 
-var pcuyContract: Contract;
-
 export function initNftProducer(
     _provider: providers.ExternalProvider
 ): Contract {
@@ -136,34 +134,51 @@ export async function tokenURI(_uuid: number): Promise<string> {
     return `${pinata}${image}`;
 }
 
-// NOT IMPLEMENTED
-// Pacha Pass
+////////////////////////
+///      PACHA       ///
+////////////////////////
 /**
- * @param pachaId: Pacha's ID (unique identifier) to which the Pacha Pass belongs to
- * @param owner: Wallet address of the Pacha Pass owner
- * @param cost: Amount of tokens paid to get the Pacha Pass
- * @param transferMode: One of the following: 'purchased'(when public pachapass) or 'transferred'(when private pacha).
+ * @notice Indicates whether a Guinea Pig is allows to enter a Pacha
+ * @param _account Wallet to be validated against the Pacha
+ * @param _pachaUuid Uuid of the pacha to check the access of _account
+ * @return a boolean indicating if _account has access or not
  */
-
-interface IPachaPass {
-    isPachaPass: boolean;
-    pachaUuid: number;
-    typeOfDistribution: number;
-    uuid: number;
-    cost: number;
-    transferMode: "purchased" | "transferred";
+export async function isGuineaPigAllowedInPacha(
+    _account: string,
+    _pachaUuid: number
+): Promise<boolean> {
+    return await nftpContract.isGuineaPigAllowedInPacha(_account, _pachaUuid);
 }
 
+////////////////////////
+///     PACHAPASS    ///
+////////////////////////
 /**
- *
- * @param _uuid Pacha Pass' uuid given when it was minted
- * @returns Returns a type of IPachaPass object that contains information about the Pacha Pass properties
+ * @notice Mints a Pacha Pass when the Pacha has chose typeDistribution = 1 (no public sale)
+ * @param _signer: Signer of the transaction (provider.getSigner(account))
+ * @param _accounts: list of wallet address that will receive a pacha pass
+ * @param _pachaUuid: uuid of the Pacha from where the Pacha Passes will be minted
+ * @param _numberOfConfirmations: Optional pass the number of confirmations to wait for
+ * @return the Uuid of the pacha pass that was minted
  */
-export async function getPachaPassData(
-    _uuid: number
-): Promise<IPachaPass | boolean> {
-    var pachaPassData: IPachaPass = await nftpContract.getPachaPassData(_uuid);
-    return pachaPassData.isPachaPass ? { ...pachaPassData } : false;
+export async function mintPachaPassAsOwner(
+    _signer: Signer,
+    _accounts: string[],
+    _pachaUuid: number,
+    _numberOfConfirmations: number = 1
+): Promise<string> {
+    var tx = await nftpContract
+        .connect(_signer)
+        .mintPachaPassAsOwner(_accounts, _pachaUuid);
+    var res = await tx.wait(_numberOfConfirmations);
+    var topic =
+        "0x9f87cb7b8a6c54debaaa0d12a571441914663d4a4300341e3805f85b854ee337";
+    for (var ev of res.events) {
+        if (ev.topics.includes(topic)) {
+            return ethers.BigNumber.from(ev.data).toString();
+        }
+    }
+    return ethers.BigNumber.from(0).toString();
 }
 
 ////////////////////////
@@ -242,8 +257,6 @@ export async function getListOfUuidsPerAccount(_account: string): Promise<any> {
     } catch (error) {
         console.log("getListOfUuidsPerAccount error", error);
     }
-
-    console.log("NFT Producer", _listOfUuids, _listOfTypes);
 
     return {
         _listOfUuids,

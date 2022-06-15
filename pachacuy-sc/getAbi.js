@@ -27,6 +27,8 @@ var nftpAbiList = [
   "mintHatunWasi",
   "getListOfUuidsPerAccount",
   "UuidAndAmount",
+  "isGuineaPigAllowedInPacha",
+  "mintPachaPassAsOwner",
 ];
 
 var pacAbiList = [
@@ -45,6 +47,7 @@ var pacAbiList = [
   "purchaseTicketFromMisayWasi",
   "purchaseMisayWasi",
   "purchaseQhatuWasi",
+  "purchasePachaPass",
 ];
 
 var pachacuyAbiList = ["balanceOf"];
@@ -86,6 +89,11 @@ var pachaAbiList = [
   "isPachaAlreadyTaken",
   "getListOfPachas",
   "getPachaWithUuid",
+  "getListOfPachaPasses",
+  "setPachaToPublic",
+  "setPachaPrivacyAndDistribution",
+  "getListOfPachaPasses",
+  "getPachaPassWithUuid",
 ];
 
 var misayWasiAbiList = [
