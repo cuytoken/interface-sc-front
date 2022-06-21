@@ -47,6 +47,7 @@ export async function getListOfPachas(): Promise<PachaInfo[]> {
 
 /**
  * @notice Converts a private pacha to a public pacha
+ * @param _signer: Signer of the transaction (provider.getSigner(account))
  * @param _pachaUuid: Uuif of the pacha that will become public (no pacha pass required)
  */
 export async function setPachaToPublic(
@@ -54,12 +55,13 @@ export async function setPachaToPublic(
     _pachaUuid: number,
     _numberOfConfirmations: number = 1
 ): Promise<PachaInfo[]> {
-    var tx = await pachaContract.setPachaToPublic(_pachaUuid);
+    var tx = await pachaContract.connect(_signer).setPachaToPublic(_pachaUuid);
     return await tx.wait(_numberOfConfirmations);
 }
 
 /**
  * @notice Set a Pacha to private and choose type of distribution (private with not price or public with price)
+ * @param _signer: Signer of the transaction (provider.getSigner(account))
  * @param _pachaUuid uuid of the land for which the pacha pass will be created
  * @param _price price of pachapass in PCUY. If '_typeOfDistribution' is 1, '_price' must be 0
  * @param _typeOfDistribution (1, 2) - private distribution (no price) or public sale of pacha pass
@@ -71,11 +73,9 @@ export async function setPachaPrivacyAndDistribution(
     _typeOfDistribution: number,
     _numberOfConfirmations: number = 1
 ): Promise<PachaInfo[]> {
-    var tx = await pachaContract.setPachaPrivacyAndDistribution(
-        _pachaUuid,
-        _price,
-        _typeOfDistribution
-    );
+    var tx = await pachaContract
+        .connect(_signer)
+        .setPachaPrivacyAndDistribution(_pachaUuid, _price, _typeOfDistribution);
     return await tx.wait(_numberOfConfirmations);
 }
 

@@ -68,6 +68,7 @@ export {
     getPachaWithUuid,
     setPachaToPublic,
     isPachaAlreadyTaken,
+    setPachaPrivacyAndDistribution,
 } from "./pacha";
 
 /******************
