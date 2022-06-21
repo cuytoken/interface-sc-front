@@ -4,14 +4,14 @@ import { BigNumber, utils, Contract, ethers, providers, Signer } from "ethers";
 declare var __pachacuyInfoAddress__: string;
 declare var __rpcUrl__: string;
 
-var pachacuyInformationAddress = __pachacuyInfoAddress__;
+var pachacuyInfoAddress = __pachacuyInfoAddress__;
 var rpcUrl = __rpcUrl__;
 
 import pachacuyInformationAbi from "./abi/pachacuyInfoAbi";
 
 var provider = new providers.JsonRpcProvider(rpcUrl);
 var pachacuyInformationContract: Contract = new Contract(
-    pachacuyInformationAddress,
+    pachacuyInfoAddress,
     pachacuyInformationAbi,
     provider
 );
