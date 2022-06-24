@@ -103,6 +103,7 @@ var misayWasiAbiList = [
   "getListOfActiveMWRaffles",
   "getMisayWasiWithUuid",
   "getMiswayWasiWithTicketUuid",
+  "RaffleContestFinished",
 ];
 var qhatuWasiAbiList = [
   "startQhatuWasiCampaign",
