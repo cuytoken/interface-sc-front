@@ -55,14 +55,14 @@ export async function purchaseGuineaPigWithPcuy(
     var tx = await pacContract.connect(_signer).purchaseGuineaPigWithPcuy(_ix);
     var res = await tx.wait(_numberOfConfirmations);
     /**
-               * topic
-               * event GuineaPigPurchaseFinish(
-                  address _account,
-                  uint256 price,
-                  uint256 _guineaPigId,
-                  uint256 _uuid,
-                  string _raceAndGender
-              );*/
+                 * topic
+                 * event GuineaPigPurchaseFinish(
+                    address _account,
+                    uint256 price,
+                    uint256 _guineaPigId,
+                    uint256 _uuid,
+                    string _raceAndGender
+                );*/
     var topic =
         "0x689ea76b8b7e9b71a268c5f9369dfca8f94fac614351077804bc004b6ddf3258";
     var data;
@@ -95,6 +95,15 @@ export async function purchaseLandWithBusd(_location: number, _signer: Signer) {
     await pacContract.connect(_signer).purchaseLandWithBusd(_location);
 }
 
+interface IPurchaseLand {
+    _account: string;
+    uuid: string;
+    landPrice: string;
+    _location: string;
+    poolRewardsAddress: string;
+    balanceConsumer: string;
+}
+
 /**
  * @notice Numbers go from 1 to 697. A usar cannot purchase the same location twice
  * @param _location: Numbers go from 1 to 697
@@ -105,18 +114,54 @@ export async function purchaseLandWithPcuy(
     _location: number,
     _signer: Signer,
     _numberOfConfirmations: number = 1
-) {
+): Promise<IPurchaseLand> {
     if (!provider) throw new Error("No provider set");
     var tx = await pacContract.connect(_signer).purchaseLandWithPcuy(_location);
     var res = await tx.wait(_numberOfConfirmations);
-    var topic =
-        "0x9f87cb7b8a6c54debaaa0d12a571441914663d4a4300341e3805f85b854ee337";
+
+    var event =
+        "event PurchaseLand(address _account, uint256 uuid, uint256 landPrice, uint256 _location, address poolRewardsAddress, uint256 balanceConsumer)";
+    var iface = new ethers.utils.Interface([event]);
+    var topic = iface.getEventTopic("PurchaseLand");
+    var data;
     for (var ev of res.events) {
         if (ev.topics.includes(topic)) {
-            return ethers.BigNumber.from(ev.data).toString();
+            data = ev.data;
+            break;
         }
     }
-    return ethers.BigNumber.from(0).toString();
+    var dataDecoded2 = utils.defaultAbiCoder.decode(
+        [
+            "address",
+            "uint256",
+            "uint256",
+            "uint256",
+            "address",
+            "uint256",
+        ],
+        data
+    );
+
+    return {
+        _account: dataDecoded2[0],
+        uuid: dataDecoded2[1].toString(),
+        landPrice: utils.formatEther(dataDecoded2[2]),
+        _location: dataDecoded2[3],
+        poolRewardsAddress: dataDecoded2[4],
+        balanceConsumer: utils.formatEther(dataDecoded2[5]),
+    }
+}
+
+interface IPurchasePP {
+    uuid: string;
+    account: string;
+    pachaUuid: string;
+    pachaPassUuid: string;
+    price: string;
+    pcuyReceived: string;
+    pcuyTaxed: string;
+    balanceOwner: string;
+    balanceConsumer: string;
 }
 
 /**
@@ -129,18 +174,57 @@ export async function purchasePachaPass(
     _signer: Signer,
     _pachaUuid: number,
     _numberOfConfirmations: number = 1
-): Promise<string> {
+): Promise<IPurchasePP> {
     if (!provider) throw new Error("No provider set");
     var tx = await pacContract.connect(_signer).purchasePachaPass(_pachaUuid);
     var res = await tx.wait(_numberOfConfirmations);
     var topic =
         "0x9f87cb7b8a6c54debaaa0d12a571441914663d4a4300341e3805f85b854ee337";
+    var data;
     for (var ev of res.events) {
         if (ev.topics.includes(topic)) {
-            return ethers.BigNumber.from(ev.data).toString();
+            data = ev.data;
+            break;
         }
     }
-    return ethers.BigNumber.from(0).toString();
+    var dataDecoded1 = utils.defaultAbiCoder.decode(["uint256"], data);
+
+    var event =
+        "event PurchasePachaPass(address account, uint256 pachaUuid, uint256 pachaPassUuid, uint256 price, uint256 pcuyReceived, uint256 pcuyTaxed, uint256 balanceOwner, uint256 balanceConsumer)";
+    var iface = new ethers.utils.Interface([event]);
+    var topic = iface.getEventTopic("PurchasePachaPass");
+    var data;
+    for (var ev of res.events) {
+        if (ev.topics.includes(topic)) {
+            data = ev.data;
+            break;
+        }
+    }
+    var dataDecoded2 = utils.defaultAbiCoder.decode(
+        [
+            "address",
+            "uint256",
+            "uint256",
+            "uint256",
+            "uint256",
+            "uint256",
+            "uint256",
+            "uint256",
+        ],
+        data
+    );
+
+    return {
+        uuid: dataDecoded1[0].toString(),
+        account: dataDecoded2[0],
+        pachaUuid: dataDecoded2[1].toString(),
+        pachaPassUuid: dataDecoded2[2].toString(),
+        price: utils.formatEther(dataDecoded2[3]),
+        pcuyReceived: utils.formatEther(dataDecoded2[4]),
+        pcuyTaxed: utils.formatEther(dataDecoded2[5]),
+        balanceOwner: utils.formatEther(dataDecoded2[6]),
+        balanceConsumer: utils.formatEther(dataDecoded2[7]),
+    }
 }
 
 export async function purchaseChakra(
@@ -164,6 +248,15 @@ interface IPurchaseFoodInfo {
     feedingDate: string;
     burningDate: string;
     owner: string;
+    chakraUuid: string;
+    amountOfFood: string;
+    availableFood: string;
+    chakraOwner: string;
+    pcuyReceived: string;
+    pcuyTaxed: string;
+    tax: string;
+    balanceOwner: string;
+    balanceConsumer: string;
 }
 export async function purchaseFoodFromChakra(
     _signer: Signer,
@@ -187,11 +280,48 @@ export async function purchaseFoodFromChakra(
             break;
         }
     }
-    res = utils.defaultAbiCoder.decode(["uint256", "uint256", "address"], data);
+    var dataDecoded1 = utils.defaultAbiCoder.decode(["uint256", "uint256", "address"], data);
+
+    // event PurchaseFoodChakra(uint256 chakraUuid, uint256 amountOfFood, uint256 availableFood, address chakraOwner, uint256 pcuyReceived, uint256 pcuyTaxed, uint256 tax, uint256 balanceOwner, uint256 balanceConsumer)
+    var event =
+        "event PurchaseFoodChakra(uint256 chakraUuid, uint256 amountOfFood, uint256 availableFood, address chakraOwner, uint256 pcuyReceived, uint256 pcuyTaxed, uint256 tax, uint256 balanceOwner, uint256 balanceConsumer)";
+    var iface = new ethers.utils.Interface([event]);
+    var topic = iface.getEventTopic("PurchaseFoodChakra");
+    var data;
+    for (var ev of res.events) {
+        if (ev.topics.includes(topic)) {
+            data = ev.data;
+            break;
+        }
+    }
+    var dataDecoded2 = utils.defaultAbiCoder.decode(
+        [
+            "uint256",
+            "uint256",
+            "uint256",
+            "address",
+            "uint256",
+            "uint256",
+            "uint256",
+            "uint256",
+            "uint256",
+        ],
+        data
+    );
+
     return {
-        feedingDate: res[0].toString(),
-        burningDate: res[1].toString(),
-        owner: res[2],
+        feedingDate: dataDecoded1[0].toString(),
+        burningDate: dataDecoded1[1].toString(),
+        owner: dataDecoded1[2],
+        chakraUuid: dataDecoded2[0].toString(),
+        amountOfFood: dataDecoded2[1].toString(),
+        availableFood: dataDecoded2[2].toString(),
+        chakraOwner: dataDecoded2[3],
+        pcuyReceived: utils.formatEther(dataDecoded2[4]),
+        pcuyTaxed: utils.formatEther(dataDecoded2[5]),
+        tax: utils.formatEther(dataDecoded2[6]),
+        balanceOwner: utils.formatEther(dataDecoded2[7]),
+        balanceConsumer: utils.formatEther(dataDecoded2[8]),
     };
 }
 
@@ -202,6 +332,11 @@ export async function purchaseFoodFromChakra(
 interface IPurchaseResult {
     uuidTicket: string;
     amountOfTickets: string;
+    misayWasiOwner: string;
+    misayWasiUuid: string;
+    ticketUuid: string;
+    balanceOwner: string;
+    balanceConsumer: string;
 }
 /**
  *
@@ -222,8 +357,11 @@ export async function purchaseTicketFromMisayWasi(
         .purchaseTicketFromMisayWasi(_misayWasiUuid, _amountOfTickets);
     var res = await tx.wait(_numberOfConfirmations);
 
-    var topic = // UuidAndAmount (uint256 uuid, uint256 amount)
-        "0x242425d5071d5eaaf8f6f82889dd13cdd464fc74ff50b8c6a1c85780e8958c3f";
+    var event =
+        "event UuidAndAmount (uint256 uuid, uint256 amount)";
+    var iface = new ethers.utils.Interface([event]);
+    var topic = iface.getEventTopic("UuidAndAmount");
+
     var data;
     for (var ev of res.events) {
         if (ev.topics.includes(topic)) {
@@ -231,10 +369,36 @@ export async function purchaseTicketFromMisayWasi(
             break;
         }
     }
-    res = utils.defaultAbiCoder.decode(["uint256", "uint256"], data);
+    var dataDecoded1 = utils.defaultAbiCoder.decode(["uint256", "uint256"], data);
+
+    var event =
+        "event PurchaseTicket(address misayWasiOwner, uint256 misayWasiUuid, uint256 ticketUuid, uint256 balanceOwner, uint256 balanceConsumer)";
+    var iface = new ethers.utils.Interface([event]);
+    var topic = iface.getEventTopic("PurchaseTicket");
+
+    var data;
+    for (var ev of res.events) {
+        if (ev.topics.includes(topic)) {
+            data = ev.data;
+            break;
+        }
+    }
+    var dataDecoded2 = utils.defaultAbiCoder.decode([
+        "address",
+        "uint256",
+        "uint256",
+        "uint256",
+        "uint256",
+    ], data);
+
     return {
-        uuidTicket: res[0].toString(),
-        amountOfTickets: res[1].toString(),
+        uuidTicket: dataDecoded1[0].toString(),
+        amountOfTickets: dataDecoded1[1].toString(),
+        misayWasiOwner: dataDecoded2[0],
+        misayWasiUuid: dataDecoded2[1].toString(),
+        ticketUuid: dataDecoded2[2].toString(),
+        balanceOwner: utils.formatEther(dataDecoded2[3]),
+        balanceConsumer: utils.formatEther(dataDecoded2[4]),
     };
 }
 
@@ -279,3 +443,47 @@ export async function purchaseQhatuWasi(
     }
     return ethers.BigNumber.from(0).toString();
 }
+
+
+////////////////////////
+///  PURCHASE EVENTS ///
+////////////////////////
+export interface PurchaseFoodChakra {
+    chakraUuid: string;
+    amountOfFood: string;
+    availableFood: string;
+    chakraOwner: string;
+    pcuyReceived: string;
+    pcuyTaxed: string;
+    tax: string;
+    balanceOwner: string;
+    balanceConsumer: string;
+}
+
+export interface PurchaseLand {
+    _account: string;
+    uuid: string;
+    landPrice: string;
+    _location: string;
+    poolRewardsAddress: string;
+    balanceConsumer: string;
+};
+
+export interface PurchasePachaPass {
+    account: string;
+    pachaUuid: string;
+    pachaPassUuid: string;
+    price: string;
+    pcuyReceived: string;
+    pcuyTaxed: string;
+    balanceOwner: string;
+    balanceConsumer: string;
+};
+
+export interface PurchaseTicket {
+    misayWasiOwner: string;
+    misayWasiUuid: string;
+    ticketUuid: string;
+    balanceOwner: string;
+    balanceConsumer: string;
+};

@@ -90,6 +90,10 @@ export {
     purchaseTicketFromMisayWasi,
     purchaseMisayWasi,
     purchaseQhatuWasi,
+    PurchaseFoodChakra,
+    PurchaseLand,
+    PurchasePachaPass,
+    PurchaseTicket,
 } from "./purchasAssetController";
 
 /******************

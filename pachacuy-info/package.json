@@ -1,6 +1,6 @@
 {
   "name": "pachacuy-info",
-  "version": "0.0.20",
+  "version": "0.0.21",
   "description": "Information about variables of Pachacuy",
   "main": "dist",
   "types": "dist/index.d.ts",

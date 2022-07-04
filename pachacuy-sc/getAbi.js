@@ -32,9 +32,11 @@ var nftpAbiList = [
 ];
 
 var pacAbiList = [
-  "GuineaPigPurchaseFinish",
-  "GuineaPigPurchaseInit",
+  "PurchaseFoodChakra",
+  "PurchasePachaPass",
+  "GuineaPigPurchase",
   "PurchaseLand",
+  "PurchaseTicket",
   "landPrice",
   "purchaseGuineaPigWithBusd",
   "purchaseGuineaPigWithPcuy",
