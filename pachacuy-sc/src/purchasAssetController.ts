@@ -54,6 +54,7 @@ export async function purchaseGuineaPigWithPcuy(
     if (!provider) throw new Error("No provider set");
     var tx = await pacContract.connect(_signer).purchaseGuineaPigWithPcuy(_ix);
     var res = await tx.wait(_numberOfConfirmations);
+    return res;
     /**
                * topic
                * event GuineaPigPurchaseFinish(
