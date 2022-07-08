@@ -39,20 +39,20 @@ function updateSmartContracts(target) {
     rockPapetScissorsAddress = "0x2F308566ca703d5Edbc2AA602410Aa8a358d4dE8";
 
     // ALPHA 3-dev
-    pachacuyInfoAddress = "0xCaEa8f0C25F4038c32Ae14F6cAb6246819875729";
-    randomNumber_PLACEHOLDER = "0x635DeE2CE798c0B8528b19056D3cE934D471FC28";
-    pacAddress = "0x464dEa5E1335ff306D2db0a6E2d0e7aFa0d04233";
-    nftpAddress = "0xbBa077b192cFE6538fED8D2307C32e9a156A6dBc";
-    tatacuyAddress = "0x4744E7CE2AA90f263Cb81f46cBB8cE06465A58D1";
-    wiracochaAddress = "0xc17037803efd059001cFC8c4df89bbffAA0b562C";
-    pcuyTokenAddress = "0x7Bff8A404D571120B38f76467Ef2965DE25babdC";
-    chakraAddress = "0x69DbF5A6A75951d8D5B799F380517390D029F63a";
-    hatunWasiAddress = "0x35447EAAAEa7473b8548b7Aad519c9E3dD9517E2";
-    misayWasiAddress = "0x39915E0ABa676E8d204Cca38aad1B8dd67eEa8E2";
-    guineaPigAddress = "0x0C09aa064088Ed75a7023111ea0A63E4f8FB12B9";
-    binarySearchAddress = "0x2079fa82B2026EfAa3d65c36a86A782E4b6da4aE";
-    pachaAddress = "0x8043BC70e6505c251702e9B1Bf0F25194038DE88";
-    qhatuWasiAddress = "0xFbAb44C1Ed53A99f95adFB6254d99239e7ff5f85";
+    pachacuyInfoAddress = "0x1655b030Bad6AB10D44e57bcb3E7e48e29633317";
+    randomNumber_PLACEHOLDER = "0x584349e1862DD8aB7A95924F428870ef1D03a774";
+    pacAddress = "0x0ACD7cd9eb35507b5354223571963d15d28Afa86";
+    nftpAddress = "0xD1349732f128e21e9a8bD974a0fF1fA9b7d62a11";
+    tatacuyAddress = "0x114bA5B4f6Cc1661628A7c7784f406a2DCBC6f82";
+    wiracochaAddress = "0x95F99e19f620b9597AeA5C0D461D4e905fC67b72";
+    pcuyTokenAddress = "0x829776b2eb5D6588971cabf6186bA39243b83fc0";
+    chakraAddress = "0xc0CF45633fb9Ec2f4b072c82139075c742D3B487";
+    hatunWasiAddress = "0xDdb1E26f2fFaa644E1E3043e77924C317994a535";
+    misayWasiAddress = "0x3724172Cdb9E3C5D721Ba2ca12EAf43F4e47323C";
+    guineaPigAddress = "0x8C22443f080c423E0E638cc2FA22c2b438904291";
+    binarySearchAddress = "0x2c8d6dd81200a3D09D0BBBAA14c38a7495716FA3";
+    pachaAddress = "0xb6ab2849ACF54Eeec1112d3EE72168EAb56585E6";
+    qhatuWasiAddress = "0xFb40402d38324be195ABe44C64C30727000DdD0A";
 
     // polygon
     chainId = "80001";
