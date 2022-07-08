@@ -1,5 +1,5 @@
 **CHANGELOGS**
-<u>0.0.96</u>
+<u>0.0.97</u>
 
 ```js
 PurchaseAssetController.on("PurchaseLand". …)
@@ -10,6 +10,9 @@ MisayWasi.on("PurchaseMisayWasi", …)
 QhatuWasi.on("PurchaseQhatuWasi", …)
 PurchaseAssetController.on("PurchasePachaPass". …)
 Wiracocha.on("MintWiracocha", ...)
+Tatacuy.on("MintTatacuy", ...)
+HatunWasi.on("MintHatunWasi", ...)
+getComponentsInPacha
 ```
 
 Smart Contract Order

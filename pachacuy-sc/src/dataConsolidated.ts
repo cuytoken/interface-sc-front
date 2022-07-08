@@ -208,8 +208,8 @@ interface ComponentsInPacha {
 export async function getComponentsInPacha(
     uuid: number
 ): Promise<ComponentsInPacha | {}> {
-    var { hasWiracocha, owner } = await getWiracochaWithUuid(uuid);
-    if (!hasWiracocha) return {};
+    var { isPacha, owner } = await getPachaWithUuid(uuid);
+    if (!isPacha) return {};
     var { chakra, hatunWasi, misayWasi, qhatuWasi, tatacuy, wiracocha } =
         await getListOfNftsPerAccount(owner);
     chakra = chakra.filter(({ pachaUuid }) => pachaUuid == uuid);
