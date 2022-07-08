@@ -68,7 +68,7 @@ export async function signTatacuyTxAndVerify(
     _guineaPigUuid: number,
     _likelihood: number,
     _timeStampFront: number,
-    _tatacuyUuid: number,
+    _tatacuyUuid: number
 ): Promise<boolean> {
     // Signing the transaction
     value.guineaPig = String(_guineaPigUuid);
@@ -80,7 +80,7 @@ export async function signTatacuyTxAndVerify(
         ...value,
         signature,
         tatacuyUuid: _tatacuyUuid,
-        timeStampFront: _timeStampFront
+        timeStampFront: _timeStampFront,
     };
     var data = {
         method: "POST",
@@ -232,4 +232,11 @@ export interface TatacuyTryMyLuckResult {
     tatacuyUuid: number;
     pachaOwner: string;
     idFromFront: number;
+}
+
+export interface MintTatacuy {
+    owner: string;
+    tatacuyUuid: number;
+    pachaUuid: number;
+    creationDate: number;
 }

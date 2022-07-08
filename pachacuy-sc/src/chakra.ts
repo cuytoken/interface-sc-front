@@ -71,3 +71,11 @@ export async function updateFoodPriceAtChakra(
         .updateFoodPriceAtChakra(_chakraUuid, _pricePerFood);
     return await tx.wait(_numberOfConfirmations);
 }
+
+export interface PurchaseChakra {
+    owner: string;
+    chakraUuid: number;
+    pachaUuid: number;
+    chakraPrice: number;
+    creationDate: number;
+}

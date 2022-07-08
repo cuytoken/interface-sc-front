@@ -18,7 +18,7 @@ export function initHatunWasi(_provider: providers.ExternalProvider): Contract {
     return hatunWasiContract;
 }
 /**
- * @dev Details the information of a Hatun Wasi. 
+ * @dev Details the information of a Hatun Wasi.
  * @param owner: Wallet address of the current owner of the Hatun Wasi
  * @param hatunWasiUuid: Uuid of the Hatun Wasi when it was minted
  * @param pachaUuid: Uuid of the pacha where the Hatun Wasi belongs to
@@ -40,4 +40,11 @@ export async function getHatunWasiWithUuid(
     _hatunWasiUuid: number
 ): Promise<IHatunWasiInfo> {
     return await hatunWasiContract.getHatunWasiWithUuid(_hatunWasiUuid);
+}
+
+export interface MintHatunWasi {
+    owner: string;
+    hatunWasiUuid: number;
+    pachaUuid: number;
+    creationDate: number;
 }

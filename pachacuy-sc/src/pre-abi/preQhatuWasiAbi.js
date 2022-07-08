@@ -50,6 +50,43 @@ module.exports = [
     inputs: [
       {
         indexed: false,
+        internalType: "address",
+        name: "owner",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "qhatuWasiUuid",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "pachaUuid",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "qhatuWasiPrice",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "creationDate",
+        type: "uint256",
+      },
+    ],
+    name: "PurchaseQhatuWasi",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
         internalType: "uint256",
         name: "campaignTax",
         type: "uint256",
@@ -325,6 +362,7 @@ module.exports = [
   {
     inputs: [
       { internalType: "uint256", name: "_qhatuWasiUuid", type: "uint256" },
+      { internalType: "uint256", name: "_pachaUuid", type: "uint256" },
       { internalType: "address", name: "_owner", type: "address" },
       { internalType: "uint256", name: "_qhatuWasiPrice", type: "uint256" },
     ],

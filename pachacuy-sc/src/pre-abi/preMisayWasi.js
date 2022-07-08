@@ -51,6 +51,80 @@ module.exports = [
       {
         indexed: false,
         internalType: "address",
+        name: "account",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "misayWasiUuid",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "pachaUuid",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "creationDate",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "misayWasiPrice",
+        type: "uint256",
+      },
+    ],
+    name: "PurchaseMisayWasi",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "misayWasiUuid",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "pachaUuid",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "ticketPrice",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "amountOfTickets",
+        type: "uint256",
+      },
+    ],
+    name: "PurchaseTicketFromMisayWasi",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "address",
         name: "winner",
         type: "address",
       },
@@ -80,6 +154,49 @@ module.exports = [
       },
     ],
     name: "RaffleContestFinished",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "misayWasiUuid",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "rafflePrize",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "ticketPrice",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "campaignStartDate",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "campaignEndDate",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "pachaUuid",
+        type: "uint256",
+      },
+    ],
+    name: "RaffleStarted",
     type: "event",
   },
   {
@@ -352,49 +469,6 @@ module.exports = [
     type: "function",
   },
   {
-    inputs: [
-      { internalType: "uint256", name: "_misayWasiUuid", type: "uint256" },
-    ],
-    name: "getMiswayWasiWithUuid",
-    outputs: [
-      {
-        components: [
-          { internalType: "address", name: "owner", type: "address" },
-          { internalType: "uint256", name: "misayWasiUuid", type: "uint256" },
-          { internalType: "uint256", name: "pachaUuid", type: "uint256" },
-          { internalType: "uint256", name: "creationDate", type: "uint256" },
-          { internalType: "uint256", name: "ticketPrice", type: "uint256" },
-          { internalType: "uint256", name: "ticketUuid", type: "uint256" },
-          { internalType: "uint256", name: "misayWasiPrice", type: "uint256" },
-          { internalType: "uint256", name: "rafflePrize", type: "uint256" },
-          {
-            internalType: "uint256",
-            name: "numberTicketsPurchased",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "campaignStartDate",
-            type: "uint256",
-          },
-          { internalType: "uint256", name: "campaignEndDate", type: "uint256" },
-          { internalType: "bool", name: "isCampaignActive", type: "bool" },
-          { internalType: "bool", name: "hasMisayWasi", type: "bool" },
-          {
-            internalType: "address[]",
-            name: "listOfParticipants",
-            type: "address[]",
-          },
-        ],
-        internalType: "struct MisayWasi.MisayWasiInfo",
-        name: "",
-        type: "tuple",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
     inputs: [{ internalType: "bytes32", name: "role", type: "bytes32" }],
     name: "getRoleAdmin",
     outputs: [{ internalType: "bytes32", name: "", type: "bytes32" }],
@@ -520,6 +594,16 @@ module.exports = [
     inputs: [{ internalType: "bytes4", name: "interfaceId", type: "bytes4" }],
     name: "supportsInterface",
     outputs: [{ internalType: "bool", name: "", type: "bool" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "string", name: "_prefix", type: "string" },
+      { internalType: "uint256", name: "_uuid", type: "uint256" },
+    ],
+    name: "tokenUri",
+    outputs: [{ internalType: "string", name: "", type: "string" }],
     stateMutability: "view",
     type: "function",
   },

@@ -38,6 +38,37 @@ module.exports = [
       {
         indexed: false,
         internalType: "address",
+        name: "owner",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "hatunWasiUuid",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "pachaUuid",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "creationDate",
+        type: "uint256",
+      },
+    ],
+    name: "MintHatunWasi",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "address",
         name: "account",
         type: "address",
       },

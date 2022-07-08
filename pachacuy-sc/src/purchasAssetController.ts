@@ -56,14 +56,14 @@ export async function purchaseGuineaPigWithPcuy(
     var res = await tx.wait(_numberOfConfirmations);
     return res;
     /**
-               * topic
-               * event GuineaPigPurchaseFinish(
-                  address _account,
-                  uint256 price,
-                  uint256 _guineaPigId,
-                  uint256 _uuid,
-                  string _raceAndGender
-              );*/
+                 * topic
+                 * event GuineaPigPurchaseFinish(
+                    address _account,
+                    uint256 price,
+                    uint256 _guineaPigId,
+                    uint256 _uuid,
+                    string _raceAndGender
+                );*/
     var topic =
         "0x689ea76b8b7e9b71a268c5f9369dfca8f94fac614351077804bc004b6ddf3258";
     var data;
@@ -279,4 +279,30 @@ export async function purchaseQhatuWasi(
         }
     }
     return ethers.BigNumber.from(0).toString();
+}
+
+export interface PurchaseLand {
+    _account: string;
+    uuid: number;
+    landPrice: number;
+    _location: number;
+    poolRewardsAddress: string;
+}
+
+export interface PurchaseFoodChakra {
+    chakraUuid: number;
+    amountOfFood: number;
+    availableFood: number;
+    chakraOwner: string;
+    pcuyReceived: number;
+    pcuyTaxed: number;
+    tax: number;
+}
+export interface PurchasePachaPass {
+    account: string;
+    pachaUuid: number;
+    pachaPassUuid: number;
+    price: number;
+    pcuyReceived: number;
+    pcuyTaxed: number;
 }

@@ -297,6 +297,37 @@ module.exports = [
     inputs: [
       {
         indexed: false,
+        internalType: "uint256",
+        name: "_gender",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "_race",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "_guineaPigId",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "string",
+        name: "_raceAndGender",
+        type: "string",
+      },
+    ],
+    name: "Testing",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
         internalType: "address",
         name: "account",
         type: "address",
@@ -383,18 +414,6 @@ module.exports = [
     inputs: [{ internalType: "bytes32", name: "role", type: "bytes32" }],
     name: "getRoleAdmin",
     outputs: [{ internalType: "bytes32", name: "", type: "bytes32" }],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [{ internalType: "address", name: "_account", type: "address" }],
-    name: "getTransactionData",
-    outputs: [
-      { internalType: "string", name: "transactionType", type: "string" },
-      { internalType: "address", name: "account", type: "address" },
-      { internalType: "bool", name: "ongoing", type: "bool" },
-      { internalType: "uint256", name: "ix", type: "uint256" },
-    ],
     stateMutability: "view",
     type: "function",
   },
@@ -563,13 +582,6 @@ module.exports = [
       { internalType: "address", name: "account", type: "address" },
     ],
     name: "renounceRole",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [{ internalType: "address", name: "_account", type: "address" }],
-    name: "resetOngoingTransactionForAccount",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",

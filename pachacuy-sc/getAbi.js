@@ -48,6 +48,8 @@ var pacAbiList = [
   "purchaseMisayWasi",
   "purchaseQhatuWasi",
   "purchasePachaPass",
+  "PurchaseFoodChakra",
+  "PurchasePachaPass",
 ];
 
 var pachacuyAbiList = ["balanceOf"];
@@ -60,6 +62,7 @@ var tatacuyAbiList = [
   "tryMyLuckTatacuy",
   "FinishTatacuyCampaign",
   "TatacuyTryMyLuckResult",
+  "MintTatacuy",
 ];
 
 var wiracochaAbiList = [
@@ -67,15 +70,21 @@ var wiracochaAbiList = [
   "exchangeSamiToPcuy",
   "WiracochaExchange",
   "getListOfWiracochas",
+  "MintWiracocha",
 ];
 
 var chakraAbiList = [
   "getChakraWithUuid",
   "getListOfChakrasWithFood",
   "updateFoodPriceAtChakra",
+  "PurchaseChakra",
 ];
 
-var hatunWasiAbiList = ["getListOfHatunWasis", "getHatunWasiWithUuid"];
+var hatunWasiAbiList = [
+  "getListOfHatunWasis",
+  "getHatunWasiWithUuid",
+  "MintHatunWasi",
+];
 
 var rpsAbiList = ["playRockPaperScissors"];
 
@@ -104,12 +113,15 @@ var misayWasiAbiList = [
   "getMisayWasiWithUuid",
   "getMiswayWasiWithTicketUuid",
   "RaffleContestFinished",
+  "PurchaseTicketFromMisayWasi",
+  "PurchaseMisayWasi",
 ];
 var qhatuWasiAbiList = [
   "startQhatuWasiCampaign",
   "getListOfQhatuWasi",
   "getQhatuWasiWithUuid",
   "QhatuWasiCampaignStarted",
+  "PurchaseQhatuWasi",
 ];
 
 async function main() {

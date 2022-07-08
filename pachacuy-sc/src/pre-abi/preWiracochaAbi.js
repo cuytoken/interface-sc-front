@@ -38,6 +38,37 @@ module.exports = [
       {
         indexed: false,
         internalType: "address",
+        name: "owner",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "wiracochaUuid",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "pachaUuid",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "creationDate",
+        type: "uint256",
+      },
+    ],
+    name: "MintWiracocha",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "address",
         name: "account",
         type: "address",
       },
@@ -306,7 +337,10 @@ module.exports = [
     type: "function",
   },
   {
-    inputs: [{ internalType: "address", name: "_account", type: "address" }],
+    inputs: [
+      { internalType: "address", name: "_account", type: "address" },
+      { internalType: "uint256", name: "_pachaUuid", type: "uint256" },
+    ],
     name: "hasWiracocha",
     outputs: [{ internalType: "bool", name: "", type: "bool" }],
     stateMutability: "view",
