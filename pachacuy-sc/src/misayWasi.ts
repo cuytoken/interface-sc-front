@@ -146,3 +146,20 @@ export interface RaffleContestFinished {
     raffleTax: number;
     ticketUuid: number;
 }
+
+export interface PurchaseTicketFromMisayWasi {
+    account: string;
+    misayWasiUuid: number;
+    pachaUuid: number;
+    ticketPrice: number;
+    amountOfTickets: number;
+}
+
+export interface PurchaseMisayWasi {
+    account: string;
+    misayWasiUuid: number;
+    pachaUuid: number;
+    creationDate: number;
+    misayWasiPrice: number;
+    balanceConsumer: number;
+}

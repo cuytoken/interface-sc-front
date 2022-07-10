@@ -23,9 +23,7 @@ var wiracochaContract: Contract;
  * @dev This function inits the library and connects to the blockchain
  * @param _provider: window.ethereum or an equivalent
  */
-export function initWiracocha(
-    _provider: providers.ExternalProvider
-): Contract {
+export function initWiracocha(_provider: providers.ExternalProvider): Contract {
     provider = new providers.Web3Provider(_provider);
     wiracochaContract = new Contract(wiracochaAddress, wiracochaAbi, provider);
     return wiracochaContract;
@@ -87,7 +85,7 @@ export async function signWiracochaTxAndReceivePcuy(
         ...value,
         wiracochaUuid: _wiracochaUuid,
         signature,
-        timeStampFront: _timeStampFront
+        timeStampFront: _timeStampFront,
     };
     var data = {
         method: "POST",
@@ -133,4 +131,11 @@ export interface WiracochaExchange {
     totalPcuyBalance: number;
     samiPoints: number;
     ratePcuyToSami: number;
+}
+
+export interface MintWiracocha {
+    owner: string;
+    wiracochaUuid: number;
+    pachaUuid: number;
+    creationDate: number;
 }

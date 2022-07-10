@@ -14,10 +14,10 @@ var qhatuWasiContract: Contract;
  */
 export function initqhatuWasi(
     _provider: providers.ExternalProvider
-): Contract[] {
+): Contract {
     provider = new providers.Web3Provider(_provider);
     qhatuWasiContract = new Contract(qhatuWasiAddress, qhatuWasiAbi, provider);
-    return [qhatuWasiContract];
+    return qhatuWasiContract;
 }
 
 /**
@@ -101,4 +101,14 @@ export async function getQhatuWasiWithUuid(
     _qhatuWasiUuid: number
 ): Promise<QhatuWasiInfo> {
     return await qhatuWasiContract.getQhatuWasiWithUuid(_qhatuWasiUuid);
+}
+
+
+export interface PurchaseQhatuWasi {
+    owner: string;
+    qhatuWasiUuid: number;
+    pachaUuid: number;
+    qhatuWasiPrice: number;
+    creationDate: number;
+    balanceConsumer: number;
 }

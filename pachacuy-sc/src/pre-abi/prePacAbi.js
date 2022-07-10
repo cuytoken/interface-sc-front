@@ -72,7 +72,33 @@ module.exports = [
         type: "uint256",
       },
     ],
-    name: "GuineaPigPurchase",
+    name: "GuineaPigPurchaseFinish",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "_account",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "price",
+        type: "uint256",
+      },
+      { indexed: false, internalType: "uint256", name: "_ix", type: "uint256" },
+      {
+        indexed: false,
+        internalType: "address",
+        name: "poolRewardsAddress",
+        type: "address",
+      },
+    ],
+    name: "GuineaPigPurchaseInit",
     type: "event",
   },
   {
@@ -414,6 +440,16 @@ module.exports = [
       { internalType: "contract IERC20Upgradeable", name: "", type: "address" },
     ],
     stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "address", name: "_account", type: "address" },
+      { internalType: "uint256[]", name: "_randomNumbers", type: "uint256[]" },
+    ],
+    name: "fulfillRandomness",
+    outputs: [],
+    stateMutability: "nonpayable",
     type: "function",
   },
   {

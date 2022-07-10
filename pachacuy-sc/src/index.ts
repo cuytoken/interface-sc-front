@@ -27,6 +27,7 @@ export {
     getListOfChakrasWithFood,
     getChakraWithUuid,
     updateFoodPriceAtChakra,
+    PurchaseChakra,
 } from "./chakra";
 
 /******************
@@ -39,6 +40,7 @@ export {
     getTatacuyWithUuid,
     startTatacuyCampaign,
     TatacuyTryMyLuckResult,
+    MintTatacuy,
 } from "./tatacuy";
 
 /******************
@@ -48,12 +50,17 @@ export {
     getWiracochaWithUuid,
     signWiracochaTxAndReceivePcuy,
     WiracochaExchange,
+    MintWiracocha,
 } from "./wiracocha";
 
 /******************
  *   HATUN WASI   *
  *****************/
-export { getListOfHatunWasis, getHatunWasiWithUuid } from "./hatunWasi";
+export {
+    getListOfHatunWasis,
+    getHatunWasiWithUuid,
+    MintHatunWasi,
+} from "./hatunWasi";
 
 /******************
  *  ROCK PAPER S  *
@@ -94,6 +101,7 @@ export {
     PurchaseLand,
     PurchasePachaPass,
     PurchaseTicket,
+    GuineaPigPurchaseFinish,
 } from "./purchasAssetController";
 
 /******************
@@ -106,6 +114,8 @@ export {
     getMiswayWasiWithTicketUuid,
     getListOfActiveMWRaffles,
     getListOfMisayWasisReadyToRaffle,
+    PurchaseTicketFromMisayWasi,
+    PurchaseMisayWasi,
 } from "./misayWasi";
 
 /******************
@@ -126,14 +136,22 @@ export {
 } from "./nftProducer";
 
 /******************
- *  CONSOLIDATED  *
+ *  QHATU WASI  *
  *****************/
-export { startQhatuWasiCampaign, getQhatuWasiWithUuid } from "./qhatuWasi";
+export {
+    startQhatuWasiCampaign,
+    getQhatuWasiWithUuid,
+    PurchaseQhatuWasi,
+} from "./qhatuWasi";
 
 /******************
  *  CONSOLIDATED  *
  *****************/
-export { getListOfNftsPerAccount, getWalletData } from "./dataConsolidated";
+export {
+    getListOfNftsPerAccount,
+    getWalletData,
+    getComponentsInPacha,
+} from "./dataConsolidated";
 
 /**
  * @dev This function inits the library and connects to the blockchain
@@ -159,5 +177,6 @@ export function init(_provider: providers.ExternalProvider): Contract[] {
         chakraContract,
         hatunWasiContract,
         misayWasiContract,
+        qhatuWasiContract,
     ];
 }

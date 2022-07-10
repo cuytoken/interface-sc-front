@@ -54,6 +54,7 @@ export async function purchaseGuineaPigWithPcuy(
     if (!provider) throw new Error("No provider set");
     var tx = await pacContract.connect(_signer).purchaseGuineaPigWithPcuy(_ix);
     var res = await tx.wait(_numberOfConfirmations);
+    return res;
     /**
                  * topic
                  * event GuineaPigPurchaseFinish(
@@ -227,21 +228,64 @@ export async function purchasePachaPass(
     }
 }
 
+interface IPurchaseChakra {
+    uuid: string;
+    owner: string;
+    chakraUuid: string;
+    pachaUuid: string;
+    chakraPrice: string;
+    creationDate: string;
+    balanceConsumer: string;
+}
 export async function purchaseChakra(
     _signer: Signer,
     _pachaUuid: number,
     _numberOfConfirmations: number = 1
-): Promise<string> {
+): Promise<IPurchaseChakra> {
     var tx = await pacContract.connect(_signer).purchaseChakra(_pachaUuid);
     var res = await tx.wait(_numberOfConfirmations);
     var topic =
         "0x9f87cb7b8a6c54debaaa0d12a571441914663d4a4300341e3805f85b854ee337";
+    var data;
     for (var ev of res.events) {
         if (ev.topics.includes(topic)) {
-            return ethers.BigNumber.from(ev.data).toString();
+            data = ev.data;
+            break;
         }
     }
-    return ethers.BigNumber.from(0).toString();
+    var dataDecoded1 = utils.defaultAbiCoder.decode(["uint256"], data);
+
+    var event =
+        "event PurchaseChakra(address owner, uint256 chakraUuid, uint256 pachaUuid, uint256 chakraPrice, uint256 creationDate, uint256 balanceConsumer)";
+    var iface = new ethers.utils.Interface([event]);
+    var topic = iface.getEventTopic("PurchasePachaPass");
+    var data;
+    for (var ev of res.events) {
+        if (ev.topics.includes(topic)) {
+            data = ev.data;
+            break;
+        }
+    }
+    var dataDecoded2 = utils.defaultAbiCoder.decode(
+        [
+            "address",
+            "uint256",
+            "uint256",
+            "uint256",
+            "uint256",
+            "uint256",
+        ],
+        data
+    );
+    return {
+        uuid: dataDecoded1[0].toString(),
+        owner: dataDecoded2[0],
+        chakraUuid: dataDecoded2[1].toString(),
+        pachaUuid: dataDecoded2[2].toString(),
+        chakraPrice: utils.formatEther(dataDecoded2[3]),
+        creationDate: dataDecoded2[4].toString(),
+        balanceConsumer: utils.formatEther(dataDecoded2[5]),
+    }
 }
 
 interface IPurchaseFoodInfo {
@@ -402,52 +446,149 @@ export async function purchaseTicketFromMisayWasi(
     };
 }
 
+interface IPurchaeMSWS {
+    uuid: string;
+    account: string;
+    misayWasiUuid: string;
+    pachaUuid: string;
+    creationDate: string;
+    misayWasiPrice: string;
+    balanceConsumer: string;
+}
 export async function purchaseMisayWasi(
     _signer: Signer,
     _pachaUuid: number,
     _numberOfConfirmations: number = 1
-): Promise<string> {
+): Promise<IPurchaeMSWS> {
     if (!provider) throw new Error("No provider set");
     var tx = await pacContract.connect(_signer).purchaseMisayWasi(_pachaUuid);
     var res = await tx.wait(_numberOfConfirmations);
 
     var topic =
         "0x9f87cb7b8a6c54debaaa0d12a571441914663d4a4300341e3805f85b854ee337";
+    var data;
     for (var ev of res.events) {
         if (ev.topics.includes(topic)) {
-            return ethers.BigNumber.from(ev.data).toString();
+            data = ev.data;
+            break;
         }
     }
-    return ethers.BigNumber.from(0).toString();
+    var dataDecoded1 = utils.defaultAbiCoder.decode(["uint256"], data);
+
+    var event =
+        "event PurchaseMisayWasi(address account, uint256 misayWasiUuid, uint256 pachaUuid, uint256 creationDate, uint256 misayWasiPrice, uint256 balanceConsumer)";
+    var iface = new ethers.utils.Interface([event]);
+    var topic = iface.getEventTopic("PurchasePachaPass");
+    var data;
+    for (var ev of res.events) {
+        if (ev.topics.includes(topic)) {
+            data = ev.data;
+            break;
+        }
+    }
+    var dataDecoded2 = utils.defaultAbiCoder.decode(
+        [
+            "address",
+            "uint256",
+            "uint256",
+            "uint256",
+            "uint256",
+            "uint256",
+        ],
+        data
+    );
+
+    return {
+        uuid: dataDecoded1[0].toString(),
+        account: dataDecoded2[0],
+        misayWasiUuid: dataDecoded2[1].toString(),
+        pachaUuid: dataDecoded2[2].toString(),
+        creationDate: dataDecoded2[3].toString(),
+        misayWasiPrice: utils.formatEther(dataDecoded2[4]),
+        balanceConsumer: utils.formatEther(dataDecoded2[5]),
+    }
 }
 
 ////////////////////////
 ///    Qhatu Wasi    ///
 ////////////////////////
 
+interface IPurchaseQTWS {
+    uuid: string;
+    owner: string;
+    qhatuWasiUuid: string;
+    pachaUuid: string;
+    qhatuWasiPrice: string;
+    creationDate: string;
+    balanceConsumer: string;
+}
 export async function purchaseQhatuWasi(
     _signer: Signer,
     _pachaUuid: number,
     _numberOfConfirmations: number = 1
-): Promise<string> {
+): Promise<IPurchaseQTWS> {
     if (!provider) throw new Error("No provider set");
     var tx = await pacContract.connect(_signer).purchaseQhatuWasi(_pachaUuid);
     var res = await tx.wait(_numberOfConfirmations);
 
     var topic =
         "0x9f87cb7b8a6c54debaaa0d12a571441914663d4a4300341e3805f85b854ee337";
+    var data;
     for (var ev of res.events) {
         if (ev.topics.includes(topic)) {
-            return ethers.BigNumber.from(ev.data).toString();
+            data = ev.data;
+            break;
         }
     }
-    return ethers.BigNumber.from(0).toString();
+    var dataDecoded1 = utils.defaultAbiCoder.decode(["uint256"], data);
+
+    var event =
+        "event PurchaseQhatuWasi(address owner, uint256 qhatuWasiUuid, uint256 pachaUuid, uint256 qhatuWasiPrice, uint256 creationDate, uint256 balanceConsumer)";
+    var iface = new ethers.utils.Interface([event]);
+    var topic = iface.getEventTopic("PurchasePachaPass");
+    var data;
+    for (var ev of res.events) {
+        if (ev.topics.includes(topic)) {
+            data = ev.data;
+            break;
+        }
+    }
+    var dataDecoded2 = utils.defaultAbiCoder.decode(
+        [
+            "address",
+            "uint256",
+            "uint256",
+            "uint256",
+            "uint256",
+            "uint256",
+        ],
+        data
+    );
+
+    return {
+        uuid: dataDecoded1[0].toString(),
+        owner: dataDecoded2[0],
+        qhatuWasiUuid: dataDecoded2[1].toString(),
+        pachaUuid: dataDecoded2[2].toString(),
+        qhatuWasiPrice: utils.formatEther(dataDecoded2[3]),
+        creationDate: dataDecoded2[4].toString(),
+        balanceConsumer: utils.formatEther(dataDecoded2[5]),
+    }
 }
 
 
 ////////////////////////
 ///  PURCHASE EVENTS ///
 ////////////////////////
+export interface GuineaPigPurchaseFinish {
+    _account: string;
+    price: number;
+    _guineaPigId: number;
+    _uuid: number;
+    _raceAndGender: string;
+    balanceConsumer: number;
+}
+
 export interface PurchaseFoodChakra {
     chakraUuid: string;
     amountOfFood: string;

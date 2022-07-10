@@ -1,4 +1,144 @@
 **CHANGELOGS**
+<u>0.0.99</u>
+PurchaseAssetController Contract
+
+- event GuineaPigPurchaseFinish - new field balanceConsumer - no devuelto en método
+- event PurchaseLand - new field balance balanceConsumer - devuelto en método
+- event PurchasePachaPass - new fields balanceOwner and balanceConsumer - devuelto en método
+- event PurchaseFoodChakra - new fields balanceOwner and balanceConsumer - devuelto en método
+- event PurchaseTicket - new fields balanceOwner and balanceConsumer - devuelto en método
+
+Chakra
+
+- event PurchaseChakra - new field balanceConsumer
+
+MisayWasi
+
+- event PurchaseMisayWasi - new field balanceConsumer
+
+QhatuWasi
+
+- event PurchaseQhatuWasi - new field balanceConsumer
+
+<u>0.0.97</u>
+
+```js
+PurchaseAssetController.on("PurchaseLand". …)
+Chakra.on("PurchaseChakra", …)
+PurchaseAssetController.on("PurchaseFoodChakra". …)
+MisayWasi.on("PurchaseTicketFromMisayWasi", …)
+MisayWasi.on("PurchaseMisayWasi", …)
+QhatuWasi.on("PurchaseQhatuWasi", …)
+PurchaseAssetController.on("PurchasePachaPass". …)
+Wiracocha.on("MintWiracocha", ...)
+Tatacuy.on("MintTatacuy", ...)
+HatunWasi.on("MintHatunWasi", ...)
+getComponentsInPacha
+```
+
+Smart Contract Order
+
+```js
+return [
+  nftpContract,
+  pacContract,
+  tataCuyContract,
+  wiracochaContract,
+  chakraContract,
+  hatunWasiContract,
+  misayWasiContract,
+  qhatuWasiContract,
+];
+```
+
+```js
+// Purhchase Asset Controller
+export interface PurchaseLand {
+  _account: string;
+  uuid: number;
+  landPrice: number;
+  _location: number;
+  poolRewardsAddress: string;
+}
+
+export interface PurchaseFoodChakra {
+  chakraUuid: number;
+  amountOfFood: number;
+  availableFood: number;
+  chakraOwner: string;
+  pcuyReceived: number;
+  pcuyTaxed: number;
+  tax: number;
+}
+export interface PurchasePachaPass {
+  account: string;
+  pachaUuid: number;
+  pachaPassUuid: number;
+  price: number;
+  pcuyReceived: number;
+  pcuyTaxed: number;
+}
+
+// chakra
+export interface PurchaseChakra {
+  owner: string;
+  chakraUuid: number;
+  pachaUuid: number;
+  chakraPrice: number;
+  creationDate: number;
+}
+
+// misay wasi
+export interface PurchaseTicketFromMisayWasi {
+  account: string;
+  misayWasiUuid: number;
+  pachaUuid: number;
+  ticketPrice: number;
+  amountOfTickets: number;
+}
+
+export interface PurchaseMisayWasi {
+  account: string;
+  misayWasiUuid: number;
+  pachaUuid: number;
+  creationDate: number;
+  misayWasiPrice: number;
+}
+
+// qhatu wasi
+export interface PurchaseQhatuWasi {
+  owner: string;
+  qhatuWasiUuid: number;
+  pachaUuid: number;
+  qhatuWasiPrice: number;
+  creationDate: number;
+}
+
+// wiracocha
+export interface MintWiracocha {
+  owner: string;
+  wiracochaUuid: number;
+  pachaUuid: number;
+  creationDate: number;
+}
+
+// tatacuy
+export interface MintTatacuy {
+  owner: string;
+  tatacuyUuid: number;
+  pachaUuid: number;
+  creationDate: number;
+}
+
+// hatun wasi
+export interface MintHatunWasi {
+  owner: string;
+  hatunWasiUuid: number;
+  pachaUuid: number;
+  creationDate: number;
+}
+```
+
 <u>0.0.83</u>
 Pacha
 

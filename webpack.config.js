@@ -28,6 +28,7 @@ var rockPapetScissorsAddress;
 
 var TARGET_ALPHA_2 = "TARGET_ALPHA_2";
 var TARGET_ALPHA_3_DEV = "TARGET_ALPHA_3_DEV";
+var TARGET_ALPHA_4_DEV = "TARGET_ALPHA_4_DEV";
 
 var target = process.argv.filter((el) => el.includes("target"))[0];
 target = target.substring(target.indexOf("=") + 1);
@@ -35,25 +36,54 @@ target = target.substring(target.indexOf("=") + 1);
 function updateSmartContracts(target) {
   if (target == "production") {
     chainId = "56";
+  } else if (target == TARGET_ALPHA_4_DEV) {
+    rockPapetScissorsAddress = "0x2F308566ca703d5Edbc2AA602410Aa8a358d4dE8";
+
+    // ALPHA 4-dev
+    pachacuyInfoAddress = "0x6400fe050FEBebc026178717e654aaab2e97E87F";
+    randomNumber_PLACEHOLDER = "0x37432Bc06196105f2D6657e9361FC90837f41B0a";
+    pacAddress = "0x12ad5406567B3326b6014e4037026963511e763D";
+    nftpAddress = "0xC16Ef040Da5182ffEE8A1fbdd17895f946B0186e";
+    tatacuyAddress = "0x7F4795F3FE40BB4FF9875B2522A48Cd01D25001e";
+    wiracochaAddress = "0x6E310780F639215ba1E1Ef169b42A898168c91d0";
+    pcuyTokenAddress = "0x7fD2691565A82334840b0D1f5520137B94F733Ea";
+    chakraAddress = "0xed37D39d0f6Dc165895e812CDAB94dacfbb1f3D7";
+    hatunWasiAddress = "0x184cCb1460E1018032cB1f664BAC5bc9139bD78E";
+    misayWasiAddress = "0xE24935E73d1920609a8b5e16Dd3cE24f301598ac";
+    guineaPigAddress = "0xE86f77fA5C78a3731c35325335FAD56Fc254b4f8";
+    binarySearchAddress = "0x20D4Eb517F02d942C59a61Da0e84000Ff9bb4F5D";
+    pachaAddress = "0x3a54A4680c3d81854C329F1dd33F153428E89dbD";
+    qhatuWasiAddress = "0x4eC9af683c90A53fE306d3e5c00421f501deD4A7";
+
+    // polygon
+    chainId = "80001";
+    version = "alpha";
+    // Polygon
+    rpcUrl = "https://matic-mumbai.chainstacklabs.com";
+    // Webhooks
+    webhookTatacuy =
+      "https://api.defender.openzeppelin.com/autotasks/068eb09c-6c1e-43b0-8f9b-d2ab5bac527e/runs/webhook/76c42997-e9b0-4d14-ad84-d3386204500c/Jhpg3tk3KMqZhQF6zbUgCE";
+
+    webhookWiracocha =
+      "https://api.defender.openzeppelin.com/autotasks/ae3ccb21-b444-4802-955c-dcc70ca73a1c/runs/webhook/76c42997-e9b0-4d14-ad84-d3386204500c/FVwq4BNnFFQsBiYx2KKEZ6";
   } else if (target == TARGET_ALPHA_3_DEV) {
     rockPapetScissorsAddress = "0x2F308566ca703d5Edbc2AA602410Aa8a358d4dE8";
 
     // ALPHA 3-dev
-
-    pachacuyInfoAddress = "0x685B40098986b979e93d8dFf4DAA44D318b044C7";
-    randomNumber_PLACEHOLDER = "0x3a07DBEa9c988d7C36b03ed1B04b7BDb29d92D19";
-    pacAddress = "0x0521Ed1dB5C2EdA27E1923EbA54b3a60366cBB57";
-    nftpAddress = "0xBe2C7327CE0a6117B0343FFf898163E89fA10cAf";
-    tatacuyAddress = "0x11F679d52B353a3ac68013a75F12eD1b0E39a8A2";
-    wiracochaAddress = "0xd8BC45aD0D8f96CA7B02Edd103112aE26ad9901e";
-    pcuyTokenAddress = "0x1FB066541aa8E779DFD6435c7Fc601cB4a8ad522";
-    chakraAddress = "0x6Fe43f137E25F3aF1Dd6C2614069639fe1Db8dbe";
-    hatunWasiAddress = "0x0047dd79ED3430a9f88d5434Db7066eF0c8d58Dd";
-    misayWasiAddress = "0xf21ef780403B5b31f8bf88db006dfC8cFD076bB6";
-    guineaPigAddress = "0xBD45B79bE5431dd4d3F549Ef5c7a1fb305C4C48a";
-    binarySearchAddress = "0x133739b8C6c56f526cBaf9198850Dc6c42f6C00D";
-    pachaAddress = "0x17AfAde6cb74c02cc068AB53e37Cb153220A7922";
-    qhatuWasiAddress = "0x40f72b80102db38e0AA71906068c5D0792F9ac60";
+    pachacuyInfoAddress = "0x1655b030Bad6AB10D44e57bcb3E7e48e29633317";
+    randomNumber_PLACEHOLDER = "0x584349e1862DD8aB7A95924F428870ef1D03a774";
+    pacAddress = "0x0ACD7cd9eb35507b5354223571963d15d28Afa86";
+    nftpAddress = "0xD1349732f128e21e9a8bD974a0fF1fA9b7d62a11";
+    tatacuyAddress = "0x114bA5B4f6Cc1661628A7c7784f406a2DCBC6f82";
+    wiracochaAddress = "0x95F99e19f620b9597AeA5C0D461D4e905fC67b72";
+    pcuyTokenAddress = "0x829776b2eb5D6588971cabf6186bA39243b83fc0";
+    chakraAddress = "0xc0CF45633fb9Ec2f4b072c82139075c742D3B487";
+    hatunWasiAddress = "0xDdb1E26f2fFaa644E1E3043e77924C317994a535";
+    misayWasiAddress = "0x3724172Cdb9E3C5D721Ba2ca12EAf43F4e47323C";
+    guineaPigAddress = "0x8C22443f080c423E0E638cc2FA22c2b438904291";
+    binarySearchAddress = "0x2c8d6dd81200a3D09D0BBBAA14c38a7495716FA3";
+    pachaAddress = "0xb6ab2849ACF54Eeec1112d3EE72168EAb56585E6";
+    qhatuWasiAddress = "0xFb40402d38324be195ABe44C64C30727000DdD0A";
 
     // polygon
     chainId = "80001";

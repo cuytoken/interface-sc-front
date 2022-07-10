@@ -190,3 +190,40 @@ export async function getWalletData(_account: string): Promise<IWalletInfo> {
         tokenBalance,
     };
 }
+
+interface ComponentsInPacha {
+    chakra: ChakraInfo[];
+    hatunWasi: IHatunWasiInfo[];
+    misayWasi: IMisayWasiInfo[];
+    qhatuWasi: QhatuWasiInfo[];
+    tatacuy: ITatacuyCampaign[];
+    wiracocha: WiracochaInfo[];
+}
+
+/**
+ * 
+ * @param uuid Pacha Uuid
+ * @returns ComponentsInPacha
+ */
+export async function getComponentsInPacha(
+    uuid: number
+): Promise<ComponentsInPacha | {}> {
+    var { isPacha, owner } = await getPachaWithUuid(uuid);
+    if (!isPacha) return {};
+    var { chakra, hatunWasi, misayWasi, qhatuWasi, tatacuy, wiracocha } =
+        await getListOfNftsPerAccount(owner);
+    chakra = chakra.filter(({ pachaUuid }) => pachaUuid == uuid);
+    hatunWasi = hatunWasi.filter(({ pachaUuid }) => pachaUuid == uuid);
+    misayWasi = misayWasi.filter(({ pachaUuid }) => pachaUuid == uuid);
+    // qhatuWasi = qhatuWasi.filter(({ pachaUuid }) => pachaUuid == uuid);
+    tatacuy = tatacuy.filter(({ pachaUuid }) => pachaUuid == uuid);
+    wiracocha = wiracocha.filter(({ pachaUuid }) => pachaUuid == uuid);
+    return {
+        chakra,
+        hatunWasi,
+        misayWasi,
+        qhatuWasi,
+        tatacuy,
+        wiracocha,
+    };
+}
