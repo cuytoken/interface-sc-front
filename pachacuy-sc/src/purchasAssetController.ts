@@ -156,6 +156,7 @@ export async function purchaseLandWithPcuy(
 interface IPurchasePP {
     uuid: string;
     account: string;
+    pachaOwner: string;
     pachaUuid: string;
     pachaPassUuid: string;
     price: string;
@@ -191,7 +192,7 @@ export async function purchasePachaPass(
     var dataDecoded1 = utils.defaultAbiCoder.decode(["uint256"], data);
 
     var event =
-        "event PurchasePachaPass(address account, uint256 pachaUuid, uint256 pachaPassUuid, uint256 price, uint256 pcuyReceived, uint256 pcuyTaxed, uint256 balanceOwner, uint256 balanceConsumer)";
+        "event PurchasePachaPass(address account, address pachaOwner, uint256 pachaUuid, uint256 pachaPassUuid, uint256 price, uint256 pcuyReceived, uint256 pcuyTaxed, uint256 balanceOwner, uint256 balanceConsumer)";
     var iface = new ethers.utils.Interface([event]);
     var topic = iface.getEventTopic("PurchasePachaPass");
     var data;
@@ -203,6 +204,7 @@ export async function purchasePachaPass(
     }
     var dataDecoded2 = utils.defaultAbiCoder.decode(
         [
+            "address",
             "address",
             "uint256",
             "uint256",
@@ -218,13 +220,14 @@ export async function purchasePachaPass(
     return {
         uuid: dataDecoded1[0].toString(),
         account: dataDecoded2[0],
-        pachaUuid: dataDecoded2[1].toString(),
-        pachaPassUuid: dataDecoded2[2].toString(),
-        price: utils.formatEther(dataDecoded2[3]),
-        pcuyReceived: utils.formatEther(dataDecoded2[4]),
-        pcuyTaxed: utils.formatEther(dataDecoded2[5]),
-        balanceOwner: utils.formatEther(dataDecoded2[6]),
-        balanceConsumer: utils.formatEther(dataDecoded2[7]),
+        pachaOwner: dataDecoded2[1],
+        pachaUuid: dataDecoded2[2].toString(),
+        pachaPassUuid: dataDecoded2[3].toString(),
+        price: utils.formatEther(dataDecoded2[4]),
+        pcuyReceived: utils.formatEther(dataDecoded2[5]),
+        pcuyTaxed: utils.formatEther(dataDecoded2[6]),
+        balanceOwner: utils.formatEther(dataDecoded2[7]),
+        balanceConsumer: utils.formatEther(dataDecoded2[8]),
     }
 }
 
@@ -478,7 +481,7 @@ export async function purchaseMisayWasi(
     var event =
         "event PurchaseMisayWasi(address account, uint256 misayWasiUuid, uint256 pachaUuid, uint256 creationDate, uint256 misayWasiPrice, uint256 balanceConsumer)";
     var iface = new ethers.utils.Interface([event]);
-    var topic = iface.getEventTopic("PurchasePachaPass");
+    var topic = iface.getEventTopic("PurchaseMisayWasi");
     var data;
     for (var ev of res.events) {
         if (ev.topics.includes(topic)) {
@@ -545,7 +548,7 @@ export async function purchaseQhatuWasi(
     var event =
         "event PurchaseQhatuWasi(address owner, uint256 qhatuWasiUuid, uint256 pachaUuid, uint256 qhatuWasiPrice, uint256 creationDate, uint256 balanceConsumer)";
     var iface = new ethers.utils.Interface([event]);
-    var topic = iface.getEventTopic("PurchasePachaPass");
+    var topic = iface.getEventTopic("PurchaseQhatuWasi");
     var data;
     for (var ev of res.events) {
         if (ev.topics.includes(topic)) {
@@ -612,6 +615,7 @@ export interface PurchaseLand {
 
 export interface PurchasePachaPass {
     account: string;
+    pachaOwner: string;
     pachaUuid: string;
     pachaPassUuid: string;
     price: string;

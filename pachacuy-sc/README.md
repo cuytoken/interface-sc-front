@@ -1,4 +1,36 @@
 **CHANGELOGS**
+<u>0.0.102</u>
+
+```js
+interface IPurchasePP {
+  uuid: string;
+  account: string;
+  pachaOwner: string; // <-- new field
+  pachaUuid: string;
+  pachaPassUuid: string;
+  price: string;
+  pcuyReceived: string;
+  pcuyTaxed: string;
+  balanceOwner: string;
+  balanceConsumer: string;
+}
+pac.on(
+  "PurchasePachaPass",
+  (
+    uuid,
+    account,
+    pachaOwner, // <-- new field
+    pachaUuid,
+    pachaPassUuid,
+    price,
+    pcuyReceived,
+    pcuyTaxed,
+    balanceOwner,
+    balanceConsumer
+  ) => console.log
+);
+```
+
 <u>0.0.99</u>
 PurchaseAssetController Contract
 

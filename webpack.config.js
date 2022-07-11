@@ -220,4 +220,5 @@ module.exports = (env) => {
 /**
  * Commands
  * npm run build-dev:pachacuyinfo --env target=TARGET_ALPHA_3_DEV
+ * npm run build-dev:pachacuy --env target=TARGET_ALPHA_4_DEV
  */

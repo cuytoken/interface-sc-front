@@ -224,6 +224,12 @@ module.exports = [
       },
       {
         indexed: false,
+        internalType: "address",
+        name: "pachaOwner",
+        type: "address",
+      },
+      {
+        indexed: false,
         internalType: "uint256",
         name: "pachaUuid",
         type: "uint256",
