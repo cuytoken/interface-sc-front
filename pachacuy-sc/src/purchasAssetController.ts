@@ -261,7 +261,7 @@ export async function purchaseChakra(
     var event =
         "event PurchaseChakra(address owner, uint256 chakraUuid, uint256 pachaUuid, uint256 chakraPrice, uint256 creationDate, uint256 balanceConsumer)";
     var iface = new ethers.utils.Interface([event]);
-    var topic = iface.getEventTopic("PurchasePachaPass");
+    var topic = iface.getEventTopic("PurchaseChakra");
     var data;
     for (var ev of res.events) {
         if (ev.topics.includes(topic)) {
@@ -405,7 +405,7 @@ export async function purchaseTicketFromMisayWasi(
     var res = await tx.wait(_numberOfConfirmations);
 
     var event =
-        "event UuidAndAmount (uint256 uuid, uint256 amount)";
+        "event UuidAndAmount(uint256 uuid, uint256 amount)";
     var iface = new ethers.utils.Interface([event]);
     var topic = iface.getEventTopic("UuidAndAmount");
 
