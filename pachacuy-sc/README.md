@@ -1,4 +1,7 @@
 **CHANGELOGS**
+<u>0.0.104</u>
+Corrects PurchaseChakra event
+
 <u>0.0.102</u>
 
 ```js
