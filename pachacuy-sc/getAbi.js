@@ -23,7 +23,6 @@ var nftpAbiList = [
   "getPachaPassData",
   "mintTatacuy",
   "mintWiracocha",
-  "burnChakra",
   "mintHatunWasi",
   "getListOfUuidsPerAccount",
   "UuidAndAmount",
@@ -79,6 +78,7 @@ var chakraAbiList = [
   "getListOfChakrasWithFood",
   "updateFoodPriceAtChakra",
   "PurchaseChakra",
+  "burnChakra",
 ];
 
 var hatunWasiAbiList = [
@@ -116,6 +116,7 @@ var misayWasiAbiList = [
   "RaffleContestFinished",
   "PurchaseTicketFromMisayWasi",
   "PurchaseMisayWasi",
+  "getHistoricWinners",
 ];
 var qhatuWasiAbiList = [
   "startQhatuWasiCampaign",

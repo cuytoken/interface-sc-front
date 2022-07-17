@@ -28,6 +28,7 @@ export {
     getChakraWithUuid,
     updateFoodPriceAtChakra,
     PurchaseChakra,
+    burnChakra,
 } from "./chakra";
 
 /******************
@@ -116,6 +117,7 @@ export {
     getListOfMisayWasisReadyToRaffle,
     PurchaseTicketFromMisayWasi,
     PurchaseMisayWasi,
+    getHistoricWinners,
 } from "./misayWasi";
 
 /******************
@@ -129,7 +131,6 @@ export {
     tokenURI,
     mintTatacuy,
     mintWiracocha,
-    burnChakra,
     mintHatunWasi,
     isGuineaPigAllowedInPacha,
     mintPachaPassAsOwner,

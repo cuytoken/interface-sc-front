@@ -5,7 +5,6 @@ export default[
   "event UuidAndAmount(uint256 uuid, uint256 amount)",
   "function balanceOf(address account, uint256 id) view returns (uint256)",
   "function balanceOfBatch(address[] accounts, uint256[] ids) view returns (uint256[])",
-  "function burnChakra(uint256 _chakraUuid)",
   "function exists(uint256 id) view returns (bool)",
   "function getListOfUuidsPerAccount(address _account) view returns (uint256[] _listOfUuids, bytes32[] _listOfTypes)",
   "function isApprovedForAll(address account, address operator) view returns (bool)",

@@ -354,6 +354,13 @@ module.exports = [
     type: "function",
   },
   {
+    inputs: [{ internalType: "address", name: "", type: "address" }],
+    name: "allowedToBurn",
+    outputs: [{ internalType: "bool", name: "", type: "bool" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
     inputs: [
       { internalType: "address", name: "account", type: "address" },
       { internalType: "uint256", name: "id", type: "uint256" },
@@ -376,7 +383,7 @@ module.exports = [
   {
     inputs: [
       { internalType: "address", name: "account", type: "address" },
-      { internalType: "uint256", name: "id", type: "uint256" },
+      { internalType: "uint256", name: "uuid", type: "uint256" },
       { internalType: "uint256", name: "value", type: "uint256" },
     ],
     name: "burn",
@@ -391,13 +398,6 @@ module.exports = [
       { internalType: "uint256[]", name: "values", type: "uint256[]" },
     ],
     name: "burnBatch",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [{ internalType: "uint256", name: "_chakraUuid", type: "uint256" }],
-    name: "burnChakra",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -624,6 +624,7 @@ module.exports = [
   },
   {
     inputs: [
+      { internalType: "address", name: "_account", type: "address" },
       { internalType: "uint256", name: "_chakraUuid", type: "uint256" },
       { internalType: "uint256", name: "_amountFood", type: "uint256" },
       { internalType: "uint256", name: "_guineaPigUuid", type: "uint256" },
@@ -699,6 +700,15 @@ module.exports = [
       { internalType: "bool", name: "approved", type: "bool" },
     ],
     name: "setApprovalForAll",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "address[]", name: "_scAddressArr", type: "address[]" },
+    ],
+    name: "setBurnOp",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",

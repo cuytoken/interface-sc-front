@@ -337,6 +337,30 @@ module.exports = [
     type: "function",
   },
   {
+    inputs: [
+      { internalType: "uint256", name: "_misayWasiUuid", type: "uint256" },
+    ],
+    name: "getHistoricWinners",
+    outputs: [
+      {
+        components: [
+          { internalType: "address", name: "owner", type: "address" },
+          { internalType: "uint256", name: "ticketUuid", type: "uint256" },
+          { internalType: "uint256", name: "misayWasiUuid", type: "uint256" },
+          { internalType: "uint256", name: "pachaUuid", type: "uint256" },
+          { internalType: "address", name: "winner", type: "address" },
+          { internalType: "uint256", name: "netPrize", type: "uint256" },
+          { internalType: "uint256", name: "feePrize", type: "uint256" },
+        ],
+        internalType: "struct MisayWasi.HistoricWinners[]",
+        name: "",
+        type: "tuple[]",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
     inputs: [],
     name: "getListOfActiveMWRaffles",
     outputs: [

@@ -1,4 +1,19 @@
 **CHANGELOGS**
+<u>0.0.106</u>
+
+```js
+interface HistoricWinners {
+    owner: string;
+    ticketUuid: string;
+    misayWasiUuid: string;
+    pachaUuid: string;
+    winner: string;
+    netPrize: string;
+    feePrize: string;
+}
+function getHistoricWinners(_arrayMisayWasiUuid):Promise<HistoricWinners[]>
+```
+
 <u>0.0.104</u>
 Corrects PurchaseChakra event
 

@@ -221,15 +221,6 @@ export async function mintWiracocha(
     return ethers.BigNumber.from(0).toString();
 }
 
-export async function burnChakra(
-    _signer: Signer,
-    _chakraUuid: number,
-    _numberOfConfirmations: number = 1
-) {
-    var tx = await nftpContract.connect(_signer).burnChakra(_chakraUuid);
-    return await tx.wait(_numberOfConfirmations);
-}
-
 ////////////////////////
 ///    Hatun Wasi    ///
 ////////////////////////

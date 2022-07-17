@@ -80,3 +80,12 @@ export interface PurchaseChakra {
     creationDate: number;
     balanceConsumer: number;
 }
+
+export async function burnChakra(
+    _signer: Signer,
+    _chakraUuid: number,
+    _numberOfConfirmations: number = 1
+) {
+    var tx = await chakraContract.connect(_signer).burnChakra(_chakraUuid);
+    return await tx.wait(_numberOfConfirmations);
+}

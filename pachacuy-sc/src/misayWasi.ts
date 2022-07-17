@@ -1,4 +1,5 @@
 import { Contract, providers, Signer } from "ethers";
+import { formatEther } from "ethers/lib/utils";
 
 import misayWasiAbi from "./abi/misayWasiAbi";
 
@@ -12,9 +13,7 @@ var misayWasiContract: Contract;
  * @dev This function inits the library and connects to the blockchain
  * @param _provider: window.ethereum or an equivalent
  */
-export function initMisayWasi(
-    _provider: providers.ExternalProvider
-): Contract {
+export function initMisayWasi(_provider: providers.ExternalProvider): Contract {
     provider = new providers.Web3Provider(_provider);
     misayWasiContract = new Contract(misayWasiAddress, misayWasiAbi, provider);
     return misayWasiContract;
@@ -129,6 +128,47 @@ export async function getMiswayWasiWithTicketUuid(
     _ticketUuid: number
 ): Promise<IMisayWasiInfo> {
     return await misayWasiContract.getMiswayWasiWithTicketUuid(_ticketUuid);
+}
+
+interface HistoricWinners {
+    owner: string;
+    ticketUuid: string;
+    misayWasiUuid: string;
+    pachaUuid: string;
+    winner: string;
+    netPrize: string;
+    feePrize: string;
+}
+/**
+ * Returns information about the Misay Wasi where the ticket was purchased
+ * @param _arrayMisayWasiUuid Array of uuids of each Misay Wasi
+ * @returns Array of HistoricWinners model
+ */
+export async function getHistoricWinners(
+    _arrayMisayWasiUuid: number[]
+): Promise<HistoricWinners[]> {
+    function transform(historicWinner: any[]): string[] {
+        return [
+            historicWinner[0], // owner
+            historicWinner[1].toString(), // ticketUuid
+            historicWinner[2].toString(), // misayWasiUuid
+            historicWinner[3].toString(), // pachaUuid
+            historicWinner[4], // winner
+            formatEther(historicWinner[5]), // netPrize
+            formatEther(historicWinner[6]), // feePrize
+        ];
+    }
+
+    var promises = _arrayMisayWasiUuid.map((_misayWasiUuid) =>
+        misayWasiContract.getHistoricWinners(_misayWasiUuid)
+    );
+    var arrayOfResponses = await Promise.all(promises);
+
+    var all: HistoricWinners[] = [];
+    for (var response of arrayOfResponses) {
+        all = all.concat(response.map(transform));
+    }
+    return all;
 }
 
 /**
