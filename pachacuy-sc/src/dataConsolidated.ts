@@ -37,6 +37,7 @@ var TATACUY = keccak256(toUtf8Bytes("TATACUY"));
 var TICKETRAFFLE = keccak256(toUtf8Bytes("TICKETRAFFLE"));
 var WIRACOCHA = keccak256(toUtf8Bytes("WIRACOCHA"));
 var PACHAPASS = keccak256(toUtf8Bytes("PACHAPASS"));
+var BURNED = keccak256(toUtf8Bytes("BURNED"));
 
 interface IBusiness {
     type: string;
@@ -54,6 +55,7 @@ var businesses: IBusiness[] = [
     { type: TICKETRAFFLE, method: getMiswayWasiWithTicketUuid },
     { type: WIRACOCHA, method: getWiracochaWithUuid },
     { type: PACHAPASS, method: getPachaPassWithUuid },
+    { type: BURNED, method: () => { } },
 ];
 /**
  * @param guineaPigs: list of uuids of each guinea pig owned by the user

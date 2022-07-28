@@ -1,6 +1,6 @@
 {
   "name": "pachacuy-sc",
-  "version": "0.0.108",
+  "version": "0.0.112",
   "description": "Interface that implements Smart Contract functions for Pachacuy game",
   "main": "dist",
   "types": "dist/index.d.ts",

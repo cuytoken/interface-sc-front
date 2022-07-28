@@ -29,6 +29,7 @@ var rockPapetScissorsAddress;
 var TARGET_ALPHA_2 = "TARGET_ALPHA_2";
 var TARGET_ALPHA_3_DEV = "TARGET_ALPHA_3_DEV";
 var TARGET_ALPHA_4_DEV = "TARGET_ALPHA_4_DEV";
+var TARGET_ALPHA_4 = "TARGET_ALPHA_4";
 
 var target = process.argv.filter((el) => el.includes("target"))[0];
 target = target.substring(target.indexOf("=") + 1);
@@ -60,30 +61,29 @@ function updateSmartContracts(target) {
     version = "alpha";
     // Polygon
     rpcUrl = "https://matic-mumbai.chainstacklabs.com";
-    // Webhooks
+    // Webhooks alpha 4 - new account at leecrosbym@gmail.com
     webhookTatacuy =
-      "https://api.defender.openzeppelin.com/autotasks/068eb09c-6c1e-43b0-8f9b-d2ab5bac527e/runs/webhook/76c42997-e9b0-4d14-ad84-d3386204500c/Jhpg3tk3KMqZhQF6zbUgCE";
-
+      "https://api.defender.openzeppelin.com/autotasks/13d87921-0d7b-4f14-b010-403a3214ecd6/runs/webhook/2de3a3ef-16af-4512-9691-8eb2d20a5510/AZdQDRPBS8N2GubSU63yDp";
     webhookWiracocha =
-      "https://api.defender.openzeppelin.com/autotasks/ae3ccb21-b444-4802-955c-dcc70ca73a1c/runs/webhook/76c42997-e9b0-4d14-ad84-d3386204500c/FVwq4BNnFFQsBiYx2KKEZ6";
-  } else if (target == TARGET_ALPHA_3_DEV) {
+      "https://api.defender.openzeppelin.com/autotasks/0da33549-014d-485d-8976-c659a3b5d871/runs/webhook/2de3a3ef-16af-4512-9691-8eb2d20a5510/BQPqnajMsCR9j3wBa2BrAa";
+  } else if (target == TARGET_ALPHA_4) {
     rockPapetScissorsAddress = "0x2F308566ca703d5Edbc2AA602410Aa8a358d4dE8";
 
-    // ALPHA 3-dev
-    pachacuyInfoAddress = "0x1655b030Bad6AB10D44e57bcb3E7e48e29633317";
-    randomNumber_PLACEHOLDER = "0x584349e1862DD8aB7A95924F428870ef1D03a774";
-    pacAddress = "0x0ACD7cd9eb35507b5354223571963d15d28Afa86";
-    nftpAddress = "0xD1349732f128e21e9a8bD974a0fF1fA9b7d62a11";
-    tatacuyAddress = "0x114bA5B4f6Cc1661628A7c7784f406a2DCBC6f82";
-    wiracochaAddress = "0x95F99e19f620b9597AeA5C0D461D4e905fC67b72";
-    pcuyTokenAddress = "0x829776b2eb5D6588971cabf6186bA39243b83fc0";
-    chakraAddress = "0xc0CF45633fb9Ec2f4b072c82139075c742D3B487";
-    hatunWasiAddress = "0xDdb1E26f2fFaa644E1E3043e77924C317994a535";
-    misayWasiAddress = "0x3724172Cdb9E3C5D721Ba2ca12EAf43F4e47323C";
-    guineaPigAddress = "0x8C22443f080c423E0E638cc2FA22c2b438904291";
-    binarySearchAddress = "0x2c8d6dd81200a3D09D0BBBAA14c38a7495716FA3";
-    pachaAddress = "0xb6ab2849ACF54Eeec1112d3EE72168EAb56585E6";
-    qhatuWasiAddress = "0xFb40402d38324be195ABe44C64C30727000DdD0A";
+    // ALPHA 4-dev
+    pachacuyInfoAddress = "0x8D9800bE0f0a467Ab93E22280371bEc2cFdb9069";
+    randomNumber_PLACEHOLDER = "0x446A49F1DACbA1Da89011f0e5e4c926E4066e7c8";
+    pacAddress = "0x3b7c2b1f86b4861D6D6BeDC27174a7a25c1dCfD6";
+    nftpAddress = "0xCae449A6ad50680080FCbbE9101a265AdC1d7Ea7";
+    tatacuyAddress = "0xF85901f3dd881A8067BA50d4a89AB44c34B9e0f1";
+    wiracochaAddress = "0x9EdA9E8887BF7C22226A228eA88b93ff4cE31B09";
+    pcuyTokenAddress = "0xBc6B4140371a7A1328b5cFbAf1830CAd5e82B0D2";
+    chakraAddress = "0x5A79bA9aC2cC47FD60fa2Fe34fAa8Fb24C335E68";
+    hatunWasiAddress = "0xE31b350A5e2B0F4551912259b85b43Ab7E1B220B";
+    misayWasiAddress = "0xdf07dD3C0129DcAeD7Ba7A62e0cce346DfA14E5F";
+    guineaPigAddress = "0xDff0Ae6Ac56F72f021C2632aF241315eF22aD9C7";
+    binarySearchAddress = "0xA1072b40986E8A7a26aADD71d53fB677Cd55b7D3";
+    pachaAddress = "0x46122B7Ff95260268de9F7f377EB83b969ca824A";
+    qhatuWasiAddress = "0xd13F8D7Fa433bFfaeed525E6a31D7B5e8AAEe8F3";
 
     // polygon
     chainId = "80001";
@@ -92,10 +92,10 @@ function updateSmartContracts(target) {
     rpcUrl = "https://matic-mumbai.chainstacklabs.com";
     // Webhooks
     webhookTatacuy =
-      "https://api.defender.openzeppelin.com/autotasks/8aca10b4-337a-4472-906f-bd144cee835f/runs/webhook/76c42997-e9b0-4d14-ad84-d3386204500c/236EgZu2JTTosKsKSCL43p";
+      "https://api.defender.openzeppelin.com/autotasks/0fcaca78-3e3a-469d-a5d2-2ab00a10d264/runs/webhook/76c42997-e9b0-4d14-ad84-d3386204500c/EusJT9PkDBAwk4zTiqhGr4";
 
     webhookWiracocha =
-      "https://api.defender.openzeppelin.com/autotasks/0fcf8849-42e5-4ef1-a135-85644b5c2abd/runs/webhook/76c42997-e9b0-4d14-ad84-d3386204500c/A7JQVwR5i76wfVZrVqJwy2";
+      "https://api.defender.openzeppelin.com/autotasks/be1e1aee-cae2-43c1-8f62-7458f2eedfa9/runs/webhook/76c42997-e9b0-4d14-ad84-d3386204500c/D5YWRAm5sswmgMct66GL6H";
   } else if (target == TARGET_ALPHA_2) {
     // ALPHA 2
     busdAddress = "0x8f1c7aaf8ec93a500657aec7c030d392fd4caa13";

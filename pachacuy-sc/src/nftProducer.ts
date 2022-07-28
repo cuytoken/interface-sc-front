@@ -1,6 +1,11 @@
 import { BigNumber, Contract, ethers, providers, Signer } from "ethers";
 
+interface SignerData extends Signer {
+    _address: string;
+}
+
 import nftpAbi from "./abi/nftpAbi";
+import { toBytes32 } from "./index";
 
 declare var __nftpAddress__: string;
 
@@ -185,11 +190,18 @@ export async function mintPachaPassAsOwner(
 ///     TATACUY      ///
 ////////////////////////
 export async function mintTatacuy(
-    _signer: Signer,
+    _signer: SignerData,
     _pachaUuid: number,
     _numberOfConfirmations: number = 1
 ): Promise<string> {
-    var tx = await nftpContract.connect(_signer).mintTatacuy(_pachaUuid);
+    var _nftType = toBytes32("TATACUY");
+    var _data = ethers.utils.defaultAbiCoder.encode(
+        ["address", "uint256", "uint256"],
+        [_signer._address, _pachaUuid, 0]
+    );
+    var tx = await nftpContract
+        .connect(_signer)
+        .mint(_nftType, _data, _signer._address);
     var res = await tx.wait(_numberOfConfirmations);
     var topic =
         "0x9f87cb7b8a6c54debaaa0d12a571441914663d4a4300341e3805f85b854ee337";
@@ -205,11 +217,18 @@ export async function mintTatacuy(
 ///     Wiracocha    ///
 ////////////////////////
 export async function mintWiracocha(
-    _signer: Signer,
+    _signer: SignerData,
     _pachaUuid: number,
     _numberOfConfirmations: number = 1
 ): Promise<string> {
-    var tx = await nftpContract.connect(_signer).mintWiracocha(_pachaUuid);
+    var _nftType = toBytes32("WIRACOCHA");
+    var _data = ethers.utils.defaultAbiCoder.encode(
+        ["address", "uint256", "uint256"],
+        [_signer._address, _pachaUuid, 0]
+    );
+    var tx = await nftpContract
+        .connect(_signer)
+        .mint(_nftType, _data, _signer._address);
     var res = await tx.wait(_numberOfConfirmations);
     var topic =
         "0x9f87cb7b8a6c54debaaa0d12a571441914663d4a4300341e3805f85b854ee337";
@@ -225,11 +244,19 @@ export async function mintWiracocha(
 ///    Hatun Wasi    ///
 ////////////////////////
 export async function mintHatunWasi(
-    _signer: Signer,
+    _signer: SignerData,
     _pachaUuid: number,
     _numberOfConfirmations: number = 1
 ): Promise<string> {
-    var tx = await nftpContract.connect(_signer).mintHatunWasi(_pachaUuid);
+    var _nftType = toBytes32("HATUNWASI");
+    var _data = ethers.utils.defaultAbiCoder.encode(
+        ["address", "uint256", "uint256"],
+        [_signer._address, _pachaUuid, 0]
+    );
+    var tx = await nftpContract
+        .connect(_signer)
+        .mint(_nftType, _data, _signer._address);
+
     var res = await tx.wait(_numberOfConfirmations);
     var topic =
         "0x9f87cb7b8a6c54debaaa0d12a571441914663d4a4300341e3805f85b854ee337";

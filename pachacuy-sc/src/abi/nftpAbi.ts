@@ -9,10 +9,8 @@ export default[
   "function getListOfUuidsPerAccount(address _account) view returns (uint256[] _listOfUuids, bytes32[] _listOfTypes)",
   "function isApprovedForAll(address account, address operator) view returns (bool)",
   "function isGuineaPigAllowedInPacha(address _account, uint256 _pachaUuid) view returns (bool)",
-  "function mintHatunWasi(uint256 _pachaUuid) returns (uint256)",
+  "function mint(bytes32 _nftType, bytes _data, address _account) returns (uint256 uuid)",
   "function mintPachaPassAsOwner(address[] _accounts, uint256 _pachaUuid)",
-  "function mintTatacuy(uint256 _pachaUuid) returns (uint256)",
-  "function mintWiracocha(uint256 _pachaUuid) returns (uint256)",
   "function tokenURI(uint256 _uuid) view returns (string)",
   "function totalSupply(uint256 id) view returns (uint256)",
   "function uri(uint256 _uuid) view returns (string)"

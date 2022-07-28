@@ -1,6 +1,6 @@
 "use strict";
 
-import { Contract, providers } from "ethers";
+import { Contract, providers, utils } from "ethers";
 
 // INIT
 import { initChakra } from "./chakra";
@@ -180,4 +180,8 @@ export function init(_provider: providers.ExternalProvider): Contract[] {
         misayWasiContract,
         qhatuWasiContract,
     ];
+}
+
+export function toBytes32(KEY: string) {
+    return utils.keccak256(utils.toUtf8Bytes(KEY));
 }
