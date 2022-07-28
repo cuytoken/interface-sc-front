@@ -154,6 +154,11 @@ export {
     getComponentsInPacha,
 } from "./dataConsolidated";
 
+/******************
+ *     NETWORK    *
+ *****************/
+export { connectToMumbai } from "./network"
+
 /**
  * @dev This function inits the library and connects to the blockchain
  * @param _provider: window.ethereum or an equivalent
