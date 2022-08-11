@@ -217,7 +217,7 @@ export async function getComponentsInPacha(
     chakra = chakra.filter(({ pachaUuid }) => pachaUuid == uuid);
     hatunWasi = hatunWasi.filter(({ pachaUuid }) => pachaUuid == uuid);
     misayWasi = misayWasi.filter(({ pachaUuid }) => pachaUuid == uuid);
-    // qhatuWasi = qhatuWasi.filter(({ pachaUuid }) => pachaUuid == uuid);
+    qhatuWasi = qhatuWasi.filter(({ pachaUuid }) => pachaUuid == uuid);
     tatacuy = tatacuy.filter(({ pachaUuid }) => pachaUuid == uuid);
     wiracocha = wiracocha.filter(({ pachaUuid }) => pachaUuid == uuid);
     return {

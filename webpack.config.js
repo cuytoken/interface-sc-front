@@ -17,11 +17,13 @@ var guineaPigAddress;
 var binarySearchAddress;
 var pachaAddress;
 var qhatuWasiAddress;
+var vestingAddress;
 
 // Set up
 var chainId;
 var version;
 var rpcUrl;
+var rpcUrlAlchemy;
 var webhookTatacuy;
 var webhookWiracocha;
 var rockPapetScissorsAddress;
@@ -30,6 +32,7 @@ var TARGET_ALPHA_2 = "TARGET_ALPHA_2";
 var TARGET_ALPHA_3_DEV = "TARGET_ALPHA_3_DEV";
 var TARGET_ALPHA_4_DEV = "TARGET_ALPHA_4_DEV";
 var TARGET_ALPHA_4 = "TARGET_ALPHA_4";
+var VESTING_DEV = "VESTING_DEV";
 
 var target = process.argv.filter((el) => el.includes("target"))[0];
 target = target.substring(target.indexOf("=") + 1);
@@ -37,6 +40,8 @@ target = target.substring(target.indexOf("=") + 1);
 function updateSmartContracts(target) {
   if (target == "production") {
     chainId = "56";
+  } else if (target == VESTING_DEV) {
+    vestingAddress = "0xD5b8EdA458Ff2a9B2Cb4261194aA4d5Abd7Fb3bF";
   } else if (target == TARGET_ALPHA_4_DEV) {
     rockPapetScissorsAddress = "0x2F308566ca703d5Edbc2AA602410Aa8a358d4dE8";
 
@@ -61,6 +66,8 @@ function updateSmartContracts(target) {
     version = "alpha";
     // Polygon
     rpcUrl = "https://matic-mumbai.chainstacklabs.com";
+    rpcUrlAlchemy =
+      "https://polygon-mumbai.g.alchemy.com/v2/H8xzVdlVfAJDopHAM8LdlWwFmuhpBR_f";
     // Webhooks alpha 4 - new account at leecrosbym@gmail.com
     webhookTatacuy =
       "https://api.defender.openzeppelin.com/autotasks/13d87921-0d7b-4f14-b010-403a3214ecd6/runs/webhook/2de3a3ef-16af-4512-9691-8eb2d20a5510/AZdQDRPBS8N2GubSU63yDp";
@@ -90,6 +97,8 @@ function updateSmartContracts(target) {
     version = "alpha";
     // Polygon
     rpcUrl = "https://matic-mumbai.chainstacklabs.com";
+    rpcUrlAlchemy =
+      "https://polygon-mumbai.g.alchemy.com/v2/H8xzVdlVfAJDopHAM8LdlWwFmuhpBR_f";
     // Webhooks
     webhookTatacuy =
       "https://api.defender.openzeppelin.com/autotasks/0fcaca78-3e3a-469d-a5d2-2ab00a10d264/runs/webhook/76c42997-e9b0-4d14-ad84-d3386204500c/EusJT9PkDBAwk4zTiqhGr4";
@@ -171,11 +180,13 @@ const config = {
       __binarySearchAddress__: JSON.stringify(binarySearchAddress),
       __pachaAddress__: JSON.stringify(pachaAddress),
       __qhatuWasiAddress__: JSON.stringify(qhatuWasiAddress),
+      __vestingAddress__: JSON.stringify(vestingAddress),
 
       // Webhooks
       __chainId__: JSON.stringify(chainId),
       __version__: JSON.stringify(version),
       __rpcUrl__: JSON.stringify(rpcUrl),
+      __rpcUrlAlchemy__: JSON.stringify(rpcUrlAlchemy),
       __webhookTatacuy__: JSON.stringify(webhookTatacuy),
       __webhookWiracocha__: JSON.stringify(webhookWiracocha),
       __rockPapetScissorsAddress__: JSON.stringify(rockPapetScissorsAddress),

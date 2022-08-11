@@ -86,6 +86,7 @@ export async function startQhatuWasiCampaign(
 
 export interface QhatuWasiInfo {
     uuid: number;
+    pachaUuid: number;
     owner: string;
     creationDate: number;
     totalPcuyDeposited: number;

@@ -17,6 +17,7 @@
     "build:pachacuyinfo": "webpack --mode=production --node-env=production --env library='pachacuy-info'",
     "build-dev:marketplace": "LIBRARY_ENV=marketplace webpack --mode=development",
     "build:marketplace": "LIBRARY_ENV=marketplace webpack --mode=production --node-env=production",
+    "build-dev:vesting": "webpack --mode=development --node-env=development --env library='vesting'",
     "watch": "webpack --watch",
     "serve": "webpack serve"
   },
