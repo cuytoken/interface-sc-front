@@ -1,7 +1,7 @@
 {
-  "name": "vesting-pachacuy",
-  "version": "0.0.4",
-  "description": "Vesting API for interacting with Vesting Smart Contract",
+  "name": "public-sale-pcuy",
+  "version": "0.0.1",
+  "description": "Public Sale API for purchasing PCUY in mainnet.",
   "main": "dist",
   "types": "dist/index.d.ts",
   "files": [

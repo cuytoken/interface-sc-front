@@ -28,11 +28,17 @@ var webhookTatacuy;
 var webhookWiracocha;
 var rockPapetScissorsAddress;
 
+// public sale
+var usdcAddress;
+var publicSaleAddress;
+
 var TARGET_ALPHA_2 = "TARGET_ALPHA_2";
 var TARGET_ALPHA_3_DEV = "TARGET_ALPHA_3_DEV";
 var TARGET_ALPHA_4_DEV = "TARGET_ALPHA_4_DEV";
 var TARGET_ALPHA_4 = "TARGET_ALPHA_4";
 var VESTING_DEV = "VESTING_DEV";
+var VESTING = "VESTING";
+var PUBLIC_SALE_DEV = "PUBLIC_SALE_DEV";
 
 var target = process.argv.filter((el) => el.includes("target"))[0];
 target = target.substring(target.indexOf("=") + 1);
@@ -40,8 +46,13 @@ target = target.substring(target.indexOf("=") + 1);
 function updateSmartContracts(target) {
   if (target == "production") {
     chainId = "56";
+  } else if (target == PUBLIC_SALE_DEV) {
+    usdcAddress = "0x76D298c92eBc45a100f43C9552ebbC4AD10f9859";
+    publicSaleAddress = "0x4f1e1E9753b6bdE59E4863417c392838fdB3FC43";
+  } else if (target == VESTING) {
+    vestingAddress = "0x39400fA10eAd44E551d3a76Fb1F1540618141730";
   } else if (target == VESTING_DEV) {
-    vestingAddress = "0xD5b8EdA458Ff2a9B2Cb4261194aA4d5Abd7Fb3bF";
+    vestingAddress = "0xC4db798fB770e97f920860E9E342C537EA3940F0";
   } else if (target == TARGET_ALPHA_4_DEV) {
     rockPapetScissorsAddress = "0x2F308566ca703d5Edbc2AA602410Aa8a358d4dE8";
 
@@ -149,14 +160,14 @@ const config = {
     clean: true,
     globalObject: "this",
   },
-  externals: {
-    ethers: {
-      commonjs: "ethers",
-      commonjs2: "ethers",
-      amd: "ethers",
-      root: "ethers",
-    },
-  },
+  // externals: {
+  //   ethers: {
+  //     commonjs: "ethers",
+  //     commonjs2: "ethers",
+  //     amd: "ethers",
+  //     root: "ethers",
+  //   },
+  // },
   devServer: {
     open: true,
     host: "localhost",
@@ -190,6 +201,10 @@ const config = {
       __webhookTatacuy__: JSON.stringify(webhookTatacuy),
       __webhookWiracocha__: JSON.stringify(webhookWiracocha),
       __rockPapetScissorsAddress__: JSON.stringify(rockPapetScissorsAddress),
+
+      // Public Sale PCUY
+      __usdcAddress__: JSON.stringify(usdcAddress),
+      __publicSaleAddress__: JSON.stringify(publicSaleAddress),
     }),
   ],
   module: {
@@ -220,8 +235,8 @@ module.exports = (env) => {
     config.mode = "production";
   } else {
     config.mode = "development";
-    // config.devtool = "cheap-module-source-map";
-    config.devtool = "source-map";
+    config.devtool = "cheap-module-source-map";
+    // config.devtool = "source-map";
     // config.devtool = "inline-cheap-source-map";
     // config.devtool = "inline-cheap-module-source-map";
   }
