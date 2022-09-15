@@ -57,7 +57,7 @@ function updateSmartContracts(target) {
     rockPapetScissorsAddress = "0x2F308566ca703d5Edbc2AA602410Aa8a358d4dE8";
 
     // ALPHA 4-dev
-    pachacuyInfoAddress = "0xA135a1EdB59E24c28C407f0224e60CbFCB6C629B";
+    pachacuyInfoAddress = "0x82b43e943286d1cfC16244386e8b3006E589A548";
     randomNumber_PLACEHOLDER = "0x436eCdd68773129fb48c6E6ceD8A473042BbFfe3";
     pacAddress = "0x0DEAf18A4c0c5879a00E4E86A010C1DdC632C417";
     nftpAddress = "0x5571780676d7D3C9498ac5Ae89089e3168923D5D";
@@ -66,7 +66,7 @@ function updateSmartContracts(target) {
     pcuyTokenAddress = "0x35365656e1B19510e67082fCCB360a8652745935";
     chakraAddress = "0x29584F61d45825BEcB8Bd2dBb9935786d473eEa7";
     hatunWasiAddress = "0x7D0DD9Bd1592C834a61204874eca06c063166538";
-    misayWasiAddress = "0x699DC9c85335d58efcAbbB503E88D12C44ec2144";
+    misayWasiAddress = "0x0344bbcF97311453244C05617810426C809aA908";
     guineaPigAddress = "0x98935C0cDD0D08b9836c530E8b9881592785B4F8";
     binarySearchAddress = "0xb79a8b139be07A03e4EFD3E44d14363c7A94476D";
     pachaAddress = "0x454B8fA57949F1b9109e8c212feBCc0db6Ce863F";
